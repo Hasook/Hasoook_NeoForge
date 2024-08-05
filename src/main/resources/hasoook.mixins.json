@@ -3,6 +3,7 @@
   "package": "com.hasoook.hasoookmod.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BowMixin",
     "SurrenderMixin"
   ],
   "injectors": {
