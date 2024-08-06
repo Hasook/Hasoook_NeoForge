@@ -2,9 +2,13 @@ package com.hasoook.hasoookmod.datagen;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.datagen.item.tags.ModBlockTagsProvider;
+import com.hasoook.hasoookmod.datagen.item.tags.ModtemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -24,6 +28,9 @@ public class ModDataGenerator {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         // 为数据生成器添加一个自定义的数据包内置条目提供者
-        generator.addProvider(event.includeServer(), new ModDatapackBuiltinEntriesProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(),new ModDatapackBuiltinEntriesProvider(output,lookupProvider));
+        TagsProvider<Block> tagsprovider4 = generator.addProvider(event.includeServer(),new ModBlockTagsProvider(output,lookupProvider,HasoookMod.MODID,existingFileHelper));
+        //
+        generator.addProvider(event.includeServer(),new ModtemTagsProvider(output,lookupProvider,tagsprovider4.contentsGetter(),HasoookMod.MODID,existingFileHelper));
     }
 }

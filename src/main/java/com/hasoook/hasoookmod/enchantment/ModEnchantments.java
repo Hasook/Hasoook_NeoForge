@@ -1,6 +1,7 @@
 package com.hasoook.hasoookmod.enchantment;
 
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.tags.ModItemTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -28,9 +29,9 @@ public class ModEnchantments {
         HolderGetter<Block> holdergetter3 = context.lookup(Registries.BLOCK);
 
         // 注册自定义附魔
-        register( // 随机子弹
+        register(
                 context,
-                RANDOM_BULLETS,
+                RANDOM_BULLETS, // 随机子弹
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.BOW_ENCHANTABLE),
@@ -43,12 +44,12 @@ public class ModEnchantments {
                         )
                 )
         );
-        register( // 分离爆炸
+        register(
                 context,
-                SEPARATION_EXPLOSION,
+                SEPARATION_EXPLOSION, // 分离爆炸
                 Enchantment.enchantment(
                         Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                                holdergetter2.getOrThrow(ModItemTags.SEPARATION_ITEMS),
                                 2,
                                 1,
                                 Enchantment.constantCost(25),
