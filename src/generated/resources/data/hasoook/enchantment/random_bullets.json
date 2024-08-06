@@ -15,6 +15,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/mace",
+  "supported_items": "#minecraft:enchantable/bow",
   "weight": 2
 }

@@ -2,16 +2,13 @@ package com.hasoook.hasoookmod.mixin;
 
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,6 +33,8 @@ public class BowMixin extends Item {
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft, CallbackInfo ci) {
         int i = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RANDOM_BULLETS, pStack);
         if (i >= 1) {
+            Random random = new Random();
+            int number = random.nextInt(10);
             hasoookNeoForge$randomBullets(pStack, pLevel, pEntityLiving, pTimeLeft);
             ci.cancel();
         }
@@ -55,20 +54,21 @@ public class BowMixin extends Item {
             EntityType.SMALL_FIREBALL,
             EntityType.PUFFERFISH,
             EntityType.TRIDENT,
+            EntityType.ARROW,
             EntityType.WIND_CHARGE
     );
 
     @Unique
     public void hasoookNeoForge$randomBullets(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
-        Random random3 = new Random();
-        EntityType<? extends Entity> randomEntityType = possibleEntities.get(random3.nextInt(possibleEntities.size()));
-        Entity entity =  randomEntityType.create(pLevel);
+        Random randomEntity = new Random();
+        EntityType<? extends Entity> randomEntityType = possibleEntities.get(randomEntity.nextInt(possibleEntities.size()));
+        Entity entity = randomEntityType.create(pLevel);
         int i = this.getUseDuration(pStack, pEntityLiving) - pTimeLeft;
-        float f = getPowerForTime(i);
+        float time = getPowerForTime(i);
         if (entity != null) {
-            entity.setPos(pEntityLiving.getX(), pEntityLiving.getY() + pEntityLiving.getEyeHeight(pEntityLiving.getPose()) - 0.2, pEntityLiving.getZ()); // 设置实体的位置为玩家位置
+            entity.setPos(pEntityLiving.getX(), pEntityLiving.getY() + pEntityLiving.getEyeHeight(pEntityLiving.getPose()) - 0.2, pEntityLiving.getZ());
             Vec3 lookVec = pEntityLiving.getLookAngle(); // 获取玩家的视线方向向量
-            double speed = 3.0 * f; // 设置速度倍率（乘以拉弓时间）
+            double speed = 3.0 * time; // 设置速度倍率（乘以拉弓时间）
             entity.setDeltaMovement(lookVec.x * speed, lookVec.y * speed, lookVec.z * speed);
             pLevel.addFreshEntity(entity);
         }
