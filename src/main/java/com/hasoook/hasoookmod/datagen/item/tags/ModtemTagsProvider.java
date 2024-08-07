@@ -21,6 +21,7 @@ public class ModtemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(ModItemTags.SEPARATION_ITEMS).add(Items.TNT)
-                .add(Items.TNT_MINECART);
+                .add(Items.TNT_MINECART)
+                .add(Items.WIND_CHARGE);
     }
 }

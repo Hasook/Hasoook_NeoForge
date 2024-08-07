@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:tnt",
-    "minecraft:tnt_minecart"
+    "minecraft:tnt_minecart",
+    "minecraft:wind_charge"
   ]
 }
