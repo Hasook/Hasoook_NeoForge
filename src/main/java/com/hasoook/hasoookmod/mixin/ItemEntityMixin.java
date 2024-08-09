@@ -10,13 +10,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SimpleExplosionDamageCalculator;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -35,6 +35,8 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
     @Shadow @Nullable public abstract Entity getOwner();
 
+    @Shadow public abstract void setItem(ItemStack p_32046_);
+
     public ItemEntityMixin(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -46,7 +48,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
     public void tick(CallbackInfo ci) {
-        // 人机分离十米自动爆炸
+
         ItemStack itemStack = this.getItem(); // 获取物品栈
         int count = itemStack.getCount(); // 获取物品数量
         Entity owner = this.getOwner(); // 获取物品的主人
@@ -54,31 +56,59 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         // 获取物品的“分离爆炸”等级
         int wb = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.WIND_BURST, itemStack);
         // 获取物品的“风爆”等级
+        int disdainLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.DISDAIN, itemStack);
+        // 获取物品的“嫌弃”等级
 
+        // 人机分离十米自动爆炸
         if (se > 0 && owner != null) { // 如果“分离爆炸”等级大于0 而且 主人不为空
             double distance = this.distanceTo(owner); // 获取和主人的距离
-            if (distance > 5 + se * 5) { // 判断两者的距离
-                if (wb > 0 || itemStack.getItem() == Items.WIND_CHARGE) {
-                    // 如果物品附魔有“风爆” 或者 物品是风弹，就产生风弹爆炸
-                    for (int i = 0; i < count; i++) {
-                        this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, this.getX(), this.getY(), this.getZ(),
-                                1.2F,
-                                false,
-                                Level.ExplosionInteraction.TRIGGER,
-                                ParticleTypes.GUST_EMITTER_SMALL,
-                                ParticleTypes.GUST_EMITTER_LARGE,
-                                SoundEvents.WIND_CHARGE_BURST
-                        );
-                    }
-                } else {
-                    // 否则产生普通爆炸
-                    this.level().explode(this, this.getX(), this.getY(), this.getZ(), count, Level.ExplosionInteraction.MOB);
-                }
+            if (distance > 11 - se) { // 判断两者的距离
+                hasoookNeoForge$explodeOnSeparation(count, wb, itemStack); //调用方法
                 this.discard(); // 移除目标
                 ci.cancel(); // 取消执行
             }
         }
 
+        // 嫌弃
+        if (disdainLevel > 0 && owner != null && !this.level().isClientSide) {
+            double distance = this.distanceTo(owner);
+            // 如果距离小于10格
+            if (distance < 5 * disdainLevel && this.onGround()) {
+                hasoookNeoForge$disdain(owner);
+            }
+        }
+    }
+
+    @Unique
+    private void hasoookNeoForge$explodeOnSeparation(int count, int wb, ItemStack itemStack) {
+        if (wb > 0 || itemStack.getItem() == Items.WIND_CHARGE) {
+            // 如果物品附魔有“风爆” 或者 物品是风弹，就产生风弹爆炸
+            for (int i = 0; i < count; i++) {
+                this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, this.getX(), this.getY(), this.getZ(),
+                        1.2F,
+                        false,
+                        Level.ExplosionInteraction.TRIGGER,
+                        ParticleTypes.GUST_EMITTER_SMALL,
+                        ParticleTypes.GUST_EMITTER_LARGE,
+                        SoundEvents.WIND_CHARGE_BURST
+                );
+            }
+        } else {
+            // 否则产生普通爆炸
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), count, Level.ExplosionInteraction.MOB);
+        }
+    }
+
+    @Unique
+    private void hasoookNeoForge$disdain(Entity owner) {
+        double dx = this.getX() - owner.getX();
+        double dz = this.getZ() - owner.getZ();
+        double magnitude = Math.sqrt(dx * dx + dz * dz);
+        dx /= magnitude;
+        dz /= magnitude;
+
+        double speed = 0.3; // 速度
+        this.setDeltaMovement(dx * speed, this.getDeltaMovement().y, dz * speed);
     }
 
 }

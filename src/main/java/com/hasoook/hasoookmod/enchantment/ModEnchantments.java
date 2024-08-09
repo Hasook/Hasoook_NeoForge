@@ -12,12 +12,14 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.fml.common.Mod;
 
 // 自定义附魔类，用于定义和注册新的附魔
 public class ModEnchantments {
     // 自定义附魔资源键
     public static final ResourceKey<Enchantment> RANDOM_BULLETS = key("random_bullets");
     public static final ResourceKey<Enchantment> SEPARATION_EXPLOSION = key("separation_explosion");
+    public static final ResourceKey<Enchantment> DISDAIN = key("disdain");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -52,6 +54,21 @@ public class ModEnchantments {
                                 holdergetter2.getOrThrow(ModItemTags.SEPARATION_ITEMS),
                                 2,
                                 1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                8,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );
+        register(
+                context,
+                DISDAIN, // 嫌弃
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ModItemTags.DISDAIN_ITEMS),
+                                2,
+                                2,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 8,

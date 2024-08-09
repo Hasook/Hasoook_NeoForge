@@ -23,5 +23,8 @@ public class ModtemTagsProvider extends ItemTagsProvider {
         this.tag(ModItemTags.SEPARATION_ITEMS).add(Items.TNT)
                 .add(Items.TNT_MINECART)
                 .add(Items.WIND_CHARGE);
+        this.tag(ModItemTags.DISDAIN_ITEMS).addTag(ItemTags.EQUIPPABLE_ENCHANTABLE)
+                .addTag(ItemTags.WEAPON_ENCHANTABLE)
+                .addTag(ModItemTags.SEPARATION_ITEMS);
     }
 }
