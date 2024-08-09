@@ -1,9 +1,8 @@
 package com.hasoook.hasoookmod.datagen;
 
 import com.hasoook.hasoookmod.HasoookMod;
-import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.datagen.item.tags.ModBlockTagsProvider;
-import com.hasoook.hasoookmod.datagen.item.tags.ModtemTagsProvider;
+import com.hasoook.hasoookmod.datagen.item.tags.ModItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -31,6 +30,6 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(),new ModDatapackBuiltinEntriesProvider(output,lookupProvider));
         TagsProvider<Block> tagsprovider4 = generator.addProvider(event.includeServer(),new ModBlockTagsProvider(output,lookupProvider,HasoookMod.MODID,existingFileHelper));
         //
-        generator.addProvider(event.includeServer(),new ModtemTagsProvider(output,lookupProvider,tagsprovider4.contentsGetter(),HasoookMod.MODID,existingFileHelper));
+        generator.addProvider(event.includeServer(),new ModItemTagsProvider(output,lookupProvider,tagsprovider4.contentsGetter(),HasoookMod.MODID,existingFileHelper));
     }
 }

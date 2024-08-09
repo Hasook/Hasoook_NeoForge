@@ -16,7 +16,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SimpleExplosionDamageCalculator;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -52,18 +51,18 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         ItemStack itemStack = this.getItem(); // 获取物品栈
         int count = itemStack.getCount(); // 获取物品数量
         Entity owner = this.getOwner(); // 获取物品的主人
-        int se = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SEPARATION_EXPLOSION, itemStack);
+        int separationLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SEPARATION_EXPLOSION, itemStack);
         // 获取物品的“分离爆炸”等级
-        int wb = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.WIND_BURST, itemStack);
+        int windLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.WIND_BURST, itemStack);
         // 获取物品的“风爆”等级
         int disdainLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.DISDAIN, itemStack);
         // 获取物品的“嫌弃”等级
 
         // 人机分离十米自动爆炸
-        if (se > 0 && owner != null) { // 如果“分离爆炸”等级大于0 而且 主人不为空
+        if (separationLevel > 0 && owner != null) { // 如果“分离爆炸”等级大于0 而且 主人不为空
             double distance = this.distanceTo(owner); // 获取和主人的距离
-            if (distance > 11 - se) { // 判断两者的距离
-                hasoookNeoForge$explodeOnSeparation(count, wb, itemStack); //调用方法
+            if (distance > 11 - separationLevel) { // 判断两者的距离
+                hasoookNeoForge$explodeOnSeparation(count, windLevel, itemStack); //调用方法
                 this.discard(); // 移除目标
                 ci.cancel(); // 取消执行
             }
