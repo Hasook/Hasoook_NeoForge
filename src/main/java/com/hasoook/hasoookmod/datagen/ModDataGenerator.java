@@ -29,7 +29,6 @@ public class ModDataGenerator {
         // 为数据生成器添加一个自定义的数据包内置条目提供者
         generator.addProvider(event.includeServer(),new ModDatapackBuiltinEntriesProvider(output,lookupProvider));
         TagsProvider<Block> tagsprovider4 = generator.addProvider(event.includeServer(),new ModBlockTagsProvider(output,lookupProvider,HasoookMod.MODID,existingFileHelper));
-        //
         generator.addProvider(event.includeServer(),new ModItemTagsProvider(output,lookupProvider,tagsprovider4.contentsGetter(),HasoookMod.MODID,existingFileHelper));
     }
 }
