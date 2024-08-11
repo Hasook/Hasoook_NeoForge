@@ -59,7 +59,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         // 获取物品的“嫌弃”等级
 
         // 人机分离十米自动爆炸
-        if (separationLevel > 0 && owner != null) { // 如果“分离爆炸”等级大于0 而且 主人不为空
+        if (separationLevel > 0 && owner != null && !this.level().isClientSide) { // 如果“分离爆炸”等级大于0 而且 主人不为空
             double distance = this.distanceTo(owner); // 获取和主人的距离
             if (distance > 11 - separationLevel) { // 判断两者的距离
                 hasoookNeoForge$explodeOnSeparation(count, windLevel, itemStack); //调用方法
