@@ -1,7 +1,7 @@
 {
-  "anvil_cost": 4,
+  "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.hasoook.separation_explosion"
+    "translate": "enchantment.hasoook.swap"
   },
   "max_cost": {
     "base": 50,
@@ -15,6 +15,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#hasoook:enchantable/separation_items",
+  "supported_items": "#minecraft:enchantable/weapon",
   "weight": 2
 }

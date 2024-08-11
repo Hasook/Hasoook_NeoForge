@@ -20,6 +20,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> RANDOM_BULLETS = key("random_bullets");
     public static final ResourceKey<Enchantment> SEPARATION_EXPLOSION = key("separation_explosion");
     public static final ResourceKey<Enchantment> DISDAIN = key("disdain");
+    public static final ResourceKey<Enchantment> SWAP = key("swap");
+    public static final ResourceKey<Enchantment> CHAIN_DAMAGE = key("chain_damage");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -56,7 +58,7 @@ public class ModEnchantments {
                                 1,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
-                                8,
+                                4,
                                 EquipmentSlotGroup.MAINHAND
                         )
                 )
@@ -69,6 +71,36 @@ public class ModEnchantments {
                                 holdergetter2.getOrThrow(ModItemTags.DISDAIN_ITEMS),
                                 2,
                                 2,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                8,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );
+        register(
+                context,
+                SWAP, // 交换
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                8,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );
+        register(
+                context,
+                CHAIN_DAMAGE, // 连锁打怪
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                2,
+                                1,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 8,
