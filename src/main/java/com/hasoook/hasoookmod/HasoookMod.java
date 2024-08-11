@@ -1,5 +1,7 @@
 package com.hasoook.hasoookmod;
 
+import com.hasoook.hasoookmod.event.enchantment.chain_damage;
+import com.hasoook.hasoookmod.event.enchantment.swap;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
 import org.slf4j.Logger;
@@ -26,6 +28,8 @@ public class HasoookMod
         ModItems.register(modEventBus);
         ModCreativeTab.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(swap.class);
+        NeoForge.EVENT_BUS.register(chain_damage.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
