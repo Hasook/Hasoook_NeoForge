@@ -5,7 +5,8 @@
   "mixins": [
     "BowMixin",
     "ItemEntityMixin",
-    "SurrenderMixin"
+    "SurrenderMixin",
+    "ThrownEggMixin"
   ],
   "injectors": {
     "defaultRequire": 1
