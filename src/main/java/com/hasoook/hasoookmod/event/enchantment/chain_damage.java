@@ -40,7 +40,7 @@ public class chain_damage {
                 if (chainDamageLevel > 0) {
                     float damage = event.getAmount(); // 获取造成的伤害值
                     Level world = target.level();
-                    double radius = 5.0 * chainDamageLevel;
+                    double radius = 5.0 * chainDamageLevel; // 选择半径
 
                     // 选择范围内的所有实体
                     List<LivingEntity> entitiesInRange = world.getEntitiesOfClass(LivingEntity.class,
