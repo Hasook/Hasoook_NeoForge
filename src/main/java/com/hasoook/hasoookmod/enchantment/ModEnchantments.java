@@ -22,6 +22,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> DISDAIN = key("disdain");
     public static final ResourceKey<Enchantment> SWAP = key("swap");
     public static final ResourceKey<Enchantment> CHAIN_DAMAGE = key("chain_damage");
+    public static final ResourceKey<Enchantment> GIVE = key("give");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -104,6 +105,21 @@ public class ModEnchantments {
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 8,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );
+        register(
+                context,
+                GIVE, // 连锁打怪
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                2,
                                 EquipmentSlotGroup.MAINHAND
                         )
                 )
