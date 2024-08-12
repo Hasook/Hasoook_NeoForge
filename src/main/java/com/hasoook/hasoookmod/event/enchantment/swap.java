@@ -19,12 +19,11 @@ public class swap {
         Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
 
         if (sourceEntity instanceof LivingEntity attacker) {
+            ItemStack targetMainHandItem = target.getMainHandItem(); // 获取实体的主手物品
             ItemStack attackerMainHandItem = attacker.getMainHandItem(); // 获取攻击者的主手物品
             int swapLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SWAP, attackerMainHandItem);
 
-            if (swapLevel > 0) {
-                ItemStack targetMainHandItem = target.getMainHandItem(); // 获取目标的主手物品
-
+            if (swapLevel > 0 && !targetMainHandItem.isEmpty()) {
                 attacker.setItemInHand(InteractionHand.MAIN_HAND, targetMainHandItem);
                 target.setItemInHand(InteractionHand.MAIN_HAND, attackerMainHandItem);
                 // 交换双方的主手物品
