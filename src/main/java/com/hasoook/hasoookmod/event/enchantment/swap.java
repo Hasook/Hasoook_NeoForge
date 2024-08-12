@@ -22,7 +22,12 @@ public class swap {
             ItemStack targetMainHandItem = target.getMainHandItem(); // 获取实体的主手物品
             ItemStack attackerMainHandItem = attacker.getMainHandItem(); // 获取攻击者的主手物品
             int swapLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SWAP, attackerMainHandItem);
+            int giveLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.GIVE, attackerMainHandItem);
 
+            if (giveLevel > 0 && targetMainHandItem.isEmpty()) {
+                target.setItemInHand(InteractionHand.MAIN_HAND, attackerMainHandItem);
+                attacker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            }
             if (swapLevel > 0 && !targetMainHandItem.isEmpty()) {
                 attacker.setItemInHand(InteractionHand.MAIN_HAND, targetMainHandItem);
                 target.setItemInHand(InteractionHand.MAIN_HAND, attackerMainHandItem);
