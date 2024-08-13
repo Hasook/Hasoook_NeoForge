@@ -4,6 +4,7 @@ import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +16,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.util.List;
+import java.util.Random;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
 public class chain_damage {
@@ -30,17 +32,23 @@ public class chain_damage {
 
         try {
             LivingEntity target = event.getEntity();
-            Entity sourceEntity = event.getSource().getEntity();
+            DamageSource damageSource = event.getSource();
+            Entity sourceEntity = damageSource.getEntity();
 
-            if (sourceEntity instanceof LivingEntity attacker) {
+            // 判断是否为直接伤害
+            boolean isDirectAttack = sourceEntity instanceof LivingEntity attacker && damageSource.getDirectEntity() == attacker;
+
+            if (isDirectAttack && sourceEntity instanceof LivingEntity attacker) {
                 ItemStack attackerMainHandItem = attacker.getMainHandItem();
+                Random random = new Random();
                 int chainDamageLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.CHAIN_DAMAGE, attackerMainHandItem);
                 int fireDamageLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, attackerMainHandItem);
+                int unbreakingLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, attackerMainHandItem);
 
                 if (chainDamageLevel > 0) {
                     float damage = event.getAmount(); // 获取造成的伤害值
                     Level world = target.level();
-                    double radius = 5.0 * chainDamageLevel; // 选择半径
+                    double radius = 5.0 * chainDamageLevel; // 范围半径
 
                     // 选择范围内的所有实体
                     List<LivingEntity> entitiesInRange = world.getEntitiesOfClass(LivingEntity.class,
@@ -56,7 +64,7 @@ public class chain_damage {
                                 entityInRange.setRemainingFireTicks(fireDamageLevel * 80);
                             }
                         }
-                        if (attacker instanceof Player player && !player.isCreative()) {
+                        if (attacker instanceof Player player && !player.isCreative() && random.nextInt(100 / (1 + unbreakingLevel)) == 0) {
                             attackerMainHandItem.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
                             // 减少物品的耐久
                         }
