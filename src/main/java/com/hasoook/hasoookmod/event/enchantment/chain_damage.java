@@ -3,12 +3,14 @@ package com.hasoook.hasoookmod.event.enchantment;
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -38,7 +40,7 @@ public class chain_damage {
             boolean isDirectAttack = sourceEntity instanceof LivingEntity attacker && damageSource.getDirectEntity() == attacker;
             // 判断是否为直接伤害
 
-            if (isDirectAttack && sourceEntity instanceof LivingEntity attacker) {
+            if (isDirectAttack && sourceEntity instanceof LivingEntity attacker && sourceEntity.level() instanceof ServerLevel serverLevel) {
                 ItemStack attackerMainHandItem = attacker.getMainHandItem();
                 Random random = new Random();
                 int chainDamageLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.CHAIN_DAMAGE, attackerMainHandItem);
