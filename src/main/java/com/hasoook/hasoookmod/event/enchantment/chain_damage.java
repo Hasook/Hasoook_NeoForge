@@ -64,7 +64,7 @@ public class chain_damage {
                                 entityInRange.setRemainingFireTicks(fireDamageLevel * 80);
                             }
                         }
-                        if (attacker instanceof Player player && !player.isCreative() && random.nextInt(100 / (1 + unbreakingLevel)) == 0) {
+                        if (attacker instanceof Player player && !player.isCreative() && random.nextInt(200 / (1 + unbreakingLevel)) == 0) {
                             attackerMainHandItem.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
                             // 减少物品的耐久
                         }
