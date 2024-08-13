@@ -116,7 +116,7 @@ public class ModEnchantments {
         );
         register(
                 context,
-                GIVE, // 连锁打怪
+                GIVE, // 给予
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
