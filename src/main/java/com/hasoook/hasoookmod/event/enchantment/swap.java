@@ -27,8 +27,8 @@ public class swap {
         if (sourceEntity instanceof LivingEntity attacker) {
             ItemStack targetMainHandItem = target.getMainHandItem(); // 获取实体的主手物品
             ItemStack attackerMainHandItem = attacker.getMainHandItem(); // 获取攻击者的主手物品
-            int swapLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SWAP, attackerMainHandItem);
             int giveLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.GIVE, attackerMainHandItem);
+            int swapLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SWAP, attackerMainHandItem);
 
             if (giveLevel > 0 && targetMainHandItem.isEmpty()) {
                 EnchantmentHelper.updateEnchantments(attackerMainHandItem, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(ModEnchantments.GIVE)));
