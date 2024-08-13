@@ -31,15 +31,11 @@ public class swap {
             int giveLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.GIVE, attackerMainHandItem);
 
             if (giveLevel > 0 && targetMainHandItem.isEmpty()) {
-                if (giveLevel == 1) {
-                    EnchantmentHelper.updateEnchantments(
-                            attackerMainHandItem, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(ModEnchantments.GIVE))
-                    );
-                    // 移除附魔
-                }
-
+                EnchantmentHelper.updateEnchantments(attackerMainHandItem, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(ModEnchantments.GIVE)));
+                // 移除附魔
                 target.setItemInHand(InteractionHand.MAIN_HAND, attackerMainHandItem);
                 attacker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                // 把攻击者的主手物品设置到实体的主手
             }
             if (swapLevel > 0 && !targetMainHandItem.isEmpty()) {
                 attacker.setItemInHand(InteractionHand.MAIN_HAND, targetMainHandItem);
