@@ -35,8 +35,8 @@ public class chain_damage {
             DamageSource damageSource = event.getSource();
             Entity sourceEntity = damageSource.getEntity();
 
-            // 判断是否为直接伤害
             boolean isDirectAttack = sourceEntity instanceof LivingEntity attacker && damageSource.getDirectEntity() == attacker;
+            // 判断是否为直接伤害
 
             if (isDirectAttack && sourceEntity instanceof LivingEntity attacker) {
                 ItemStack attackerMainHandItem = attacker.getMainHandItem();
@@ -50,23 +50,23 @@ public class chain_damage {
                     Level world = target.level();
                     double radius = 4.0 * chainDamageLevel; // 范围半径
 
-                    // 选择范围内的所有实体
                     List<LivingEntity> entitiesInRange = world.getEntitiesOfClass(LivingEntity.class,
                             target.getBoundingBox().inflate(radius),
                             entity -> !entity.equals(target) && entity.getClass() == target.getClass());
+                    // 选择范围内的所有实体
 
-                    // 对范围内的每个相同类型的实体（不包括被攻击的实体）造成等量伤害
                     for (LivingEntity entityInRange : entitiesInRange) {
                         if (entityInRange != target) {
                             entityInRange.hurt(event.getSource(), damage);
-                            // 造成伤害
+                            // 对范围内的每个相同类型的实体（不包括被攻击的实体）造成等量伤害
                             if (fireDamageLevel > 0) {
                                 entityInRange.setRemainingFireTicks(fireDamageLevel * 80);
+                                // 火焰附加
                             }
                         }
                         if (attacker instanceof Player player && !player.isCreative() && random.nextInt(200 / (1 + unbreakingLevel)) == 0) {
                             attackerMainHandItem.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
-                            // 减少物品的耐久
+                            // 减少物品的耐久（概率受耐久附魔影响）
                         }
                     }
                 }
