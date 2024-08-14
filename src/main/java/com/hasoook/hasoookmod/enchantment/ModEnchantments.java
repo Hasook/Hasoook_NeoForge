@@ -90,7 +90,7 @@ public class ModEnchantments {
                 SWAP, // 交换
                 Enchantment.enchantment(
                         Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
                                 2,
                                 1,
                                 Enchantment.constantCost(25),
