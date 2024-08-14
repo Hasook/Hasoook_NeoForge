@@ -77,7 +77,7 @@ public class TotemOfSurrender extends Item {
             // 传送玩家回到重生点
             if (player instanceof ServerPlayer serverPlayer) {
                 Vec3 respawnPos = Vec3.atLowerCornerOf(Objects.requireNonNull(serverPlayer.getRespawnPosition()));
-                serverPlayer.teleportTo(respawnPos.x + 0.5, respawnPos.y + 0.3, respawnPos.z + 0.5);
+                serverPlayer.teleportTo(respawnPos.x + 0.5, respawnPos.y + 0.4, respawnPos.z + 0.5);
                 serverPlayer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 0, false, true));
             }
 
