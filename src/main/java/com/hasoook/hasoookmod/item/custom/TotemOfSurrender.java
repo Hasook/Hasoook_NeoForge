@@ -82,7 +82,6 @@ public class TotemOfSurrender extends Item {
                 // 传送玩家回到重生点
             }
 
-
         }
     }
 
