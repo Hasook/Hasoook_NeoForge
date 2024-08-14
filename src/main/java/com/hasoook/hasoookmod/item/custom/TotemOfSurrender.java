@@ -55,30 +55,31 @@ public class TotemOfSurrender extends Item {
             int numToRemove = slotsWithItems.size() / 2;
             List<Integer> slotsToRemove = slotsWithItems.subList(0, numToRemove);
 
-            // 把被选中的物品移除并且生成掉落物
             for (int slot : slotsToRemove) {
+                // 将被选中的槽位里的物品移除并生成掉落物
                 ItemStack stack = player.getInventory().getItem(slot);
                 int bindingLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.BINDING_CURSE, stack);
                 // 获取物品的“绑定诅咒”等级
                 int vanishingLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.VANISHING_CURSE, stack);
                 // 获取物品的“消失诅咒”等级
-                if (!stack.isEmpty() && bindingLevel == 0) {
+                if (bindingLevel == 0) {
                     if (vanishingLevel == 0) {
-                        // 创建掉落物实体并添加到世界中
                         ItemEntity itemEntity = new ItemEntity(pLevel, player.getX(), player.getY(), player.getZ(), stack.copy());
                         pLevel.addFreshEntity(itemEntity);
+                        // 创建掉落物实体并添加到世界中
                     }
-                    player.getInventory().setItem(slot, ItemStack.EMPTY); // 清空槽位中的物品
+                    player.getInventory().setItem(slot, ItemStack.EMPTY); // 将槽位设置为空
                 }
             }
 
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.TOTEM_OF_SURRENDER.get()));
+            // 类似不死图腾的动画
 
-            // 传送玩家回到重生点
             if (player instanceof ServerPlayer serverPlayer) {
                 Vec3 respawnPos = Vec3.atLowerCornerOf(Objects.requireNonNull(serverPlayer.getRespawnPosition()));
                 serverPlayer.teleportTo(respawnPos.x + 0.5, respawnPos.y + 0.4, respawnPos.z + 0.5);
                 serverPlayer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 0, false, true));
+                // 传送玩家回到重生点
             }
 
 
