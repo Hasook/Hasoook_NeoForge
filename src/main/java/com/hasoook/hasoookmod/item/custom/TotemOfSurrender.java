@@ -1,6 +1,8 @@
 package com.hasoook.hasoookmod.item.custom;
 
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
+import com.hasoook.hasoookmod.item.ModItems;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,7 +16,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
@@ -28,13 +32,14 @@ public class TotemOfSurrender extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         pPlayer.startUsingItem(pHand);
-        return InteractionResultHolder.consume(itemStack); // 改为consume而非pass，以确保物品使用状态被改变
+        return InteractionResultHolder.consume(itemStack);
     }
 
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
         int time = this.getUseDuration(pStack, pEntityLiving) - pTimeLeft;
         if (time >= 20 && !pLevel.isClientSide && pEntityLiving instanceof Player player) {
+
             pStack.shrink(1);
             // 获取玩家的所有有物品的背包槽位
             List<Integer> slotsWithItems = new ArrayList<>();
@@ -67,12 +72,15 @@ public class TotemOfSurrender extends Item {
                 }
             }
 
+            Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.TOTEM_OF_SURRENDER.get()));
+
             // 传送玩家回到重生点
             if (player instanceof ServerPlayer serverPlayer) {
                 Vec3 respawnPos = Vec3.atLowerCornerOf(Objects.requireNonNull(serverPlayer.getRespawnPosition()));
-                serverPlayer.teleportTo(respawnPos.x, respawnPos.y, respawnPos.z);
+                serverPlayer.teleportTo(respawnPos.x, respawnPos.y + 0.5, respawnPos.z);
                 serverPlayer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 0, false, true));
             }
+
 
         }
     }
