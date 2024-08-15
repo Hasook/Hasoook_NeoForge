@@ -1,4 +1,3 @@
-// 1.21	2024-08-14T17:37:32.6523941	Tags for minecraft:item mod id hasoook
-dcf21e9f4f1319212e2e260a86973fb70aa26207 data/hasoook/tags/item/common_tag.json
-083789e20cb0427b75b0e1d973b9a78384cf1504 data/hasoook/tags/item/disdain_items.json
+// 1.21	2024-08-15T23:31:55.1450509	Tags for minecraft:item mod id hasoook
+8e3aabc6caa173f79739878f3051d2e60eb91c8e data/hasoook/tags/item/common_tag.json
 56766bbf8d79164fc848041203efa60c692eb7ce data/hasoook/tags/item/enchantable/separation_items.json

@@ -1,7 +1,8 @@
 {
   "values": [
-    "#hasoook:disdain_items",
+    "#minecraft:enchantable/weapon",
     "#hasoook:enchantable/separation_items",
-    "minecraft:fishing_rod"
+    "minecraft:fishing_rod",
+    "#minecraft:enchantable/equippable"
   ]
 }
