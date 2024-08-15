@@ -75,7 +75,7 @@ public class ModEnchantments {
                 DISDAIN, // 嫌弃
                 Enchantment.enchantment(
                         Enchantment.definition(
-                                holdergetter2.getOrThrow(ModItemTags.DISDAIN_ITEMS),
+                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
                                 2,
                                 2,
                                 Enchantment.constantCost(25),
@@ -120,7 +120,7 @@ public class ModEnchantments {
                 GIVE, // 给予
                 Enchantment.enchantment(
                         Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
                                 2,
                                 1,
                                 Enchantment.constantCost(25),

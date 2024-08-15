@@ -23,11 +23,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.tag(ModItemTags.SEPARATION_ITEMS).add(Items.TNT)
                 .add(Items.TNT_MINECART)
                 .add(Items.WIND_CHARGE);
-        this.tag(ModItemTags.DISDAIN_ITEMS).addTag(ItemTags.EQUIPPABLE_ENCHANTABLE)
-                .addTag(ItemTags.WEAPON_ENCHANTABLE)
-                .addTag(ModItemTags.SEPARATION_ITEMS);
-        this.tag(ModItemTags.COMMON_TAG).addTag(ModItemTags.DISDAIN_ITEMS)
+        this.tag(ModItemTags.COMMON_TAG).addTag(ItemTags.WEAPON_ENCHANTABLE)
                 .addTag(ModItemTags.SEPARATION_ITEMS)
-                .add(Items.FISHING_ROD);
+                .add(Items.FISHING_ROD)
+                .addTag(ItemTags.EQUIPPABLE_ENCHANTABLE);
     }
 }
