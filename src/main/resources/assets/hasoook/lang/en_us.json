@@ -7,5 +7,11 @@
   "enchantment.hasoook.disdain": "Disdain",
   "enchantment.hasoook.swap": "Swap",
   "enchantment.hasoook.chain_damage": "Chain Damage",
-  "enchantment.hasoook.give": "Give"
+  "enchantment.hasoook.give": "Give",
+
+  "enchantment.hasoook.random_bullets.desc": "Shoots a random type of bullet.",
+  "enchantment.hasoook.separation_explosion.desc": "Automatically explodes when separated from the item’s drop by 10 meters.",
+  "enchantment.hasoook.disdain.desc": "The item’s drops will actively move away from you.",
+  "enchantment.hasoook.swap.desc": "Swaps the main-hand items of both parties when attacking.",
+  "enchantment.hasoook.chain_damage.desc": "When attacking, deals damage to a single additional target of the same type within range."
 }

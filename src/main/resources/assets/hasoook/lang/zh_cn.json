@@ -7,5 +7,11 @@
   "enchantment.hasoook.disdain": "嫌弃",
   "enchantment.hasoook.swap": "交换",
   "enchantment.hasoook.chain_damage": "连锁打怪",
-  "enchantment.hasoook.give": "给予"
+  "enchantment.hasoook.give": "给予",
+
+  "enchantment.hasoook.random_bullets.desc": "随机射出一种子弹.",
+  "enchantment.hasoook.separation_explosion.desc": "与该物品的掉落物分离10米时自动爆炸.",
+  "enchantment.hasoook.disdain.desc": "该物品的掉落物会主动远离你.",
+  "enchantment.hasoook.swap.desc": "攻击时交换双方的主手物品.",
+  "enchantment.hasoook.chain_damage.desc": "攻击时，会对范围内与目标同类型的生物造成一次伤害."
 }
