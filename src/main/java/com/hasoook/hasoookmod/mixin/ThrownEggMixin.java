@@ -4,6 +4,7 @@ import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.entity.projectile.ThrownEgg;
@@ -36,7 +37,7 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
                     i = 4;
                 }
 
-                for (int j = 0; j < i + fortuneLevel * 100; j++) {
+                for (int j = 0; j < i + fortuneLevel; j++) {
                     Chicken chicken = EntityType.CHICKEN.create(this.level());
                     if (chicken != null) {
                         chicken.setAge(-24000);
