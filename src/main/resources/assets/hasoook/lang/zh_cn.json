@@ -14,5 +14,7 @@
   "enchantment.hasoook.disdain.desc": "该物品的掉落物会主动远离你.",
   "enchantment.hasoook.swap.desc": "攻击交换双方的主手物品.",
   "enchantment.hasoook.chain_damage.desc": "攻击会对范围内与目标同类型的生物造成一次伤害.",
-  "enchantment.hasoook.give.desc": "攻击时把物品给予目标."
+  "enchantment.hasoook.give.desc": "攻击时把物品给予目标.",
+
+  "effect.hasoook.confusion": "混乱"
 }

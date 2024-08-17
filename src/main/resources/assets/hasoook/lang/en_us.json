@@ -14,5 +14,7 @@
   "enchantment.hasoook.disdain.desc": "The item’s drops will actively move away from you.",
   "enchantment.hasoook.swap.desc": "Swaps the main-hand items of both parties when attacking.",
   "enchantment.hasoook.chain_damage.desc": "When attacking, deals damage to a single additional target of the same type within range.",
-  "enchantment.hasoook.give.desc": "Give the item to the target."
+  "enchantment.hasoook.give.desc": "Give the item to the target.",
+
+  "effect.hasoook.confusion": "Confusion"
 }
