@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod;
 
+import com.hasoook.hasoookmod.block.ModBlock;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.event.enchantment.chain_damage;
 import com.hasoook.hasoookmod.event.enchantment.swap;
@@ -27,6 +28,7 @@ public class HasoookMod
     {
         modEventBus.addListener(this::commonSetup);
         ModItems.register(modEventBus);
+        ModBlock.register(modEventBus);
         ModCreativeTab.register(modEventBus);
         ModEffects.register(modEventBus);
 
