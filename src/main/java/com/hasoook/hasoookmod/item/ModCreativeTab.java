@@ -1,6 +1,7 @@
 package com.hasoook.hasoookmod.item;
 
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.block.ModBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,6 +23,7 @@ public class ModCreativeTab {
             .icon(Items.ENCHANTED_BOOK::getDefaultInstance)
             .displayItems((pParameters, pOutput) -> {
                 pOutput.accept(ModItems.TOTEM_OF_SURRENDER.get());
+                pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
             })
             .build());
 
