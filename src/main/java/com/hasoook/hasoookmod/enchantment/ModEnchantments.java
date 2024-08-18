@@ -29,6 +29,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> SWAP = key("swap");
     public static final ResourceKey<Enchantment> CHAIN_DAMAGE = key("chain_damage");
     public static final ResourceKey<Enchantment> GIVE = key("give");
+    public static final ResourceKey<Enchantment> CONFUSION_FLOWER = key("confusion_flower");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -118,6 +119,21 @@ public class ModEnchantments {
         register(
                 context,
                 GIVE, // 给予
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                2,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );
+        register(
+                context,
+                CONFUSION_FLOWER, // 混乱花
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),

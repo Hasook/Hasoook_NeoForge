@@ -30,7 +30,6 @@ public class HasoookMod
         ModCreativeTab.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

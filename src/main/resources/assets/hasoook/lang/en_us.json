@@ -10,6 +10,7 @@
   "enchantment.hasoook.swap": "Swap",
   "enchantment.hasoook.chain_damage": "Chain Damage",
   "enchantment.hasoook.give": "Give",
+  "enchantment.hasoook.confusion_flower": "Confusion Flower",
 
   "enchantment.hasoook.random_bullets.desc": "Shoots a random type of bullet.",
   "enchantment.hasoook.separation_explosion.desc": "Automatically explodes when separated from the item’s drop by 10 meters.",
