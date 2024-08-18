@@ -8,4 +8,5 @@ public class ConfusionFlower extends FlowerBlock {
     public ConfusionFlower(Holder<MobEffect> pEffect, float pSeconds, Properties pProperties) {
         super(pEffect, pSeconds, pProperties);
     }
+
 }
