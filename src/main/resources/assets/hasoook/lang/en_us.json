@@ -18,5 +18,10 @@
   "enchantment.hasoook.chain_damage.desc": "When attacking, deals damage to a single additional target of the same type within range.",
   "enchantment.hasoook.give.desc": "Give the item to the target.",
 
-  "effect.hasoook.confusion": "Confusion"
+  "effect.hasoook.confusion": "Confusion",
+
+  "item.minecraft.potion.effect.confusion": "Confusion Potion",
+  "item.minecraft.splash_potion.effect.confusion": "Splash Confusion Potion",
+  "item.minecraft.lingering_potion.effect.confusion": "Lingering Confusion Potion",
+  "item.minecraft.tipped_arrow.effect.confusion": "Arrow of Confusion"
 }

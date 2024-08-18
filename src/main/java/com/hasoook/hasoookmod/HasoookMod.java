@@ -2,6 +2,7 @@ package com.hasoook.hasoookmod;
 
 import com.hasoook.hasoookmod.block.ModBlock;
 import com.hasoook.hasoookmod.effect.ModEffects;
+import com.hasoook.hasoookmod.effect.ModPotions;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class HasoookMod
         ModBlock.register(modEventBus);
         ModCreativeTab.register(modEventBus);
         ModEffects.register(modEventBus);
-
+        ModPotions.register(modEventBus);
 
     }
 
