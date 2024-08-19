@@ -16,6 +16,7 @@ public class ModEffects {
     public static DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, HasoookMod.MODID);
 
     public static final DeferredHolder<MobEffect,MobEffect> CONFUSION =registerDeferredHolder("confusion",()->new ConfusionEffect(MobEffectCategory.HARMFUL,0xe55590)) ;
+    public static final DeferredHolder<MobEffect,MobEffect> UNYIELDING =registerDeferredHolder("unyielding",()->new NormalEffect(MobEffectCategory.BENEFICIAL,0x828a9b)) ;
 
     public static DeferredHolder<MobEffect,MobEffect> registerDeferredHolder(String name, Supplier<MobEffect> supplier){
         return EFFECTS.register(name,supplier);
