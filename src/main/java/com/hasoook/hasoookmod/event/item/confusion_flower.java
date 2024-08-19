@@ -2,33 +2,30 @@ package com.hasoook.hasoookmod.event.item;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.block.ModBlock;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Snowball;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import com.hasoook.hasoookmod.effect.ModEffects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
 public class confusion_flower {
     @SubscribeEvent
-    public static void RightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getEntity();
-        InteractionHand hand = event.getHand();
-        ItemStack itemStack = player.getItemInHand(hand); // 获取玩家手中的物品
+    public static void onEntityAttack(LivingIncomingDamageEvent event) {
+        LivingEntity target = event.getEntity(); // 获取实体
+        Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
 
-        if (itemStack.getItem() == ModBlock.CONFUSION_FLOWER.asItem() && !player.level().isClientSide) {
-            ThrowableItemProjectile confusionFlower = new Snowball(player.level(), player);
-            confusionFlower.setItem(itemStack);
-            confusionFlower.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-            player.level().addFreshEntity(confusionFlower);
-            // 记录玩家使用物品的统计信息
-            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
-            // 消耗一个物品
-            itemStack.consume(1, player);
+        if (sourceEntity instanceof LivingEntity attacker && target instanceof LivingEntity) {
+            ItemStack itemStack = attacker.getMainHandItem();
+            if (itemStack.getItem() == ModBlock.CONFUSION_FLOWER.asItem() && !attacker.level().isClientSide) {
+                MobEffectInstance poisonEffect = new MobEffectInstance(ModEffects.CONFUSION, 1200, 0);
+                target.addEffect(poisonEffect);
+                itemStack.consume(1, attacker);
+            }
         }
+
     }
 }
