@@ -1,13 +1,13 @@
 {
-  "anvil_cost": 8,
+  "anvil_cost": 2,
   "description": {
-    "translate": "enchantment.hasoook.disdain"
+    "translate": "enchantment.hasoook.unyielding"
   },
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0
   },
-  "max_level": 2,
+  "max_level": 1,
   "min_cost": {
     "base": 25,
     "per_level_above_first": 0
@@ -15,6 +15,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#hasoook:common_tag",
+  "supported_items": "#minecraft:enchantable/armor",
   "weight": 2
 }

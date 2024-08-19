@@ -77,7 +77,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         // 嫌弃
         if (disdainLevel > 0 && owner != null && !this.level().isClientSide) {
             double distance = this.distanceTo(owner);
-            // 如果距离小于10格
+            // 如果距离小于 5 * level 的距离
             if (distance < 5 * disdainLevel && this.onGround()) {
                 hasoookNeoForge$disdain(owner);
             }
