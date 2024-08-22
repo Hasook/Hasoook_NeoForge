@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
-public class chain_damage {
+public class ChainDamageAttack {
     private static final ThreadLocal<Boolean> IS_CHAIN_DAMAGE_PROCESSING = ThreadLocal.withInitial(() -> false);
 
     @SubscribeEvent
