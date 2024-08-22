@@ -14,14 +14,20 @@ import java.util.Objects;
 @EventBusSubscriber(modid = HasoookMod.MODID)
 public class UnyieldingExpired {
     @SubscribeEvent
-    public static void onEffectExpired(MobEffectEvent.Remove  event) {
+    public static void onEffectRemoved(MobEffectEvent.Remove event) {
+        // 效果被移除时
+        handleEffectEvent(event);
+    }
 
+    @SubscribeEvent
+    public static void onEffectExpired(MobEffectEvent.Expired event) {
+        // 效果结束时
+        handleEffectEvent(event);
+    }
+
+    private static void handleEffectEvent(MobEffectEvent event) {
         MobEffect effect = Objects.requireNonNull(event.getEffectInstance()).getEffect().value();
-        // 获取药水效果
-
         if (effect == ModEffects.UNYIELDING.get()) {
-            DamageSource source = event.getEntity().getLastDamageSource();
-            System.out.println(source);
             LivingEntity entity = event.getEntity();
             entity.kill(); // 杀死实体
         }
