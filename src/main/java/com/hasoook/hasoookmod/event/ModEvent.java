@@ -1,5 +1,7 @@
 package com.hasoook.hasoookmod.event;
 
+import com.hasoook.hasoookmod.event.effect.UnyieldingExpired;
+import com.hasoook.hasoookmod.event.enchantment.Unyielding;
 import com.hasoook.hasoookmod.event.enchantment.chain_damage;
 import com.hasoook.hasoookmod.event.enchantment.swap;
 import com.hasoook.hasoookmod.event.item.confusion_flower;
@@ -14,5 +16,7 @@ public class ModEvent {
         NeoForge.EVENT_BUS.register(swap.class);
         NeoForge.EVENT_BUS.register(chain_damage.class);
         NeoForge.EVENT_BUS.register(confusion_flower.class);
+        NeoForge.EVENT_BUS.register(Unyielding.class);
+        NeoForge.EVENT_BUS.register(UnyieldingExpired.class);
     }
 }
