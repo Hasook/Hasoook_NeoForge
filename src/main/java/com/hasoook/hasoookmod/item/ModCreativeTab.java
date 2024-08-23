@@ -24,6 +24,7 @@ public class ModCreativeTab {
             .displayItems((pParameters, pOutput) -> {
                 pOutput.accept(ModItems.TOTEM_OF_SURRENDER.get());
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
+                pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());
             })
             .build());
 

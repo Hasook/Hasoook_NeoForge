@@ -1,0 +1,6 @@
+{
+  "parent": "block/stone",
+  "textures": {
+    "cross": "minecraft:block/stone"
+  }
+}
