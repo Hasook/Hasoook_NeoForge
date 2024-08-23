@@ -15,7 +15,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
-public class Unyielding {
+public class UnyieldingDamage {
     @SubscribeEvent
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
