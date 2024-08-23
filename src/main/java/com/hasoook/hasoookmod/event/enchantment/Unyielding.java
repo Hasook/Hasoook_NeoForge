@@ -5,8 +5,6 @@ import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,11 +38,11 @@ public class Unyielding {
         }
 
         if (strengthLevel > 0 && !source.equals("genericKill")) {
-            /* CompoundTag nbt = entity.getPersistentData();
+            CompoundTag nbt = entity.getPersistentData(); // 获取nbt
             double totalDamage = nbt.getDouble("LastDamageValue"); // 获取LastDamageValue的值
             totalDamage += amount; // 加上受到的伤害值
             nbt.putDouble("LastDamageValue", totalDamage); // 设置nbt值
-            System.out.println(nbt.getDouble("LastDamageValue")); */
+            System.out.println(nbt.getDouble("LastDamageValue"));
 
             entity.setHealth(0.1F);
             entity.setAbsorptionAmount(0);
