@@ -20,7 +20,7 @@ public class ModEnchantmentHelper {
      *
      * @param enchantments 附魔的类型
      * @param stack 要检查的物品堆栈。
-     * @return 如果物品具有Adam附魔，则返回true，否则返回false。
+     * @return 如果物品有附魔，则返回附魔等级，否则返回0。
      */
     public static int getEnchantmentLevel(ResourceKey<Enchantment> enchantments, ItemStack stack) {
         // 从物品堆栈中获取附魔信息，如果没有则使用空的附魔集合。
