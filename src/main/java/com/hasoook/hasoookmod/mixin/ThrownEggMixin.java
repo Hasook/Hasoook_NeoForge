@@ -42,7 +42,6 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
                     Chicken chicken = EntityType.CHICKEN.create(this.level());
                     if (chicken != null) {
                         chicken.setAge(-24000);
-                        Objects.requireNonNull(chicken.getAttribute(Attributes.SCALE)).setBaseValue(this.random.nextInt(2) + 1);
                         chicken.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                         if (!chicken.fudgePositionAfterSizeChange(ZERO_SIZED_DIMENSIONS)) {
                             break;
