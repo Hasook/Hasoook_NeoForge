@@ -1,4 +1,4 @@
-package com.hasoook.hasoookmod.event.entityEnchantment;
+package com.hasoook.hasoookmod.entityEnchantment;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

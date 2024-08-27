@@ -6,9 +6,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -21,13 +19,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
-public class EntityEnchantmentInteract {
+public class PlayerEnchantment {
     @SubscribeEvent
-    public static void onPlayerInteractEntity(PlayerInteractEvent.EntityInteract event) {
+    public static void onPlayerInteractEntity(PlayerInteractEvent.RightClickItem event) {
         if (!event.getLevel().isClientSide()) {
             Player player = event.getEntity();
-            Entity target = event.getTarget();
-            ItemStack itemStack = player.getMainHandItem();
+            ItemStack itemStack = event.getItemStack();
 
             if (itemStack.getItem() == ModItems.ENCHANTMENT_BRUSH.get() && !event.getLevel().isClientSide()) {
                 ItemEnchantments itemEnchantments = itemStack.getTagEnchantments();
@@ -45,12 +42,10 @@ public class EntityEnchantmentInteract {
                     enchantmentNbtList.add(enchantmentNbt);
                 }
 
-                CompoundTag playerNbt = target.getPersistentData();
+                CompoundTag playerNbt = player.getPersistentData();
                 playerNbt.put("enchantments", enchantmentNbtList);
                 player.swing(InteractionHand.MAIN_HAND,true); // 摇动玩家的主手
             }
-
         }
-
     }
 }

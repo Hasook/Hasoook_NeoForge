@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#",
+    "I"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:feather"
+    },
+    "#": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "hasoook:enchantment_brush",
+    "count": 1
+  }
+}

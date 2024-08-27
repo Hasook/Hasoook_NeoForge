@@ -7,7 +7,8 @@
     "ConfusionFlowerMixin",
     "ItemEntityMixin",
     "SurrenderMixin",
-    "ThrownEggMixin"
+    "ThrownEggMixin",
+    "entityEnchantmentMixin.SnowGolemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
