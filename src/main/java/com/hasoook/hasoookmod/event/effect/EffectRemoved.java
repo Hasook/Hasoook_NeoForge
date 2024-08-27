@@ -2,7 +2,6 @@ package com.hasoook.hasoookmod.event.effect;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.effect.ModEffects;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -12,7 +11,7 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import java.util.Objects;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
-public class UnyieldingExpired {
+public class EffectRemoved {
     @SubscribeEvent
     public static void onEffectRemoved(MobEffectEvent.Remove event) {
         // 效果被移除时
