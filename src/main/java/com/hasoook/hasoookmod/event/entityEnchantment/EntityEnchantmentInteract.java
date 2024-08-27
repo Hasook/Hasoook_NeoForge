@@ -1,14 +1,16 @@
 package com.hasoook.hasoookmod.event.entityEnchantment;
 
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.item.ModItems;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -27,7 +29,7 @@ public class EntityEnchantmentInteract {
             Entity target = event.getTarget();
             ItemStack itemStack = player.getMainHandItem();
 
-            if (itemStack.getItem() == Items.BRUSH) {
+            if (itemStack.getItem() == ModItems.ENCHANTMENT_BRUSH.get() && !event.getLevel().isClientSide()) {
                 ItemEnchantments itemEnchantments = itemStack.getTagEnchantments();
 
                 ListTag enchantmentNbtList = new ListTag();
@@ -45,6 +47,7 @@ public class EntityEnchantmentInteract {
 
                 CompoundTag playerNbt = target.getPersistentData();
                 playerNbt.put("enchantments", enchantmentNbtList);
+                player.swing(InteractionHand.MAIN_HAND,true); // 摇动玩家的主手
             }
 
         }

@@ -23,6 +23,7 @@ public class ModCreativeTab {
             .icon(Items.ENCHANTED_BOOK::getDefaultInstance)
             .displayItems((pParameters, pOutput) -> {
                 pOutput.accept(ModItems.TOTEM_OF_SURRENDER.get());
+                pOutput.accept(ModItems.ENCHANTMENT_BRUSH.get());
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
                 pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());
             })
