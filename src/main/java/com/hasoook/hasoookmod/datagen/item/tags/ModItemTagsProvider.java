@@ -27,5 +27,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 .addTag(ModItemTags.SEPARATION_ITEMS)
                 .add(Items.FISHING_ROD)
                 .addTag(ItemTags.EQUIPPABLE_ENCHANTABLE);
+        this.tag(ModItemTags.ENTITY_ENCHANTMENT).addTag(ItemTags.ARMOR_ENCHANTABLE)
+                .addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE)
+                .addTag(ItemTags.DURABILITY_ENCHANTABLE)
+                .addTag(ItemTags.BOW_ENCHANTABLE);
     }
 }

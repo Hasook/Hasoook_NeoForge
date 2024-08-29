@@ -36,7 +36,9 @@ public class ConfusionEffect extends MobEffect {
                 if (!validTargets.isEmpty()) {
                     Random random = new Random();
                     LivingEntity randomTarget = validTargets.get(random.nextInt(validTargets.size()));
-                    mob.setTarget(randomTarget);
+                    if (mob.getSensing().hasLineOfSight(randomTarget)) { // 是否能看见目标
+                        mob.setTarget(randomTarget); // 设置目标
+                    }
                 }
             }
         }

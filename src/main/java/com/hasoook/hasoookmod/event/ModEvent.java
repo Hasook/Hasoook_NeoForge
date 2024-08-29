@@ -4,6 +4,7 @@ import com.hasoook.hasoookmod.event.effect.EffectRemoved;
 import com.hasoook.hasoookmod.event.enchantment.UnyieldingDamage;
 import com.hasoook.hasoookmod.event.enchantment.ChainDamageAttack;
 import com.hasoook.hasoookmod.event.enchantment.SwapAttack;
+import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import com.hasoook.hasoookmod.event.item.confusion_flower;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -18,5 +19,6 @@ public class ModEvent {
         NeoForge.EVENT_BUS.register(confusion_flower.class);
         NeoForge.EVENT_BUS.register(UnyieldingDamage.class);
         NeoForge.EVENT_BUS.register(EffectRemoved.class);
+        NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
     }
 }
