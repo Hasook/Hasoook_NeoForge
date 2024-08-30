@@ -32,7 +32,7 @@ public class EnchantmentEntityTick {
                 double z = entity.getZ();
                 double width = entity.getBbWidth() / 2.5;
                 double height = entity.getBbHeight() / 2.5;
-                serverLevel.sendParticles(ParticleTypes.WITCH, x, y, z, 2, width, height, width, 0.0);
+                serverLevel.sendParticles(ParticleTypes.WITCH, x, y, z, 1, width, height, width, 0.0);
             }
         }
 

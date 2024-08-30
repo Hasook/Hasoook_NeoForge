@@ -57,8 +57,8 @@ public class EntityEnchantmentInteract {
                         serverlevel.sendParticles(ParticleTypes.WITCH, target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 5, target.getBbWidth() / 2.2, target.getBbHeight() / 2.5, target.getBbWidth() / 2.2, 0.0);
                         serverlevel.sendParticles(ParticleTypes.EFFECT, target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 2, target.getBbWidth() / 3, target.getBbHeight() / 3, target.getBbWidth() / 3, 0.0);
                     } else {
-                        serverlevel.sendParticles(ParticleTypes.DUST_PLUME, target.getX(), target.getY() + target.getBbHeight() / 2.5, target.getZ(), 3, target.getBbWidth() / 3, target.getBbHeight() / 3, target.getBbWidth() / 3, 0.0);
-                        serverlevel.sendParticles(ParticleTypes.SMOKE, target.getX(), target.getY() + target.getBbHeight() / 2.5, target.getZ(), 1, target.getBbWidth() / 3, target.getBbHeight() / 3, target.getBbWidth() / 3, 0.0);
+                        serverlevel.sendParticles(ParticleTypes.DUST_PLUME, target.getX(), target.getY() + target.getBbHeight() / 2.5, target.getZ(), 5, target.getBbWidth() / 3, target.getBbHeight() / 3, target.getBbWidth() / 3, 0.0);
+                        serverlevel.sendParticles(ParticleTypes.SMOKE, target.getX(), target.getY() + target.getBbHeight() / 2.5, target.getZ(), 3, target.getBbWidth() / 3, target.getBbHeight() / 3, target.getBbWidth() / 3, 0.0);
                     }
                 }
             }
