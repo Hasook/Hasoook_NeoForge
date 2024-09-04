@@ -13,18 +13,15 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
 public class EnchantmentEntityTick {
-
     @SubscribeEvent
     public static void EntityTick(EntityTickEvent.Post event){
         Entity entity = event.getEntity();
         int size = EntityEnchantmentHelper.getEnchantmentSize(entity);
         // 获取附魔词条数
-        int level = EntityEnchantmentHelper.getEnchantmentLevel(entity, "minecraft:frost_walker");
+        int frostWalkerLevel = EntityEnchantmentHelper.getEnchantmentLevel(entity, "minecraft:frost_walker");
         // 获取冰霜行者附魔的等级
 
-        /*
-          当实体拥有附魔NBT时，生成粒子效果
-        */
+        // 当实体拥有附魔NBT时，生成粒子效果
         if (size > 0 && entity.level() instanceof ServerLevel serverLevel) {
             if (entity.getRandom().nextInt(8) == 0) {
                 double x = entity.getX();
@@ -36,10 +33,10 @@ public class EnchantmentEntityTick {
             }
         }
 
-        if (level > 0 && entity.onGround() && !entity.level().isClientSide) {
+        if (frostWalkerLevel > 0 && entity.onGround() && !entity.level().isClientSide) {
 
             BlockPos pos = entity.blockPosition();
-            int range = Math.min(16, 2 + level);
+            int range = Math.min(16, 2 + frostWalkerLevel);
 
             for (int x = -range; x <= range; x++) {
                 for (int z = -range; z <= range; z++) {

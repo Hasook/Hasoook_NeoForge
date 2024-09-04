@@ -8,7 +8,9 @@
     "ItemEntityMixin",
     "SurrenderMixin",
     "ThrownEggMixin",
+    "entityEnchantmentMixin.BoatMixin",
     "entityEnchantmentMixin.CreeperMixin",
+    "entityEnchantmentMixin.SlimeMixin",
     "entityEnchantmentMixin.SnowGolemMixin"
   ],
   "injectors": {

@@ -9,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +31,6 @@ public class EntityEnchantmentInteract {
             ItemStack itemStack = player.getMainHandItem();
 
             if (itemStack.getItem() == ModItems.ENCHANTMENT_BRUSH.get()) {
-                event.setCanceled(true); // 取消交互事件
                 ItemEnchantments itemEnchantments = itemStack.getTagEnchantments();
 
                 ListTag enchantmentNbtList = new ListTag();
@@ -50,7 +48,6 @@ public class EntityEnchantmentInteract {
 
                 CompoundTag playerNbt = target.getPersistentData();
                 playerNbt.put("enchantments", enchantmentNbtList);
-                player.swing(InteractionHand.MAIN_HAND,true); // 摇动玩家的主手
 
                 if (event.getLevel() instanceof ServerLevel serverlevel) {
                     if (!itemEnchantments.isEmpty()) {
@@ -61,8 +58,10 @@ public class EntityEnchantmentInteract {
                         serverlevel.sendParticles(ParticleTypes.SMOKE, target.getX(), target.getY() + target.getBbHeight() / 2.5, target.getZ(), 3, target.getBbWidth() / 3, target.getBbHeight() / 3, target.getBbWidth() / 3, 0.0);
                     }
                 }
-            }
 
+                player.swing(InteractionHand.MAIN_HAND,true); // 摇动玩家的主手
+                event.setCanceled(true); // 取消交互事件
+            }
         }
 
     }
