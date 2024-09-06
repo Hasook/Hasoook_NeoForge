@@ -9,16 +9,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
-import net.minecraft.world.item.enchantment.LevelBasedValue;
-import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.common.Mod;
 
 // 自定义附魔类，用于定义和注册新的附魔
 public class ModEnchantments {
@@ -29,7 +22,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> SWAP = key("swap");
     public static final ResourceKey<Enchantment> CHAIN_DAMAGE = key("chain_damage");
     public static final ResourceKey<Enchantment> GIVE = key("give");
-    public static final ResourceKey<Enchantment> UNYIELDING = key("unyielding");
+    public static final ResourceKey<Enchantment> SEVEN_STEP_SNAKE_VENOM = key("seven_step_snake_venom");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -133,16 +126,16 @@ public class ModEnchantments {
         );
         register(
                 context,
-                UNYIELDING, // 混乱花
+                SEVEN_STEP_SNAKE_VENOM, // 七步蛇毒
                 Enchantment.enchantment(
                         Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                                holdergetter2.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
                                 2,
                                 1,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 2,
-                                EquipmentSlotGroup.MAINHAND
+                                EquipmentSlotGroup.FEET
                         )
                 )
         );
