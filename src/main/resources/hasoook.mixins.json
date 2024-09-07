@@ -11,7 +11,8 @@
     "entityEnchantmentMixin.BoatMixin",
     "entityEnchantmentMixin.CreeperMixin",
     "entityEnchantmentMixin.SlimeMixin",
-    "entityEnchantmentMixin.SnowGolemMixin"
+    "entityEnchantmentMixin.SnowGolemMixin",
+    "item.EggItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

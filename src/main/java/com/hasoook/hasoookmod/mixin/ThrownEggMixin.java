@@ -50,7 +50,7 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
                         chicken.setAge(-24000);
                         chicken.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
 
-                        if (i > 1) { // 如果鸡的数量大于1
+                        /*if (i > 1) { // 如果鸡的数量大于1
                             double randomX = (this.random.nextDouble() - 0.5) * 0.2;
                             double randomY = (this.random.nextDouble() - 0.5) * 0.2;
                             double randomZ = (this.random.nextDouble() - 0.5) * 0.2;
@@ -58,7 +58,7 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
                             // 设置随机方向的运动向量 范围 -0.1 ~ 0.1
                             double randomJ = (double) j / 6;
                             chicken.moveTo(this.getX() + randomX * randomJ, this.getY(), this.getZ() + randomZ * randomJ, this.getYRot(), 0.0F);
-                        }
+                        }*/
 
                         if (!chicken.fudgePositionAfterSizeChange(ZERO_SIZED_DIMENSIONS)) {
                             break;

@@ -22,6 +22,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> SWAP = key("swap");
     public static final ResourceKey<Enchantment> CHAIN_DAMAGE = key("chain_damage");
     public static final ResourceKey<Enchantment> GIVE = key("give");
+    public static final ResourceKey<Enchantment> UNYIELDING = key("unyielding");
     public static final ResourceKey<Enchantment> SEVEN_STEP_SNAKE_VENOM = key("seven_step_snake_venom");
 
     // 引导方法，用于初始化附魔注册
@@ -115,6 +116,21 @@ public class ModEnchantments {
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                2,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );
+        register(
+                context,
+                UNYIELDING, // 不屈
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                                 2,
                                 1,
                                 Enchantment.constantCost(25),
