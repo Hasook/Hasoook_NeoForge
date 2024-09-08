@@ -27,6 +27,7 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.WATER_BUCKET.get());
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
                 pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());
+                pOutput.accept(ModBlock.GREEN_SCREEN_BLOCK.get());
             })
             .build());
 

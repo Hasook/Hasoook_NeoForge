@@ -1,6 +1,6 @@
 {
-  "parent": "block/stone",
+  "parent": "block/cube_all",
   "textures": {
-    "cross": "hasoook:block/green_screen_block"
+    "all": "hasoook:block/green_screen_block"
   }
 }
