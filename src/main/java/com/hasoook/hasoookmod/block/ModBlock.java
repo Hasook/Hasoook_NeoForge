@@ -2,6 +2,7 @@ package com.hasoook.hasoookmod.block;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.block.custom.ConfusionFlower;
+import com.hasoook.hasoookmod.block.custom.GreenScreenBlock;
 import com.hasoook.hasoookmod.block.custom.HasoookLuckyBlock;
 import com.hasoook.hasoookmod.item.ModItems;
 import net.minecraft.world.effect.MobEffects;
@@ -23,6 +24,8 @@ public class ModBlock {
             ()-> new ConfusionFlower(MobEffects.CONFUSION,60,BlockBehaviour.Properties.ofFullCopy(Blocks.CORNFLOWER).noOcclusion().noCollission()));
     public static final DeferredBlock<Block> HASOOOK_LUCKY_BLOCK = registerBlock("hasoook_lucky_block",
             ()-> new HasoookLuckyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredBlock<Block> GREEN_SCREEN_BLOCK = registerBlock("green_screen_block",
+            ()-> new GreenScreenBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
     private static DeferredBlock<Block> registerBlock(String name, Supplier<Block> blockSupplier) {
         DeferredBlock<Block> register = BLOCKS.register(name, blockSupplier);

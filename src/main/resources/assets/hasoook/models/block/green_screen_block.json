@@ -1,0 +1,6 @@
+{
+  "parent": "block/stone",
+  "textures": {
+    "cross": "hasoook:block/green_screen_block"
+  }
+}
