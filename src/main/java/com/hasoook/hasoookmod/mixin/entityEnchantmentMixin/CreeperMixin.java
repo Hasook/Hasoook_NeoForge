@@ -78,9 +78,9 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
 
             if (windBurst > 0) {
                 Entity target = this.getTarget();
-                for (int i = 0; i < power; i++) {
+                for (int i = 0; i < 1 + power; i++) {
                     this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, this.getX(), this.getY() + 1, this.getZ(),
-                            3 + windBurst,
+                            windBurst,
                             false,
                             Level.ExplosionInteraction.TRIGGER,
                             ParticleTypes.GUST_EMITTER_SMALL,
@@ -89,7 +89,7 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
                     );
                     if (target != null) {
                         this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, target.getX(), target.getY(), target.getZ(),
-                                3 + windBurst,
+                                windBurst,
                                 false,
                                 Level.ExplosionInteraction.TRIGGER,
                                 ParticleTypes.GUST_EMITTER_SMALL,
