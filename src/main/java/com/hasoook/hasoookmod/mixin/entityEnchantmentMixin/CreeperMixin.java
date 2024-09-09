@@ -4,9 +4,6 @@ import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.*;
@@ -80,15 +77,26 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
             }
 
             if (windBurst > 0) {
-                for (int i = 0; i < windBurst; i++) {
+                Entity target = this.getTarget();
+                for (int i = 0; i < power; i++) {
                     this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, this.getX(), this.getY() + 1, this.getZ(),
-                            3 + power,
+                            3 + windBurst,
                             false,
                             Level.ExplosionInteraction.TRIGGER,
                             ParticleTypes.GUST_EMITTER_SMALL,
                             ParticleTypes.GUST_EMITTER_LARGE,
                             SoundEvents.WIND_CHARGE_BURST
                     );
+                    if (target != null) {
+                        this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, target.getX(), target.getY(), target.getZ(),
+                                3 + windBurst,
+                                false,
+                                Level.ExplosionInteraction.TRIGGER,
+                                ParticleTypes.GUST_EMITTER_SMALL,
+                                ParticleTypes.GUST_EMITTER_LARGE,
+                                SoundEvents.WIND_CHARGE_BURST
+                        );
+                    }
                 }
             } else if (fireAspect > 0) {
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), (3 + power) * f, true, Level.ExplosionInteraction.MOB);
