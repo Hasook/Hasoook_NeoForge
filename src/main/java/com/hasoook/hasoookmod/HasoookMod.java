@@ -3,8 +3,11 @@ package com.hasoook.hasoookmod;
 import com.hasoook.hasoookmod.block.ModBlock;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
+import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
+import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
+import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -30,14 +33,12 @@ public class HasoookMod
         ModCreativeTab.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
+
+        NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
+        NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
-    {
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
     {
     }
 }

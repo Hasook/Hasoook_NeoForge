@@ -44,6 +44,10 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
     @Shadow public abstract void setSwellDir(int pState);
 
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_SWELL_DIR;
+
+    @Shadow public abstract int getSwellDir();
+
+    @Shadow private int maxSwell;
     @Unique
     private static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR = new SimpleExplosionDamageCalculator(
             true, false, Optional.of(1.22F), BuiltInRegistries.BLOCK.getTag(BlockTags.BLOCKS_WIND_CHARGE_EXPLOSIONS).map(Function.identity())
@@ -56,6 +60,13 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
             this.entityData.set(DATA_IS_POWERED, true);
             EntityEnchantmentHelper.removeEnchantment(this,"minecraft:channeling");
         }
+
+        int efficiencyLevel = EntityEnchantmentHelper.getEnchantmentLevel(this, "minecraft:efficiency");
+        if (this.getSwellDir() > 0) {
+            this.swell += efficiencyLevel;
+            // 如果膨胀方向为正数，为苦力怕的膨胀值加上效率等级的值
+        }
+
     }
 
     @Inject(method = "explodeCreeper", at = @At("HEAD"), cancellable = true)
@@ -73,12 +84,13 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
             this.spawnLingeringCloud(); // 生成药水云
 
             if (unbreaking > 0) {
-                this.setInvulnerable(true); // 设置为无敌
+                this.setInvulnerable(true); // 设置无敌状态
             }
 
             if (windBurst > 0) {
                 Entity target = this.getTarget();
-                for (int i = 0; i < 1 + power; i++) {
+                for (int i = 0; i < (1 + power) * f; i++) {
+                    // 生成风爆爆炸
                     this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, this.getX(), this.getY() + 1, this.getZ(),
                             windBurst,
                             false,
@@ -88,8 +100,9 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
                             SoundEvents.WIND_CHARGE_BURST
                     );
                     if (target != null) {
-                        this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, target.getX(), target.getY(), target.getZ(),
-                                windBurst,
+                        // 在目标位置也生成风爆爆炸
+                        this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, target.getX(), target.getY() + 1, target.getZ(),
+                                windBurst / 2F,
                                 false,
                                 Level.ExplosionInteraction.TRIGGER,
                                 ParticleTypes.GUST_EMITTER_SMALL,
@@ -99,21 +112,25 @@ public abstract class CreeperMixin extends Monster implements PowerableMob {
                     }
                 }
             } else if (fireAspect > 0) {
+                // 火焰爆炸
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), (3 + power) * f, true, Level.ExplosionInteraction.MOB);
             } else {
+                // 普通爆炸
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), (3 + power) * f, Level.ExplosionInteraction.MOB);
             }
 
-            int ran = random.nextInt(10);
+            int ran = random.nextInt(10); // 生成一个0~9的随机数
             if (ran >= unbreaking) {
                 this.triggerOnDeathMobEffects(Entity.RemovalReason.KILLED);
                 this.discard();
             } else {
                 this.setInvulnerable(false); // 取消无敌状态
                 this.entityData.set(DATA_IS_IGNITED, false); // 将点燃状态设置为false
-                this.entityData.set(DATA_SWELL_DIR, -10); // 设置实体膨胀方向
+                this.entityData.set(DATA_SWELL_DIR, -1); // 设置实体膨胀方向
                 this.swell = -10; // 设置膨胀值
+                this.setSwellDir(-10);
             }
+            // 如果随机数大于耐久等级，就移除苦力怕，反之不移除并设置膨胀值
 
             ci.cancel();
         }

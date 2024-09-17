@@ -5,6 +5,7 @@ import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -16,15 +17,13 @@ public class EntityInteract {
     public static void onPlayerInteractEntity(PlayerInteractEvent.EntityInteract event) {
         Entity target = event.getTarget();
         int channeling = EntityEnchantmentHelper.getEnchantmentLevel(target,"minecraft:channeling");
-        if (channeling > 0) {
+        Level level = event.getLevel();
+        if (channeling > 0 && !(target instanceof Creeper) && !event.getLevel().isClientSide ) {
             EntityEnchantmentHelper.removeEnchantment(target,"minecraft:channeling");
-            Level level = event.getLevel();
-            if (!level.isClientSide) {
-                LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(level);
-                if (lightning != null) {
-                    lightning.moveTo(event.getEntity().position()); // 设置位置
-                    level.addFreshEntity(lightning); // 生成闪电
-                }
+            LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(level);
+            if (lightning != null) {
+                lightning.moveTo(event.getEntity().position()); // 设置位置
+                level.addFreshEntity(lightning); // 生成闪电
             }
             event.setCanceled(true); // 取消交互事件
         }
