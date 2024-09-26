@@ -1,6 +1,20 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "hasoook:item/poker"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "durability": 18
+      },
+      "model": "hasoook:item/poker_durability"
+    },
+    {
+      "predicate": {
+        "durability": 36
+      },
+      "model": "hasoook:item/poker_durability_1"
+    }
+  ]
 }
