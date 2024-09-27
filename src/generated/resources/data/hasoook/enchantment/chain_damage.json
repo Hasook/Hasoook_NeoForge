@@ -1,5 +1,5 @@
 {
-  "anvil_cost": 30,
+  "anvil_cost": 20,
   "description": {
     "translate": "enchantment.hasoook.chain_damage"
   },
@@ -7,7 +7,7 @@
     "base": 50,
     "per_level_above_first": 0
   },
-  "max_level": 1,
+  "max_level": 2,
   "min_cost": {
     "base": 25,
     "per_level_above_first": 0

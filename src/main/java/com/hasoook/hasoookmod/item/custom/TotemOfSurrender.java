@@ -3,6 +3,9 @@ package com.hasoook.hasoookmod.item.custom;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.item.ModItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,13 +14,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
@@ -75,11 +76,13 @@ public class TotemOfSurrender extends Item {
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.TOTEM_OF_SURRENDER.get()));
             // 类似不死图腾的动画
 
-            if (player instanceof ServerPlayer serverPlayer) {
-                Vec3 respawnPos = Vec3.atLowerCornerOf(Objects.requireNonNull(serverPlayer.getRespawnPosition()));
-                serverPlayer.teleportTo(respawnPos.x + 0.5, respawnPos.y + 0.4, respawnPos.z + 0.5);
-                serverPlayer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 0, false, true));
-                // 传送玩家回到重生点
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            BlockPos bedPosition = serverPlayer.getRespawnPosition();
+            BlockPos spawnPosition = player.level().getSharedSpawnPos();
+            if (bedPosition != null && player.level().getBlockState(bedPosition).getBlock() instanceof BedBlock) {
+                player.teleportTo(bedPosition.getX() + 0.5, bedPosition.getY() + 1, bedPosition.getZ() + 0.5);// 传送玩家到重生点
+            } else {
+                player.teleportTo(spawnPosition.getX(), spawnPosition.getY(), spawnPosition.getZ());// 传送玩家到重生点
             }
 
         }

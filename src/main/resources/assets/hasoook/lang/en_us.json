@@ -4,6 +4,7 @@
   "item.hasoook.enchantment_brush": "Enchantment Brush",
   "item.hasoook.water_bucket": "Water Bucket",
   "item.hasoook.poker": "Poker",
+  "item.hasoook.huge_diamond_pickaxe": "Huge Diamond Pickaxe",
 
   "block.hasoook.confusion_flower": "Confusion Flower",
   "block.hasoook.hasoook_lucky_block": "Hasoook Lucky Block",
@@ -17,6 +18,7 @@
   "enchantment.hasoook.give": "Give",
   "enchantment.hasoook.unyielding": "Unyielding",
   "enchantment.hasoook.seven_step_snake_venom": "Seven Step Snake Venom",
+  "enchantment.hasoook.heartless": "Heartless",
 
   "enchantment.hasoook.random_bullets.desc": "Shoots a random type of bullet.",
   "enchantment.hasoook.separation_explosion.desc": "Automatically explodes when separated from the item’s drop by 10 meters.",

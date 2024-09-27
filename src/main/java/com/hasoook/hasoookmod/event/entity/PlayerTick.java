@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -34,14 +33,11 @@ public class PlayerTick {
             if (player.isShiftKeyDown()) {
                 speed = 0.2F; // 潜行时的倍率
             }
-            if (player.isSprinting()) {
-                speed = 1.5F; // 疾跑时的倍率
-            }
 
             if (forwardKey.isDown()) {
                 float step = playerNbt.getFloat("forwardCount");
                 playerNbt.putFloat("forwardCount", step + speed * speed2);
-                // player.displayClientMessage(Component.literal("前进"), true);
+                player.displayClientMessage(Component.literal("前进"), true);
                 if (step >= 4) {
                     if (player.getHealth() > 2) {
                         player.setHealth(player.getHealth() - 2);

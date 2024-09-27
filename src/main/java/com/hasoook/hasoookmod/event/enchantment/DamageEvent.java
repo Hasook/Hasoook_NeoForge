@@ -6,6 +6,7 @@ import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,9 +14,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
-public class SwapAttack {
+public class DamageEvent {
     @SubscribeEvent
-    public static void onEntityAttack(LivingIncomingDamageEvent event) {
+    public static void swapAttack(LivingIncomingDamageEvent event) {
         LivingEntity target = event.getEntity(); // 获取实体
         Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
 
@@ -39,6 +40,23 @@ public class SwapAttack {
                 attacker.setItemInHand(InteractionHand.MAIN_HAND, targetMainHandItem);
                 target.setItemInHand(InteractionHand.MAIN_HAND, attackerMainHandItem);
                 // 交换双方的主手物品
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void heartlessAttack(LivingIncomingDamageEvent event) {
+        LivingEntity target = event.getEntity(); // 获取实体
+        Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
+
+        if (sourceEntity instanceof LivingEntity attacker && !sourceEntity.level().isClientSide) {
+            ItemStack attackerMainHandItem = attacker.getMainHandItem(); // 获取攻击者的主手物品
+            int heartlessLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.HEARTLESS, attackerMainHandItem);
+            if (heartlessLevel > 0) {
+                event.setCanceled(true); // 取消交互事件
+                float amount = event.getAmount();
+                float health = target.getHealth();
+                target.setHealth(health - amount);
             }
         }
     }

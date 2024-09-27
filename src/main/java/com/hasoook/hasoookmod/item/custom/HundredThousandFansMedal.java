@@ -11,8 +11,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class WaterBucket extends Item {
-    public WaterBucket(Properties pProperties) {
+public class HundredThousandFansMedal extends Item {
+    public HundredThousandFansMedal(Properties pProperties) {
         super(pProperties);
     }
 
@@ -30,7 +30,7 @@ public class WaterBucket extends Item {
 
         if (player == null || !player.hasInfiniteMaterials()) {
             if (pStack.isEmpty()) {
-                return new ItemStack(Items.BUCKET); // 返回桶
+                return new ItemStack(Items.BUCKET);
             }
 
             if (player != null) {

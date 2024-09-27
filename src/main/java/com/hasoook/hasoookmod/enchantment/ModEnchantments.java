@@ -24,6 +24,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> GIVE = key("give");
     public static final ResourceKey<Enchantment> UNYIELDING = key("unyielding");
     public static final ResourceKey<Enchantment> SEVEN_STEP_SNAKE_VENOM = key("seven_step_snake_venom");
+    public static final ResourceKey<Enchantment> KILL_A_MAN_EVERY_TEN_PACES = key("kill_a_man_every_ten_paces");
+    public static final ResourceKey<Enchantment> HEARTLESS = key("heartless");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -102,10 +104,10 @@ public class ModEnchantments {
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                                 2,
-                                1,
+                                2,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
-                                30,
+                                20,
                                 EquipmentSlotGroup.MAINHAND
                         )
                 )
@@ -152,6 +154,36 @@ public class ModEnchantments {
                                 Enchantment.constantCost(50),
                                 2,
                                 EquipmentSlotGroup.FEET
+                        )
+                )
+        );
+        register(
+                context,
+                KILL_A_MAN_EVERY_TEN_PACES, // 十步杀一人
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                2,
+                                EquipmentSlotGroup.FEET
+                        )
+                )
+        );
+        register(
+                context,
+                HEARTLESS, // 绝情
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                2,
+                                EquipmentSlotGroup.MAINHAND
                         )
                 )
         );
