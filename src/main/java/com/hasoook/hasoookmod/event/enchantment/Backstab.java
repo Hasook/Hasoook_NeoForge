@@ -55,7 +55,7 @@ public class Backstab {
             itemStack = sourceEntity.getMainHandItem();
         }
 
-        if (itemStack != null) {
+        if (itemStack != null && !sourceEntity.level().isClientSide) {
             int backstabLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BACKSTAB, itemStack);
 
             // 确保攻击者存在且为生物实体
