@@ -31,7 +31,6 @@ public class HugeDiamondPickaxe extends PickaxeItem {
         if (pEntity instanceof Player player) {
             AttributeInstance attribute = player.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
             AttributeInstance attribute2 = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
-            AttributeInstance attribute3 = player.getAttribute(Attributes.GRAVITY);
             if (attribute != null && attribute2 != null) {
                 if (player.getMainHandItem() == pStack) {
                     // 添加修饰符
