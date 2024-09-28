@@ -32,5 +32,6 @@ public class ModDataGenerator {
         TagsProvider<Block> tagsprovider4 = generator.addProvider(event.includeServer(),new ModBlockTagsProvider(output,lookupProvider,HasoookMod.MODID,existingFileHelper));
         generator.addProvider(event.includeServer(),new ModItemTagsProvider(output,lookupProvider,tagsprovider4.contentsGetter(),HasoookMod.MODID,existingFileHelper));
         generator.addProvider(event.includeClient(), new ModSoundDefinitionsProvider(output, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
     }
 }
