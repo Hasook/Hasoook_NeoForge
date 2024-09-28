@@ -34,5 +34,7 @@
   "item.minecraft.potion.effect.confusion": "Confusion Potion",
   "item.minecraft.splash_potion.effect.confusion": "Splash Confusion Potion",
   "item.minecraft.lingering_potion.effect.confusion": "Lingering Confusion Potion",
-  "item.minecraft.tipped_arrow.effect.confusion": "Arrow of Confusion"
+  "item.minecraft.tipped_arrow.effect.confusion": "Arrow of Confusion",
+
+  "subtitles.item.huge_diamond_pickaxe.dong": "Dong!"
 }

@@ -1,10 +1,13 @@
 package com.hasoook.hasoookmod.item.custom;
 
 import com.hasoook.hasoookmod.item.ModItems;
+import com.hasoook.hasoookmod.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -56,6 +59,8 @@ public class HugeDiamondPickaxe extends PickaxeItem {
             }
         }
     }
+
+
 
     public static List<BlockPos> getBlocksToBeDestroyed(int range, BlockPos initialBlockPos, ServerPlayer player) {
         List<BlockPos> positions = new ArrayList<>();

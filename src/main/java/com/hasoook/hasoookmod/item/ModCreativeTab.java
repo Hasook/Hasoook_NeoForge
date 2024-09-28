@@ -27,6 +27,7 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.WATER_BUCKET.get());
                 pOutput.accept(ModItems.POKER.get());
                 pOutput.accept(ModItems.HUGE_DIAMOND_PICKAXE.get());
+                pOutput.accept(ModItems.WATER_BOOT.get());
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
                 pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());
                 pOutput.accept(ModBlock.GREEN_SCREEN_BLOCK.get());

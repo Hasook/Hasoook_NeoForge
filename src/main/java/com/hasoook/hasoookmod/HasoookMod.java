@@ -8,6 +8,7 @@ import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
 import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
+import com.hasoook.hasoookmod.sound.ModSounds;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
@@ -33,6 +34,7 @@ public class HasoookMod
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModSounds.SOUNDS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
         NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
