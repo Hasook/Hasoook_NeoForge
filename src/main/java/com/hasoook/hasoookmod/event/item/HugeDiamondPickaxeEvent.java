@@ -2,33 +2,45 @@ package com.hasoook.hasoookmod.event.item;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.item.ModItems;
+import com.hasoook.hasoookmod.item.custom.HugeDiamondPickaxe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @EventBusSubscriber(modid = HasoookMod.MODID)
 public class HugeDiamondPickaxeEvent {
+    private static final Set<BlockPos> HARVESTED_BLOCKS = new HashSet<>();
+
+    // Done with the help of https://github.com/CoFH/CoFHCore/blob/1.19.x/src/main/java/cofh/core/event/AreaEffectEvents.java
+    // Don't be a jerk License
     @SubscribeEvent
-    public static void BreakEvent(BlockEvent.BreakEvent event) {
+    public static void onHammerUsage(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
-        if (player.getMainHandItem().is(ModItems.HUGE_DIAMOND_PICKAXE)) {
-            Level level = (Level) event.getLevel();
-            BlockPos pos = event.getPos();
-            if (event.getState().getDestroySpeed(level, pos) > 0) {
-                for (int x = -2; x <= 2; x++) {
-                    for (int y = -2; y <= 2; y++) {
-                        for (int z = -2; z <= 2; z++) {
-                            BlockPos targetPos = pos.offset(x, y, z);
-                            float destroySpeed = level.getBlockState(targetPos).getDestroySpeed(level, pos);
-                            if (destroySpeed >= 0 && destroySpeed <= 60) {
-                                level.destroyBlock(targetPos, !player.isCreative());
-                            }
-                        }
-                    }
+        ItemStack mainHandItem = player.getMainHandItem();
+
+        if(mainHandItem.getItem() instanceof HugeDiamondPickaxe && player instanceof ServerPlayer serverPlayer) {
+            BlockPos initialBlockPos = event.getPos();
+            if(HARVESTED_BLOCKS.contains(initialBlockPos)) {
+                return;
+            }
+
+            for(BlockPos pos : HugeDiamondPickaxe.getBlocksToBeDestroyed(2, initialBlockPos, serverPlayer)) {
+                float destroy = event.getLevel().getBlockState(pos).getDestroySpeed(event.getLevel(), pos);
+                if(pos == initialBlockPos || destroy < 0) {
+                    continue;
                 }
+
+                HARVESTED_BLOCKS.add(pos);
+                serverPlayer.gameMode.destroyBlock(pos);
+                HARVESTED_BLOCKS.remove(pos);
             }
         }
     }
