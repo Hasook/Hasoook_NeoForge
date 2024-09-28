@@ -1,0 +1,9 @@
+{
+  "item.huge_diamond_pickaxe.dong": {
+    "replace": true,
+    "sounds": [
+      "hasoook:item.huge_diamond_pickaxe.dong"
+    ],
+    "subtitle": "subtitles.item.huge_diamond_pickaxe.dong"
+  }
+}
