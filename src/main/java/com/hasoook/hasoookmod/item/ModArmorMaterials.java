@@ -23,11 +23,11 @@ public class ModArmorMaterials {
     public static final Holder<ArmorMaterial> WATER =
             ARMOR_MATERIALS.register("water", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                        map.put(ArmorItem.Type.BOOTS, 2);
-                        map.put(ArmorItem.Type.LEGGINGS, 4);
-                        map.put(ArmorItem.Type.CHESTPLATE, 6);
-                        map.put(ArmorItem.Type.HELMET, 2);
-                        map.put(ArmorItem.Type.BODY, 4);
+                        map.put(ArmorItem.Type.BOOTS, 1);
+                        map.put(ArmorItem.Type.LEGGINGS, 1);
+                        map.put(ArmorItem.Type.CHESTPLATE, 1);
+                        map.put(ArmorItem.Type.HELMET, 1);
+                        map.put(ArmorItem.Type.BODY, 1);
                     }), 20, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Blocks.WATER),
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID, "water"))),
                     0, 0));

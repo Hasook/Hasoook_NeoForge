@@ -25,7 +25,7 @@ public class ModItems {
     public static final Supplier<Item> POKER_SPADE = ITEMS.register("poker_spade",() -> new Poker(new Item.Properties()));
 
     public static final DeferredItem<Item> WATER_BOOTS = ITEMS.register("water_boots",
-            () -> new ArmorItem(ModArmorMaterials.WATER, ArmorItem.Type.BOOTS,
+            () -> new WaterBoots(ModArmorMaterials.WATER, ArmorItem.Type.BOOTS,
                     new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(16))));
 
     public static final DeferredItem<PickaxeItem> HUGE_DIAMOND_PICKAXE = ITEMS.register("huge_diamond_pickaxe",
