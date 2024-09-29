@@ -11,10 +11,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber(modid = HasoookMod.MODID)
 public class WaterBootsEvent {
@@ -61,18 +64,21 @@ public class WaterBootsEvent {
             }
         }
     }
+
     @SubscribeEvent
     public static void swapAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
         String source = event.getSource().getMsgId();
+        ServerLevel serverLevel = (ServerLevel) entity.level();
         ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET); // 获取脚部装备
         if (boots.is(ModItems.WATER_BOOTS) && !entity.level().isClientSide) {
 
             if (source.equals("onFire") || source.equals("inFire")) {
                 event.setCanceled(true);
                 boots.hurtAndBreak(1, entity, EquipmentSlot.FEET);
+                entity.setRemainingFireTicks(0);
                 entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                        SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F
+                        SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.5F, 1.0F
                 );
 
                 BlockPos entityPos = entity.blockPosition();
@@ -93,11 +99,43 @@ public class WaterBootsEvent {
             }
 
             if (source.equals("lava")) {
-                entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.STONE, 2));
+                entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.STONE));
                 entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
                         SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F
+                );
+                serverLevel.sendParticles(
+                        ParticleTypes.LARGE_SMOKE,
+                        entity.getX(),
+                        entity.getY() + 0.2,
+                        entity.getZ(),
+                        10,
+                        entity.getBbWidth() / 2,
+                        0.2,
+                        entity.getBbWidth() / 2,
+                        0
                 );
             }
         }
     }
+
+    @SubscribeEvent
+    public static void FarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
+        LivingEntity entity = (LivingEntity) event.getEntity(); // 获取实体
+        ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET); // 获取脚部装备
+        if (boots.is(ModItems.WATER_BOOTS)) {
+            event.setCanceled(true);
+            BlockPos pos = event.getPos();
+            // 遍历周围的3x3区域
+            for (int x = -1; x <= 1; x++) {
+                for (int z = -1; z <= 1; z++) {
+                    BlockPos targetPos = pos.offset(x, 0, z);
+                    BlockState state = event.getLevel().getBlockState(targetPos);
+                    if (state.getBlock() instanceof FarmBlock) {
+                        ((ServerLevel) event.getLevel()).setBlockAndUpdate(targetPos, state.setValue(FarmBlock.MOISTURE, 7));
+                    }
+                }
+            }
+        }
+    }
+
 }

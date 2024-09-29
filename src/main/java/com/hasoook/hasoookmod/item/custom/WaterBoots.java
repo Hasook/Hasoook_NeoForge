@@ -8,11 +8,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
@@ -50,7 +52,7 @@ public class WaterBoots extends ArmorItem {
         if (temperature <= 0 && currentDamage < maxDamage - 1) {
             stack.hurtAndBreak(1, entity, EquipmentSlot.FEET);
         } else if (temperature <= 0 && currentDamage >= maxDamage - 1) {
-            entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.ICE, 2)); // 替换为冰块
+            entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.ICE)); // 替换为冰块
         }
         // 如果在高温群系
         if (temperature >= 2) {
