@@ -44,7 +44,7 @@ public class HugeDiamondPickaxe extends PickaxeItem {
             AttributeInstance attribute = player.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
             AttributeInstance attribute2 = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
             if (attribute != null && attribute2 != null) {
-                if (player.getMainHandItem() == pStack) {
+                if (player.getMainHandItem().is(pStack.getItem())) {
                     // 添加修饰符
                     attribute.removeModifier(MODIFIER.id());
                     attribute.addPermanentModifier(MODIFIER);
@@ -59,8 +59,6 @@ public class HugeDiamondPickaxe extends PickaxeItem {
             }
         }
     }
-
-
 
     public static List<BlockPos> getBlocksToBeDestroyed(int range, BlockPos initialBlockPos, ServerPlayer player) {
         List<BlockPos> positions = new ArrayList<>();
