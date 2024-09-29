@@ -51,7 +51,8 @@ public class Backstab {
                         entity.getBbWidth() / 10,
                         entity.getBbHeight() / 3,
                         entity.getBbWidth() / 10,
-                        1);
+                        1
+                );
             }
 
             entity.teleportTo(targetX, target.getY(), targetZ);

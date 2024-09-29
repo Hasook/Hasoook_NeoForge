@@ -26,7 +26,7 @@ public class ModItems {
 
     public static final DeferredItem<Item> WATER_BOOTS = ITEMS.register("water_boots",
             () -> new WaterBoots(ModArmorMaterials.WATER, ArmorItem.Type.BOOTS,
-                    new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(16))));
+                    new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(5))));
 
     public static final DeferredItem<PickaxeItem> HUGE_DIAMOND_PICKAXE = ITEMS.register("huge_diamond_pickaxe",
             () -> new HugeDiamondPickaxe(ModToolTiers.Huge_Diamond, new Item.Properties()
