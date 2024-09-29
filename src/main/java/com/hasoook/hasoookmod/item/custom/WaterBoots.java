@@ -30,7 +30,7 @@ public class WaterBoots extends ArmorItem {
             ServerLevel serverLevel = (ServerLevel) level;
             Random random = new Random();
 
-            if (random.nextInt(20) == 0) {
+            if (random.nextInt(40) == 0) {
                 handleTemperatureEffects(stack, livingEntity, serverLevel);
                 spawnWaterParticles(livingEntity, serverLevel);
             }
