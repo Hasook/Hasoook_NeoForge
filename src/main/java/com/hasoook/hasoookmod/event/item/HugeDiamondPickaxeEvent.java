@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
@@ -30,7 +31,9 @@ public class HugeDiamondPickaxeEvent {
 
         if(mainHandItem.getItem() instanceof HugeDiamondPickaxe && player instanceof ServerPlayer serverPlayer) {
             BlockPos initialBlockPos = event.getPos();
-            if(HARVESTED_BLOCKS.contains(initialBlockPos)) {
+            BlockState initialBlockState = event.getLevel().getBlockState(initialBlockPos);
+            float initialHardness = initialBlockState.getDestroySpeed(event.getLevel(), initialBlockPos);
+            if(HARVESTED_BLOCKS.contains(initialBlockPos) || initialHardness <= 0) {
                 return;
             }
 
@@ -46,13 +49,14 @@ public class HugeDiamondPickaxeEvent {
             }
         }
     }
+
     @SubscribeEvent
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
         Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
         float amount = event.getAmount();
         if (amount >= entity.getHealth() && !entity.level().isClientSide) {
-            entity.playSound(ModSounds.BILI_COIN_THROW_SOUND.get(), 1.0f, 1.0f);
+            entity.playSound(ModSounds.DONG.get(), 1.0f, 1.0f);
         }
     }
 }
