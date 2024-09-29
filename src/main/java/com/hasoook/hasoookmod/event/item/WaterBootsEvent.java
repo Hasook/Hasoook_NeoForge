@@ -2,6 +2,7 @@ package com.hasoook.hasoookmod.event.item;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.item.ModItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -66,15 +67,36 @@ public class WaterBootsEvent {
         String source = event.getSource().getMsgId();
         ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET); // 获取脚部装备
         if (boots.is(ModItems.WATER_BOOTS) && !entity.level().isClientSide) {
+
             if (source.equals("onFire") || source.equals("inFire")) {
                 event.setCanceled(true);
                 boots.hurtAndBreak(1, entity, EquipmentSlot.FEET);
                 entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
                         SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F
                 );
+
+                BlockPos entityPos = entity.blockPosition();
+                BlockPos[] offsets = {
+                        new BlockPos(0, 0, 0),
+                        new BlockPos(1, 0, 0),
+                        new BlockPos(-1, 0, 0),
+                        new BlockPos(0, 0, 1),
+                        new BlockPos(0, 0, -1)
+                };
+                for (BlockPos offset : offsets) {
+                    BlockPos pos = entityPos.offset(offset);
+                    if (entity.level().getBlockState(pos).getBlock() == Blocks.FIRE) {
+                        entity.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        boots.hurtAndBreak(1, entity, EquipmentSlot.FEET);
+                    }
+                }
             }
+
             if (source.equals("lava")) {
                 entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.STONE, 2));
+                entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
+                        SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F
+                );
             }
         }
     }
