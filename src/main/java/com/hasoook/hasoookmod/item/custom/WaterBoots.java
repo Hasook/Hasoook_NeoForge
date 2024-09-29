@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.item.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
@@ -27,12 +29,22 @@ public class WaterBoots extends ArmorItem {
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
         LivingEntity entity = (LivingEntity) pEntity;
-        if (pSlotId == 36) {
+        if (pSlotId == 36 && !pLevel.isClientSide) {
             Random random = new Random();
             if (random.nextInt(20) == 0 && pLevel instanceof ServerLevel serverlevel) { // 1/20的概率
-
                 float temperature = pLevel.getBiome(entity.blockPosition()).value().getBaseTemperature();
-                if (temperature <= 0 || temperature >= 2) {
+
+                int currentDamage = pStack.getDamageValue(); // 获取物品的当前耐久值
+                int maxDamage = pStack.getMaxDamage(); // 获取物品的最大耐久值
+                if (temperature <= 0) {
+                    if (currentDamage < maxDamage - 1) {
+                        pStack.hurtAndBreak(1, entity, EquipmentSlot.FEET);
+                    } else {
+                        entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.ICE, 2));
+                    }
+                }
+
+                if (temperature >= 2) {
                     pStack.hurtAndBreak(1, entity, EquipmentSlot.FEET);
                 }
 
