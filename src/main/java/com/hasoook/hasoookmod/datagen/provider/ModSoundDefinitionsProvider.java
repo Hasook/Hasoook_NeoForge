@@ -14,11 +14,11 @@ public class ModSoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        add(ModSounds.BILI_COIN_THROW_SOUND, SoundDefinition.definition()
+        add(ModSounds.DONG, SoundDefinition.definition()
                 .with(
                         sound("hasoook:item.huge_diamond_pickaxe.dong")
                 )
-                .subtitle(ModSounds.DONG)
+                .subtitle(ModSounds.SUBTITLES_DONG)
                 .replace(true)
         );
     }
