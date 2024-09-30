@@ -36,7 +36,7 @@ public class Backstab {
             double deltaX = target.getLookAngle().x * -2;
             double deltaZ = target.getLookAngle().z * -2;
             double targetX = target.getX() + deltaX;
-            double targetZ = target.getZ();
+            double targetZ = target.getZ() + deltaZ;
 
             entity.getCooldowns().addCooldown(itemStack.getItem(), 40);
             itemStack.hurtAndBreak(1, entity, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
@@ -99,11 +99,11 @@ public class Backstab {
                                 entity.getX(),
                                 entity.getY() + entity.getBbHeight() / 2,
                                 entity.getZ(),
-                                10,
-                                entity.getBbWidth() / 2,
-                                entity.getBbHeight() / 2,
-                                entity.getBbWidth() / 2,
-                                0.0
+                                20,
+                                entity.getBbWidth() / 10,
+                                entity.getBbHeight() / 5,
+                                entity.getBbWidth() / 10,
+                                0.5
                         );
                     }
                 }
