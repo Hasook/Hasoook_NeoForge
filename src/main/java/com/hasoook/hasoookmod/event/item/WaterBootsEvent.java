@@ -71,7 +71,6 @@ public class WaterBootsEvent {
         String source = event.getSource().getMsgId();
         ServerLevel serverLevel = (ServerLevel) entity.level();
         ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET); // 获取脚部装备
-        System.out.println(source);
         if (boots.is(ModItems.WATER_BOOTS) && !entity.level().isClientSide) {
 
             if (source.equals("onFire") || source.equals("inFire") || source.equals("hotFloor")) {
