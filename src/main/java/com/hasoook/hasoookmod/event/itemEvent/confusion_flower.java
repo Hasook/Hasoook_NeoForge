@@ -1,4 +1,4 @@
-package com.hasoook.hasoookmod.event.item;
+package com.hasoook.hasoookmod.event.itemEvent;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.block.ModBlock;
