@@ -44,7 +44,7 @@ public class WaterBootsEvent {
                         entity.getX(),
                         entity.getY() + 0.2,
                         entity.getZ(),
-                        Math.min(2 + distance * 10, 200),
+                        Math.min(2 + distance * 10, 400),
                         entity.getBbWidth() / 1.8,
                         entity.getBbHeight() / 4,
                         entity.getBbWidth() / 1.8,
