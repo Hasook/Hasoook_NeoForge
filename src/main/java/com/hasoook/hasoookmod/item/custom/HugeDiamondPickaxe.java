@@ -1,14 +1,10 @@
 package com.hasoook.hasoookmod.item.custom;
 
 import com.hasoook.hasoookmod.Config;
-import com.hasoook.hasoookmod.item.ModItems;
 import com.hasoook.hasoookmod.sound.ModSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -81,5 +77,12 @@ public class HugeDiamondPickaxe extends PickaxeItem {
         }
 
         return positions;
+    }
+
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (pTarget.getHealth() <= 0) {
+            pTarget.playSound(ModSounds.DONG.get(), 1.0f, 1.0f);
+        }
+        return false;
     }
 }

@@ -50,14 +50,4 @@ public class HugeDiamondPickaxeEvent {
             }
         }
     }
-
-    @SubscribeEvent
-    public static void onEntityAttack(LivingIncomingDamageEvent event) {
-        LivingEntity entity = event.getEntity(); // 获取实体
-        Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
-        float amount = event.getAmount();
-        if (amount >= entity.getHealth() && !entity.level().isClientSide) {
-            entity.playSound(ModSounds.DONG.get(), 1.0f, 1.0f);
-        }
-    }
 }
