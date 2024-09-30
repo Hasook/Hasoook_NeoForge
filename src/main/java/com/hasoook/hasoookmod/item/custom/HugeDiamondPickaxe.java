@@ -79,6 +79,7 @@ public class HugeDiamondPickaxe extends PickaxeItem {
         return positions;
     }
 
+    @Override
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         if (pTarget.getHealth() <= 0) {
             pTarget.playSound(ModSounds.DONG.get(), 1.0f, 1.0f);
