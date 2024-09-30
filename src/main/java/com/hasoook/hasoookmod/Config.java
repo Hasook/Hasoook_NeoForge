@@ -19,30 +19,30 @@ public class Config
 {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ModConfigSpec.BooleanValue Water_Boots_Lose_Durability = BUILDER
-            .comment("水靴子在寒冷或热带群系中会持续减少耐久值，默认值为开")
-            .define("waterBootsLoseDurability", true);
-
     private static final ModConfigSpec.IntValue HUGE_DIAMOND_PICK_MINING_RANGE = BUILDER
-            .comment("超大钻石镐增加的破坏范围（半径），默认值为2")
+            .comment("超大钻石镐增加的破坏范围（半径），默认值：2")
             .defineInRange("hugeDiamondPickMiningRange", 2, 0, Integer.MAX_VALUE);
 
     private static final ModConfigSpec.IntValue HUGE_DIAMOND_PICK_INTERACTION_RANGE = BUILDER
-            .comment("超大钻石镐增加的交互距离，默认值为6")
+            .comment("超大钻石镐增加的交互距离，默认值：6")
             .defineInRange("hugeDiamondPickInteractionRange", 6, 0, Integer.MAX_VALUE);
+
+    private static final ModConfigSpec.BooleanValue Water_Boots_Lose_Durability = BUILDER
+            .comment("水靴子在寒冷或热带群系中会持续减少耐久值，默认值：开")
+            .define("waterBootsLoseDurability", true);
 
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
             .comment("你想要的魔法数字介绍信息")
-            .define("magicNumberIntroduction", "魔法数字是... ");
+            .define("magicNumberIntroduction", "魔法数字是...");
 
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("要在常见设置中记录的物品列表。")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
     static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static boolean waterBootsLoseDurability;
     public static int hugeDiamondPickMiningRange;
     public static int hugeDiamondPickInteractionRange;
+    public static boolean waterBootsLoseDurability;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
@@ -54,9 +54,9 @@ public class Config
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
     {
-        waterBootsLoseDurability = Water_Boots_Lose_Durability.get();
         hugeDiamondPickMiningRange = HUGE_DIAMOND_PICK_MINING_RANGE.get();
         hugeDiamondPickInteractionRange = HUGE_DIAMOND_PICK_INTERACTION_RANGE.get();
+        waterBootsLoseDurability = Water_Boots_Lose_Durability.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items
