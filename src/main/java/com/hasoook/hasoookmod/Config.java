@@ -19,27 +19,30 @@ public class Config
 {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    private static final ModConfigSpec.BooleanValue Water_Boots_Lose_Durability = BUILDER
+            .comment("水靴子在寒冷或热带群系中会持续减少耐久值，默认值为开")
+            .define("waterBootsLoseDurability", true);
 
-    private static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    private static final ModConfigSpec.IntValue HUGE_DIAMOND_PICK_MINING_RANGE = BUILDER
+            .comment("超大钻石镐增加的破坏范围（半径），默认值为2")
+            .defineInRange("hugeDiamondPickMiningRange", 2, 0, Integer.MAX_VALUE);
+
+    private static final ModConfigSpec.IntValue HUGE_DIAMOND_PICK_INTERACTION_RANGE = BUILDER
+            .comment("超大钻石镐增加的交互距离，默认值为6")
+            .defineInRange("hugeDiamondPickInteractionRange", 6, 0, Integer.MAX_VALUE);
 
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+            .comment("你想要的魔法数字介绍信息")
+            .define("magicNumberIntroduction", "魔法数字是... ");
 
-    // a list of strings that are treated as resource locations for items
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
+            .comment("要在常见设置中记录的物品列表。")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
-
     static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static boolean logDirtBlock;
-    public static int magicNumber;
+    public static boolean waterBootsLoseDurability;
+    public static int hugeDiamondPickMiningRange;
+    public static int hugeDiamondPickInteractionRange;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
@@ -51,8 +54,9 @@ public class Config
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
     {
-        logDirtBlock = LOG_DIRT_BLOCK.get();
-        magicNumber = MAGIC_NUMBER.get();
+        waterBootsLoseDurability = Water_Boots_Lose_Durability.get();
+        hugeDiamondPickMiningRange = HUGE_DIAMOND_PICK_MINING_RANGE.get();
+        hugeDiamondPickInteractionRange = HUGE_DIAMOND_PICK_INTERACTION_RANGE.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items

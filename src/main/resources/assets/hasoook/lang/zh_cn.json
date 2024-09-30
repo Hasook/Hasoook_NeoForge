@@ -37,5 +37,11 @@
   "item.minecraft.lingering_potion.effect.confusion": "滞留型混乱药水",
   "item.minecraft.tipped_arrow.effect.confusion": "混乱之箭",
 
-  "subtitles.item.huge_diamond_pickaxe.dong": "咚!"
+  "subtitles.item.huge_diamond_pickaxe.dong": "咚!",
+
+  "hasoook.configuration.waterBootsLoseDurability": "水靴子减少耐久",
+  "hasoook.configuration.hugeDiamondPickMiningRange": "超大钻石镐增加的破坏范围",
+  "hasoook.configuration.hugeDiamondPickInteractionRange": "超大钻石镐增加的交互距离",
+  "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
+  "hasoook.configuration.items": "items"
 }

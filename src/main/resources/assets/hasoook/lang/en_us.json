@@ -37,5 +37,11 @@
   "item.minecraft.lingering_potion.effect.confusion": "Lingering Confusion Potion",
   "item.minecraft.tipped_arrow.effect.confusion": "Arrow of Confusion",
 
-  "subtitles.item.huge_diamond_pickaxe.dong": "Dong!"
+  "subtitles.item.huge_diamond_pickaxe.dong": "Dong!",
+
+  "hasoook.configuration.waterBootsLoseDurability": "Water Boots Lose Durability In Biomes",
+  "hasoook.configuration.hugeDiamondPickMiningRange": "Huge Diamond Pick Mining Range",
+  "hasoook.configuration.hugeDiamondPickInteractionRange": "Huge Diamond Pick Interaction Range",
+  "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
+  "hasoook.configuration.items": "items"
 }
