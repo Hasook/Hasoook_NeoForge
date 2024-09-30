@@ -32,11 +32,11 @@ public class Config
             .define("waterBootsLoseDurability", true);
 
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("你想要的魔法数字介绍信息")
-            .define("magicNumberIntroduction", "魔法数字是...");
+            .comment("这只是一个模板，没什么用")
+            .define("magicNumberIntroduction", "...");
 
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("要在常见设置中记录的物品列表。")
+            .comment("这只是一个模板，没什么用")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
     static final ModConfigSpec SPEC = BUILDER.build();
 
