@@ -20,7 +20,7 @@ public class ModCreativeTab {
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB  = CREATIVE_MODE_TABS.register("example_tab",() -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .title(Component.translatable(HASOOOK_MOD_TAB_STRING))
-            .icon(ModItems.ENCHANTMENT_BRUSH.get()::getDefaultInstance)
+            .icon(ModItems.HUGE_DIAMOND_PICKAXE.get()::getDefaultInstance)
             .displayItems((pParameters, pOutput) -> {
                 pOutput.accept(ModItems.TOTEM_OF_SURRENDER.get());
                 pOutput.accept(ModItems.ENCHANTMENT_BRUSH.get());
