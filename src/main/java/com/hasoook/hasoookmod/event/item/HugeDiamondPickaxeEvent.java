@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.event.item;
 
+import com.hasoook.hasoookmod.Config;
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.item.custom.HugeDiamondPickaxe;
 import com.hasoook.hasoookmod.sound.ModSounds;
@@ -37,7 +38,7 @@ public class HugeDiamondPickaxeEvent {
                 return;
             }
 
-            for(BlockPos pos : HugeDiamondPickaxe.getBlocksToBeDestroyed(2, initialBlockPos, serverPlayer)) {
+            for(BlockPos pos : HugeDiamondPickaxe.getBlocksToBeDestroyed(Config.hugeDiamondPickMiningRange, initialBlockPos, serverPlayer)) {
                 float destroy = event.getLevel().getBlockState(pos).getDestroySpeed(event.getLevel(), pos);
                 if(pos == initialBlockPos || destroy < 0) {
                     continue;

@@ -10,6 +10,9 @@ import com.hasoook.hasoookmod.item.ModArmorMaterials;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
 import com.hasoook.hasoookmod.sound.ModSounds;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
@@ -40,6 +43,9 @@ public class HasoookMod
 
         NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
         NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
+
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        modContainer.registerConfig(ModConfig.Type.COMMON,Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

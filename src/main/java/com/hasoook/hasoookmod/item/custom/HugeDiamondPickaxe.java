@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.item.custom;
 
+import com.hasoook.hasoookmod.Config;
 import com.hasoook.hasoookmod.item.ModItems;
 import com.hasoook.hasoookmod.sound.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -27,11 +28,6 @@ import java.util.List;
 
 public class HugeDiamondPickaxe extends PickaxeItem {
     private static final String MODIFIER_ID = "huge_diamond_pickaxe";
-    private static final AttributeModifier MODIFIER = new AttributeModifier(
-            ResourceLocation.withDefaultNamespace(MODIFIER_ID),
-            6,
-            AttributeModifier.Operation.ADD_VALUE
-    );
 
     public HugeDiamondPickaxe(Tier p_42961_, Properties p_42964_) {
         super(p_42961_, p_42964_);
@@ -44,17 +40,24 @@ public class HugeDiamondPickaxe extends PickaxeItem {
             AttributeInstance attribute = player.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
             AttributeInstance attribute2 = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
             if (attribute != null && attribute2 != null) {
+                // 动态创建修饰符
+                AttributeModifier modifier = new AttributeModifier(
+                        ResourceLocation.withDefaultNamespace(MODIFIER_ID),
+                        Config.hugeDiamondPickInteractionRange,  // 使用当前的配置值
+                        AttributeModifier.Operation.ADD_VALUE
+                );
+
                 if (player.getMainHandItem().is(pStack.getItem())) {
                     // 添加修饰符
-                    attribute.removeModifier(MODIFIER.id());
-                    attribute.addPermanentModifier(MODIFIER);
+                    attribute.removeModifier(ResourceLocation.parse(MODIFIER_ID));
+                    attribute.addPermanentModifier(modifier);
 
-                    attribute2.removeModifier(MODIFIER.id());
-                    attribute2.addPermanentModifier(MODIFIER);
+                    attribute2.removeModifier(ResourceLocation.parse(MODIFIER_ID));
+                    attribute2.addPermanentModifier(modifier);
                 } else {
                     // 移除修饰符
-                    attribute.removeModifier(MODIFIER.id());
-                    attribute2.removeModifier(MODIFIER.id());
+                    attribute.removeModifier(ResourceLocation.parse(MODIFIER_ID));
+                    attribute2.removeModifier(ResourceLocation.parse(MODIFIER_ID));
                 }
             }
         }
@@ -63,7 +66,7 @@ public class HugeDiamondPickaxe extends PickaxeItem {
     public static List<BlockPos> getBlocksToBeDestroyed(int range, BlockPos initialBlockPos, ServerPlayer player) {
         List<BlockPos> positions = new ArrayList<>();
         BlockHitResult traceResult = player.level().clip(new ClipContext(player.getEyePosition(1f),
-                (player.getEyePosition(1f).add(player.getViewVector(1f).scale(14f))),
+                (player.getEyePosition(1f).add(player.getViewVector(1f).scale(6f + Config.hugeDiamondPickInteractionRange))),
                 ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
         if(traceResult.getType() == HitResult.Type.MISS) {
             return positions;
