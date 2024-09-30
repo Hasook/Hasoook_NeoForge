@@ -71,9 +71,10 @@ public class WaterBootsEvent {
         String source = event.getSource().getMsgId();
         ServerLevel serverLevel = (ServerLevel) entity.level();
         ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET); // 获取脚部装备
+        System.out.println(source);
         if (boots.is(ModItems.WATER_BOOTS) && !entity.level().isClientSide) {
 
-            if (source.equals("onFire") || source.equals("inFire")) {
+            if (source.equals("onFire") || source.equals("inFire") || source.equals("hotFloor")) {
                 event.setCanceled(true);
                 boots.hurtAndBreak(1, entity, EquipmentSlot.FEET);
                 entity.setRemainingFireTicks(0);
@@ -96,6 +97,19 @@ public class WaterBootsEvent {
                         boots.hurtAndBreak(1, entity, EquipmentSlot.FEET);
                     }
                 }
+
+                serverLevel.sendParticles(
+                        ParticleTypes.LARGE_SMOKE,
+                        entity.getX(),
+                        entity.getY() + 0.2,
+                        entity.getZ(),
+                        1,
+                        entity.getBbWidth() / 2,
+                        0.2,
+                        entity.getBbWidth() / 2,
+                        0
+                );
+
             }
 
             if (source.equals("lava")) {
@@ -114,6 +128,10 @@ public class WaterBootsEvent {
                         entity.getBbWidth() / 2,
                         0
                 );
+            }
+
+            if (source.equals("freeze")) {
+                entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.ICE)); // 替换为冰块
             }
         }
     }

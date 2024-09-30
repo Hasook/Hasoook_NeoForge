@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.item.custom;
 
+import com.hasoook.hasoookmod.Config;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -49,13 +50,14 @@ public class WaterBoots extends ArmorItem {
         int maxDamage = stack.getMaxDamage(); // 最大耐久值
 
         // 如果在寒冷群系
-        if (temperature <= 0 && currentDamage < maxDamage - 1) {
+        if (temperature <= 0 && currentDamage < maxDamage - 1 && Config.waterBootsLoseDurability) {
             stack.hurtAndBreak(1, entity, EquipmentSlot.FEET);
         } else if (temperature <= 0 && currentDamage >= maxDamage - 1) {
+            System.out.println(entity.getTicksRequiredToFreeze());
             entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.ICE)); // 替换为冰块
         }
         // 如果在高温群系
-        if (temperature >= 2) {
+        if (temperature >= 2 && Config.waterBootsLoseDurability) {
             stack.hurtAndBreak(1, entity, EquipmentSlot.FEET);
         }
     }
