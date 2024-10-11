@@ -43,6 +43,7 @@
   "hasoook.configuration.waterBootsLoseDurability": "Water Boots Lose Durability In Biomes",
   "hasoook.configuration.hugeDiamondPickMiningRange": "Huge Diamond Pick Mining Range",
   "hasoook.configuration.hugeDiamondPickInteractionRange": "Huge Diamond Pick Interaction Range",
+  "hasoook.configuration.lamaGiveSpit": "The llama's spit attack will give the spit item.",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
   "hasoook.configuration.items": "items"
 }

@@ -31,6 +31,10 @@ public class Config
             .comment("水靴子在寒冷或热带群系中会持续减少耐久值，默认值：开")
             .define("waterBootsLoseDurability", true);
 
+    private static final ModConfigSpec.BooleanValue Lama_Give_Spit = BUILDER
+            .comment("羊驼口水攻击玩家时，会给予玩家一个口水物品，默认值：开")
+            .define("lamaGiveSpit", true);
+
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
             .comment("这只是一个模板，没什么用")
             .define("magicNumberIntroduction", "...");
@@ -43,6 +47,7 @@ public class Config
     public static int hugeDiamondPickMiningRange;
     public static int hugeDiamondPickInteractionRange;
     public static boolean waterBootsLoseDurability;
+    public static boolean lamaGiveSpit;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
@@ -57,6 +62,7 @@ public class Config
         hugeDiamondPickMiningRange = HUGE_DIAMOND_PICK_MINING_RANGE.get();
         hugeDiamondPickInteractionRange = HUGE_DIAMOND_PICK_INTERACTION_RANGE.get();
         waterBootsLoseDurability = Water_Boots_Lose_Durability.get();
+        lamaGiveSpit = Lama_Give_Spit.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items

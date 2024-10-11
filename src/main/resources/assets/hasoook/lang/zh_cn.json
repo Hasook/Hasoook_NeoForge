@@ -43,6 +43,7 @@
   "hasoook.configuration.waterBootsLoseDurability": "水靴子会因环境减少耐久",
   "hasoook.configuration.hugeDiamondPickMiningRange": "超大钻石镐增加的破坏范围",
   "hasoook.configuration.hugeDiamondPickInteractionRange": "超大钻石镐增加的交互距离",
+  "hasoook.configuration.lamaGiveSpit": "羊驼攻击会给予口水物品",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
   "hasoook.configuration.items": "items"
 }

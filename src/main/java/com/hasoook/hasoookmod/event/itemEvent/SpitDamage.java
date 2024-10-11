@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.event.itemEvent;
 
+import com.hasoook.hasoookmod.Config;
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.item.ModItems;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +18,7 @@ public class SpitDamage {
         Entity entity = event.getEntity(); // 获取实体
         Entity source = event.getSource().getEntity();
         if (source instanceof Llama && entity instanceof Player) { // 检查攻击者是否是羊驼
-            if (!entity.level().isClientSide) { // 确保在服务器端
+            if (!entity.level().isClientSide && Config.lamaGiveSpit) {
                 Player player = (Player) entity; // 转换为玩家类型
                 ItemStack spit = new ItemStack(ModItems.SPIT.get(), 1);
                 player.getInventory().add(spit);
