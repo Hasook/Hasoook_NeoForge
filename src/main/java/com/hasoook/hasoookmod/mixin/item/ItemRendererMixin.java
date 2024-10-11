@@ -31,7 +31,7 @@ public class ItemRendererMixin {
             // 取消默认渲染
             ci.cancel();
 
-            // 渲染生物模型，例如羊驼
+            // 渲染生物模型，例如羊驼口水
             LlamaSpit llamaSpit = new LlamaSpit(EntityType.LLAMA_SPIT, mc.level);
             pPoseStack.pushPose();
             // 使用 org.joml.Quaternionf 进行旋转
