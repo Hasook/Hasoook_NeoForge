@@ -6,7 +6,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -28,6 +27,7 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.POKER.get());
                 pOutput.accept(ModItems.HUGE_DIAMOND_PICKAXE.get());
                 pOutput.accept(ModItems.WATER_BOOTS.get());
+                pOutput.accept(ModItems.SPIT.get());
 
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
                 pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());

@@ -135,7 +135,7 @@ public class ModEnchantments {
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                                 2,
-                                1,
+                                5,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 2,
@@ -150,7 +150,7 @@ public class ModEnchantments {
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
                                 2,
-                                1,
+                                3,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 2,
@@ -198,7 +198,7 @@ public class ModEnchantments {
                                 1,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
-                                2,
+                                10,
                                 EquipmentSlotGroup.MAINHAND
                         )
                 )

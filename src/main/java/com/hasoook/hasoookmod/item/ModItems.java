@@ -23,6 +23,7 @@ public class ModItems {
     public static final Supplier<Item> POKER_DIAMOND = ITEMS.register("poker_diamond",() -> new Poker(new Item.Properties()));
     public static final Supplier<Item> POKER_HEART = ITEMS.register("poker_heart",() -> new Poker(new Item.Properties()));
     public static final Supplier<Item> POKER_SPADE = ITEMS.register("poker_spade",() -> new Poker(new Item.Properties()));
+    public static final Supplier<Item> SPIT = ITEMS.register("spit",() -> new Spit(new Item.Properties()));
 
     public static final DeferredItem<Item> WATER_BOOTS = ITEMS.register("water_boots",
             () -> new WaterBoots(ModArmorMaterials.WATER, ArmorItem.Type.BOOTS,
