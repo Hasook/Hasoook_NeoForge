@@ -5,9 +5,12 @@
   "mixins": [
     "BowMixin",
     "ConfusionFlowerMixin",
+    "FishingHookMixin",
+    "FishingRodItemMixin",
     "ItemEntityMixin",
     "SurrenderMixin",
     "ThrownEggMixin",
+    "ThrownTridentMixin",
     "entityEnchantmentMixin.BoatMixin",
     "entityEnchantmentMixin.CreeperMixin",
     "entityEnchantmentMixin.SlimeMixin",
