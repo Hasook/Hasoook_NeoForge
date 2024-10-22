@@ -1,6 +1,7 @@
 package com.hasoook.hasoookmod.mixin;
 
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
+import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -67,7 +68,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
     public void tick(CallbackInfo ci) {
         if (this.inGroundTime == 1) {
             AABB boundingBox = this.getBoundingBox().inflate(16.0D);
@@ -116,26 +117,34 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         }
 
         Entity entity = this.getOwner();
-        ItemStack itemStack = this.getDefaultPickupItem();
-        int loyaltyLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, itemStack); // 获取物品的“忠诚”等级
+        ItemStack itemStack = this.getPickupItemStackOrigin();
+        int loyaltyLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, itemStack); // 获取物品的“忠诚”等级
         int i = Math.max(this.entityData.get(ID_LOYALTY), loyaltyLevel);
         if (i > 0 && (this.dealtDamage || this.isNoPhysics()) && entity != null) {
+            // 如果不能返回给拥有者
             if (!this.isAcceptibleReturnOwner()) {
+                // 如果不是客户端，并且允许捡起，生成物品
                 if (!this.level().isClientSide && this.pickup == AbstractArrow.Pickup.ALLOWED) {
                     this.spawnAtLocation(this.getPickupItem(), 0.1F);
                 }
-
                 this.discard();
             } else {
+                // 设置不受物理影响
                 this.setNoPhysics(true);
+                // 计算从当前箭位置到拥有者眼睛位置的向量
                 Vec3 vec3 = entity.getEyePosition().subtract(this.position());
+                // 根据忠诚度调整箭的高度
                 this.setPosRaw(this.getX(), this.getY() + vec3.y * 0.015 * (double)i, this.getZ());
+                // 如果是客户端，更新旧的Y坐标
                 if (this.level().isClientSide) {
                     this.yOld = this.getY();
                 }
 
+                // 根据忠诚度调整速度
                 double d0 = 0.05 * (double)i;
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.95).add(vec3.normalize().scale(d0)));
+
+                // 播放返回音效（仅在第一次返回时）
                 if (this.clientSideReturnTridentTickCount == 0) {
                     this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
                 }
@@ -143,6 +152,8 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
                 this.clientSideReturnTridentTickCount++;
             }
         }
+
+        // 调用父类的tick方法
         super.tick();
         ci.cancel();
     }

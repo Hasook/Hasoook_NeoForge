@@ -211,7 +211,7 @@ public class ModEnchantments {
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
                                 2,
-                                1,
+                                3,
                                 Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 10,
