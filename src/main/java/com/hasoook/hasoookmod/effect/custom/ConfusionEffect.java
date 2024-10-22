@@ -47,7 +47,7 @@ public class ConfusionEffect extends MobEffect {
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
-        return tickCount % 2 == 0; // 你可以根据需要替换此检查
+        return tickCount % 2 == 0;
     }
 
     @Override

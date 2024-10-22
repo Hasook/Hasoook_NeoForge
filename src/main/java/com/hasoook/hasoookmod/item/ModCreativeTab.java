@@ -24,10 +24,10 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.TOTEM_OF_SURRENDER.get());
                 pOutput.accept(ModItems.ENCHANTMENT_BRUSH.get());
                 pOutput.accept(ModItems.WATER_BUCKET.get());
-                pOutput.accept(ModItems.POKER.get());
                 pOutput.accept(ModItems.HUGE_DIAMOND_PICKAXE.get());
                 pOutput.accept(ModItems.WATER_BOOTS.get());
                 pOutput.accept(ModItems.SPIT.get());
+                pOutput.accept(ModItems.RIPEN_FLINT_AND_STEEL.get());
 
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
                 pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());

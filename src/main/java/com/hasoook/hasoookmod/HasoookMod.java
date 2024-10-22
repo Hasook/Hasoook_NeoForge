@@ -3,7 +3,6 @@ package com.hasoook.hasoookmod;
 import com.hasoook.hasoookmod.block.ModBlock;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
-import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
 import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import com.hasoook.hasoookmod.item.ModArmorMaterials;
@@ -37,7 +36,6 @@ public class HasoookMod
         ModCreativeTab.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
-        ModEntities.register(modEventBus);
         ModArmorMaterials.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
 

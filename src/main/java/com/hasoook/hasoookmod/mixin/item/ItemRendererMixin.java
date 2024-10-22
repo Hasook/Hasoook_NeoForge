@@ -31,16 +31,22 @@ public class ItemRendererMixin {
             // 取消默认渲染
             ci.cancel();
 
-            // 渲染生物模型，例如羊驼口水
-            LlamaSpit llamaSpit = new LlamaSpit(EntityType.LLAMA_SPIT, mc.level);
-            pPoseStack.pushPose();
-            // 使用 org.joml.Quaternionf 进行旋转
-            // Quaternionf rotation = new Quaternionf().rotateY((float) Math.toRadians(180));
-            // matrices.multiply(rotation);
+            // 确保 level 不为空
+            if (mc.level != null) {
+                LlamaSpit llamaSpit = new LlamaSpit(EntityType.LLAMA_SPIT, mc.level);
+                pPoseStack.pushPose();
 
-            pPoseStack.scale(1F, 1F, 1F);// 调整缩放比例
-            mc.getEntityRenderDispatcher().render(llamaSpit, 0, 0, 0, 0.0F, 1.0F, pPoseStack, pBufferSource, pCombinedLight);
-            pPoseStack.popPose();
+                // 调整位置和缩放
+                pPoseStack.scale(1F, 1F, 1F);
+                // 计算位置，假设你想在 (0, 0, 0) 渲染
+                float x = 0.0F;
+                float y = 0.0F;
+                float z = 0.0F;
+
+                // 渲染生物模型
+                mc.getEntityRenderDispatcher().render(llamaSpit, x, y, z, 0.0F, 1.0F, pPoseStack, pBufferSource, pCombinedLight);
+                pPoseStack.popPose();
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hasoook:item/poker_durability"
+    "layer0": "minecraft:item/flint_and_steel"
   }
 }

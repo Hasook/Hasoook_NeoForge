@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -65,50 +66,50 @@ public class Backstab {
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 被攻击的实体
         DamageSource damageSource = event.getSource();
-        LivingEntity sourceEntity = (LivingEntity) damageSource.getEntity(); // 造成伤害的实体
+        Entity source = damageSource.getEntity(); // 造成伤害的实体
 
-        ItemStack itemStack = null;
-        if (sourceEntity != null) {
-            itemStack = sourceEntity.getMainHandItem();
+        if (!(source instanceof LivingEntity sourceEntity)) {
+            return; // 确保攻击者是生物实体
         }
 
-        if (itemStack != null && !sourceEntity.level().isClientSide) {
-            int backstabLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BACKSTAB, itemStack);
+        ItemStack itemStack = sourceEntity.getMainHandItem();
+        if (itemStack.isEmpty() || sourceEntity.level().isClientSide) {
+            return; // 确保有物品并且不是客户端
+        }
 
-            // 确保攻击者存在且为生物实体
-            if (backstabLevel > 0 && sourceEntity instanceof LivingEntity attacker) {
+        int backstabLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BACKSTAB, itemStack);
 
-                // 计算方向
-                Vec3 attackerPos = attacker.position();
-                Vec3 targetPos = entity.position();
+        // 确保攻击者存在且为生物实体
+        if (backstabLevel > 0) {
+            // 计算方向
+            Vec3 attackerPos = sourceEntity.position();
+            Vec3 targetPos = entity.position();
 
-                // 计算朝向
-                Vec3 targetDirection = entity.getLookAngle(); // 被攻击实体的朝向
-                Vec3 toAttacker = attackerPos.subtract(targetPos).normalize(); // 从被攻击者到攻击者的方向
+            // 计算朝向
+            Vec3 targetDirection = entity.getLookAngle(); // 被攻击实体的朝向
+            Vec3 toAttacker = attackerPos.subtract(targetPos).normalize(); // 从被攻击者到攻击者的方向
 
-                // 判断攻击者是否在被攻击者身后
-                if (targetDirection.dot(toAttacker) < -0.2) {
-                    float amount = event.getAmount();
-                    event.setAmount(amount * 2);
-                    itemStack.hurtAndBreak(1, entity, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
+            // 判断攻击者是否在被攻击者身后
+            if (targetDirection.dot(toAttacker) < -0.2) {
+                float amount = event.getAmount();
+                event.setAmount(amount * 2);
+                itemStack.hurtAndBreak(1, sourceEntity, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
 
-                    // 粒子效果
-                    if (entity.level() instanceof ServerLevel serverLevel) {
-                        serverLevel.sendParticles(
-                                ParticleTypes.CRIT,
-                                entity.getX(),
-                                entity.getY() + entity.getBbHeight() / 2,
-                                entity.getZ(),
-                                20,
-                                entity.getBbWidth() / 10,
-                                entity.getBbHeight() / 5,
-                                entity.getBbWidth() / 10,
-                                0.5
-                        );
-                    }
+                // 粒子效果
+                if (entity.level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(
+                            ParticleTypes.CRIT,
+                            entity.getX(),
+                            entity.getY() + entity.getBbHeight() / 2,
+                            entity.getZ(),
+                            20,
+                            entity.getBbWidth() / 10,
+                            entity.getBbHeight() / 5,
+                            entity.getBbWidth() / 10,
+                            0.5
+                    );
                 }
             }
         }
     }
-
 }
