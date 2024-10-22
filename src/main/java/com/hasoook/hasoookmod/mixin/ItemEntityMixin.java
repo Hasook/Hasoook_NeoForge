@@ -6,7 +6,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
-import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -65,8 +64,8 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         // 获取物品的“风爆”等级
         int disdainLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.DISDAIN, itemStack);
         // 获取物品的“嫌弃”等级
-        int loyaltyLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, itemStack);
-        // 获取物品的“忠诚”等级
+        int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, itemStack);
+        // 获取物品的“背叛”等级
 
         // 人机分离十米自动爆炸
         if (separationLevel > 0 && owner != null && !this.level().isClientSide) { // 如果“分离爆炸”等级大于0 而且 主人不为空
@@ -88,7 +87,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         }
 
         // 背叛
-        if (loyaltyLevel > 0 && owner != null && this.onGround() && !this.level().isClientSide) {
+        if (betrayLevel > 0 && owner != null && this.onGround() && !this.level().isClientSide) {
             double distance = this.distanceTo(owner);
 
             // 如果距离小于 5 * level 的距离
