@@ -18,12 +18,8 @@ public class ModItems {
     public static final Supplier<Item> TOTEM_OF_SURRENDER = ITEMS.register("totem_of_surrender",() -> new TotemOfSurrender(new Item.Properties()));
     public static final Supplier<Item> ENCHANTMENT_BRUSH = ITEMS.register("enchantment_brush",() -> new EnchantmentBrush(new Item.Properties()));
     public static final Supplier<Item> WATER_BUCKET = ITEMS.register("water_bucket",() -> new WaterBucket(new Item.Properties()));
-    public static final Supplier<Item> POKER = ITEMS.register("poker",() -> new Poker(new Item.Properties()));
-    public static final Supplier<Item> POKER_CLUB = ITEMS.register("poker_club",() -> new Poker(new Item.Properties()));
-    public static final Supplier<Item> POKER_DIAMOND = ITEMS.register("poker_diamond",() -> new Poker(new Item.Properties()));
-    public static final Supplier<Item> POKER_HEART = ITEMS.register("poker_heart",() -> new Poker(new Item.Properties()));
-    public static final Supplier<Item> POKER_SPADE = ITEMS.register("poker_spade",() -> new Poker(new Item.Properties()));
     public static final Supplier<Item> SPIT = ITEMS.register("spit",() -> new Spit(new Item.Properties()));
+    public static final Supplier<Item> RIPEN_FLINT_AND_STEEL = ITEMS.register("ripen_flint_and_steel",() -> new RipenFlintAndSteel(new Item.Properties().food(ModFoods.RIPENFlintAndSteel)));
 
     public static final DeferredItem<Item> WATER_BOOTS = ITEMS.register("water_boots",
             () -> new WaterBoots(ModArmorMaterials.WATER, ArmorItem.Type.BOOTS,

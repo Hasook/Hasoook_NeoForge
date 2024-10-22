@@ -22,12 +22,10 @@ public class Spit extends Item {
         if (player instanceof ServerPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, pStack); // 触发使用物品的触发器
         }
-
         if (player != null) {
             player.awardStat(Stats.ITEM_USED.get(this)); // 奖励使用物品的统计数据
             pStack.consume(1, player); // 消耗一个物品
         }
-
         pEntityLiving.gameEvent(GameEvent.DRINK); // 触发喝水事件
         return pStack;
     }
@@ -44,6 +42,6 @@ public class Spit extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
-        return ItemUtils.startUsingInstantly(pLevel, pPlayer, pHand); // 开始立即使用物品
+        return ItemUtils.startUsingInstantly(pLevel, pPlayer, pHand);
     }
 }
