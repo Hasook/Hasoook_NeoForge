@@ -52,7 +52,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         return new ItemStack(Items.TRIDENT);
     }
 
-    @Inject(at = @At("HEAD"), method = "onHitEntity")
+    @Inject(at = @At("RETURN"), method = "onHitEntity")
     protected void onHitEntity(EntityHitResult pResult, CallbackInfo ci) {
         AABB boundingBox = this.getBoundingBox().inflate(16.0D);
         List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);

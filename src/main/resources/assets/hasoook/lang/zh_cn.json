@@ -47,5 +47,8 @@
   "hasoook.configuration.hugeDiamondPickInteractionRange": "超大钻石镐增加的交互距离",
   "hasoook.configuration.lamaGiveSpit": "羊驼攻击会给予口水物品",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
-  "hasoook.configuration.items": "items"
+  "hasoook.configuration.items": "items",
+
+  "hasoook.message.betray.attack": "<%s> 三叉戟生于天地之间，岂能郁郁久居人下！",
+  "hasoook.message.betray.defense": "<%s> 戟飘零半生，只恨未逢明主！"
 }

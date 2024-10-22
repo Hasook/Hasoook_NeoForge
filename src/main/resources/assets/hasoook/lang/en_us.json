@@ -47,5 +47,8 @@
   "hasoook.configuration.hugeDiamondPickInteractionRange": "Huge Diamond Pick Interaction Range",
   "hasoook.configuration.lamaGiveSpit": "The llama's spit attack will give the spit item.",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
-  "hasoook.configuration.items": "items"
+  "hasoook.configuration.items": "items",
+
+  "hasoook.message.betray.attack": "<%s> The trident, born between heaven and earth, cannot long remain beneath others!",
+  "hasoook.message.betray.defense": "<%s> The trident has drifted for half a lifetime, only regretting not encountering a wise ruler!"
 }
