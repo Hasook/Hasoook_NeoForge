@@ -1,4 +1,4 @@
-package com.hasoook.hasoookmod.mixin;
+package com.hasoook.hasoookmod.mixin.item;
 
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;

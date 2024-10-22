@@ -3,19 +3,20 @@
   "package": "com.hasoook.hasoookmod.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BowMixin",
     "ConfusionFlowerMixin",
     "FishingHookMixin",
     "FishingRodItemMixin",
-    "ItemEntityMixin",
     "SurrenderMixin",
     "ThrownEggMixin",
-    "ThrownTridentMixin",
+    "entity.ItemEntityMixin",
+    "entity.ThrownTridentMixin",
     "entityEnchantmentMixin.BoatMixin",
     "entityEnchantmentMixin.CreeperMixin",
     "entityEnchantmentMixin.SlimeMixin",
     "entityEnchantmentMixin.SnowGolemMixin",
-    "item.EggItemMixin"
+    "item.BowMixin",
+    "item.EggItemMixin",
+    "item.TridentItemEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
