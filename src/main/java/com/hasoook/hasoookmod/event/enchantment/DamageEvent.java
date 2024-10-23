@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
@@ -63,10 +64,12 @@ public class DamageEvent {
             ItemStack attackerMainHandItem = attacker.getMainHandItem(); // 获取攻击者的主手物品
             int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, attackerMainHandItem);
             // 获取物品的背叛等级
+            int loyaltyLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.LOYALTY, attackerMainHandItem);
+            // 获取物品的忠诚等级
 
             Random random = new Random();
-            int ran = random.nextInt(9);
-            if (betrayLevel > 0 && targetMainHandItem.isEmpty() && ran <= betrayLevel) {
+            int ran = random.nextInt(10 + loyaltyLevel);
+            if (betrayLevel > 0 && targetMainHandItem.isEmpty() && betrayLevel > ran) {
                 if (sourceEntity instanceof ServerPlayer player) {
                     String name = attackerMainHandItem.getDisplayName().getString().replace("[", "").replace("]", "");
                     player.displayClientMessage(Component.translatable("hasoook.message.betray.attack", name), false);

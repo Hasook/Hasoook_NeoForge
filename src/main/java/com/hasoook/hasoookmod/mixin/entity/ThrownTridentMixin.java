@@ -87,7 +87,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
             if (this.getBoundingBox().intersects(owner.getBoundingBox())) {
                 if (owner instanceof LivingEntity livingEntity && !(owner instanceof Player)) {
                     ItemStack tridentItem = this.getPickupItemStackOrigin(); // 获取三叉戟的物品
-                    if (tridentItem != null && !tridentItem.isEmpty()) {
+                    if (!tridentItem.isEmpty()) {
                         // 检查主手是否有物品
                         ItemStack mainHandItem = livingEntity.getItemInHand(InteractionHand.MAIN_HAND);
                         if (!mainHandItem.isEmpty()) {
