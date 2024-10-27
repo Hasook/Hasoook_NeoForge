@@ -28,6 +28,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> HEARTLESS = key("heartless");
     public static final ResourceKey<Enchantment> BACKSTAB = key("backstab");
     public static final ResourceKey<Enchantment> BETRAY = key("betray");
+    public static final ResourceKey<Enchantment> FLYING_THUNDER_GOD = key("flying_thunder_god");
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -207,6 +208,20 @@ public class ModEnchantments {
         register(
                 context,
                 BETRAY, // 背叛
+                Enchantment.enchantment(
+                        Enchantment.definition(
+                                holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
+                                2,
+                                3,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(50),
+                                2,
+                                EquipmentSlotGroup.MAINHAND
+                        )
+                )
+        );register(
+                context,
+                FLYING_THUNDER_GOD, // 飞雷神
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),

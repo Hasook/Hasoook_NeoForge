@@ -34,7 +34,6 @@ public abstract class TridentItemEntityMixin extends Entity implements Traceable
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
     public void tick(CallbackInfo ci) {
         ItemStack itemStack = this.getItem(); // 获取物品栈
-        int count = itemStack.getCount(); // 获取物品数量
         Entity owner = this.getOwner(); // 获取物品的主人
         int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, itemStack);
         // 获取物品的“背叛”等级
@@ -96,12 +95,12 @@ public abstract class TridentItemEntityMixin extends Entity implements Traceable
         Vec3 toTarget = this.position().subtract(ownerEyePosition).normalize();
 
         double distanceSquared = ownerEyePosition.distanceToSqr(this.position());
-        double maxDistanceSquared = 648; // 设定最大视距
+        double maxDistanceSquared = 648; // 最大视距
 
         // 判断目标是否在视野范围内和距离内
         if (distanceSquared < maxDistanceSquared) {
             double dotProduct = direction.dot(toTarget);
-            return dotProduct > Math.cos(Math.toRadians(45)); // 30度视野
+            return dotProduct > Math.cos(Math.toRadians(45)); // 45度视野
         }
         return false;
     }

@@ -16,7 +16,8 @@
     "entityEnchantmentMixin.SnowGolemMixin",
     "item.BowMixin",
     "item.EggItemMixin",
-    "item.TridentItemEntityMixin"
+    "item.TridentItemEntityMixin",
+    "item.TridentItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

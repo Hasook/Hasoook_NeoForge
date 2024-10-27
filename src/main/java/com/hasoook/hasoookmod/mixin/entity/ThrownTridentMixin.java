@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.Random;
 
 @Mixin(ThrownTrident.class)
 public abstract class ThrownTridentMixin extends AbstractArrow {
@@ -54,22 +55,30 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
 
     @Inject(at = @At("RETURN"), method = "onHitEntity")
     protected void onHitEntity(EntityHitResult pResult, CallbackInfo ci) {
-        AABB boundingBox = this.getBoundingBox().inflate(16.0D);
-        List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);
-        // 如果附近有实体
-        if (!nearbyEntities.isEmpty()) {
-            // 随机选择一个实体
-            Entity randomEntity = nearbyEntities.get(this.level().random.nextInt(nearbyEntities.size()));
-            // 确保选中的实体是生物，并且活着
-            if (randomEntity instanceof LivingEntity livingEntity && livingEntity.isAlive()) {
-                this.setOwner(livingEntity); // 设置为三叉戟的主人
+        ItemStack tridentItem = this.getPickupItemStackOrigin(); // 获取三叉戟的物品
+        int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, tridentItem);
+        // 获取物品的“背叛”等级
+        if (betrayLevel > this.random.nextInt(3) + 1) {
+            AABB boundingBox = this.getBoundingBox().inflate(16.0D);
+            List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);
+            // 如果附近有实体
+            if (!nearbyEntities.isEmpty()) {
+                // 随机选择一个实体
+                Entity randomEntity = nearbyEntities.get(this.level().random.nextInt(nearbyEntities.size()));
+                // 确保选中的实体是生物，并且活着
+                if (randomEntity instanceof LivingEntity livingEntity && livingEntity.isAlive()) {
+                    this.setOwner(livingEntity); // 设置为三叉戟的主人
+                }
             }
         }
     }
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
     public void tick(CallbackInfo ci) {
-        if (this.inGroundTime == 1) {
+        ItemStack tridentItem = this.getPickupItemStackOrigin(); // 获取三叉戟的物品
+        int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, tridentItem);
+        // 获取物品的“背叛”等级
+        if (this.inGroundTime == 1 && betrayLevel > this.random.nextInt(3) + 1) {
             AABB boundingBox = this.getBoundingBox().inflate(16.0D);
             List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);
             if (!nearbyEntities.isEmpty()) {
@@ -86,7 +95,6 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         if (owner != null && owner.isAlive() && this.dealtDamage) {
             if (this.getBoundingBox().intersects(owner.getBoundingBox())) {
                 if (owner instanceof LivingEntity livingEntity && !(owner instanceof Player)) {
-                    ItemStack tridentItem = this.getPickupItemStackOrigin(); // 获取三叉戟的物品
                     if (!tridentItem.isEmpty()) {
                         // 检查主手是否有物品
                         ItemStack mainHandItem = livingEntity.getItemInHand(InteractionHand.MAIN_HAND);
