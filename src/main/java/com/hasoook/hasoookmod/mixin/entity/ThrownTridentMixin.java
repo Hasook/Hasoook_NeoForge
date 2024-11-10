@@ -18,6 +18,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
@@ -30,7 +31,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
-import java.util.Random;
 
 @Mixin(ThrownTrident.class)
 public abstract class ThrownTridentMixin extends AbstractArrow {
@@ -58,7 +58,9 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         ItemStack tridentItem = this.getPickupItemStackOrigin(); // 获取三叉戟的物品
         int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, tridentItem);
         // 获取物品的“背叛”等级
-        if (betrayLevel > this.random.nextInt(3) + 1) {
+        int STLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, tridentItem);
+        // 获取物品的“背叛”等级
+        if (betrayLevel > this.random.nextInt(3)) {
             AABB boundingBox = this.getBoundingBox().inflate(16.0D);
             List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);
             // 如果附近有实体
@@ -69,6 +71,12 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
                 if (randomEntity instanceof LivingEntity livingEntity && livingEntity.isAlive()) {
                     this.setOwner(livingEntity); // 设置为三叉戟的主人
                 }
+            }
+        }
+        if (STLevel > 0) {
+            Entity hitEntity = pResult.getEntity(); // 获取被击中的实体
+            if (hitEntity.isAlive()) {
+                hitEntity.startRiding(this);
             }
         }
     }

@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -63,8 +64,8 @@ public class DamageEvent {
             // 获取物品的忠诚等级
 
             Random random = new Random();
-            int ran = random.nextInt(10 + loyaltyLevel);
-            if (betrayLevel > 0 && targetMainHandItem.isEmpty() && betrayLevel > ran) {
+            int ran = random.nextInt(3 + loyaltyLevel);
+            if (betrayLevel > ran) {
                 if (sourceEntity instanceof ServerPlayer player) {
                     String name = attackerMainHandItem.getDisplayName().getString().replace("[", "").replace("]", "");
                     player.displayClientMessage(Component.translatable("hasoook.message.betray.attack", name), false);
@@ -75,6 +76,11 @@ public class DamageEvent {
                 }
                 target.setItemInHand(InteractionHand.MAIN_HAND, attackerMainHandItem);
                 attacker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                if (!targetMainHandItem.isEmpty()) {
+                    ItemEntity thrownItem = new ItemEntity(target.level(), target.getX(), target.getY() + 1.5, target.getZ(), targetMainHandItem.copy());
+                    thrownItem.setPickUpDelay(10); // 设置拾取延迟
+                    target.level().addFreshEntity(thrownItem); // 将物品添加到世界中
+                }
             }
         }
     }

@@ -16,10 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ProjectileItem;
-import net.minecraft.world.item.TridentItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -66,7 +63,7 @@ public abstract class TridentItemMixin extends Item implements ProjectileItem {
                                 for (int j = 0; j < multishotLevel + 2; j++) {
                                     // 创建抛掷三叉戟实例并发射
                                     ThrownTrident throwntrident = new ThrownTrident(pLevel, player, pStack);
-                                    throwntrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F + j);
+                                    throwntrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F + j * 5F);
                                     if (player.hasInfiniteMaterials()) {
                                         throwntrident.pickup = AbstractArrow.Pickup.CREATIVE_ONLY; // 创造模式只能捡起
                                     }
