@@ -19,11 +19,14 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -236,10 +239,10 @@ public abstract class FishingHookMixin extends Projectile {
                 // 检查水并生成粒子效果
                 if (blockstate.is(Blocks.WATER)) {
                     if (this.random.nextFloat() < 0.15F) {
-                        serverlevel.sendParticles(ParticleTypes.BUBBLE, d0, d1 - 0.1F, d2, 1, (double)f1, 0.1, (double)f2, 0.0);
+                        serverlevel.sendParticles(ParticleTypes.BUBBLE, d0, d1 - 0.1F, d2, 1, f1, 0.1, (double)f2, 0.0);
                     }
-                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, (double)f4, 0.01, (double)(-f3), 1.0);
-                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, (double)(-f4), 0.01, (double)f3, 1.0);
+                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, f4, 0.01, (-f3), 1.0);
+                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, -f4, 0.01, f3, 1.0);
                 }
                 // 检查熔岩并生成粒子效果
                 if (blockstate.is(Blocks.LAVA)) {
@@ -345,9 +348,9 @@ public abstract class FishingHookMixin extends Projectile {
 
             if (blockstate.is(Blocks.LAVA)) {
                 // 每个事件的概率
-                float blockChance = 0.3f; // 30%
-                float entityChance = 0.3f; // 20%
-                float itemChance = 0.3f; // 30%
+                float blockChance = 0.3f; // 方块实体
+                float entityChance = 0.2f; // 实体
+                float itemChance = 0.5f; // 物品
 
                 // 生成一个0到1之间的随机数
                 float randomValue = this.random.nextFloat();
@@ -408,6 +411,7 @@ public abstract class FishingHookMixin extends Projectile {
                             this.level().addFreshEntity(entity);
 
                             if (entity instanceof LivingEntity livingEntity && this.random.nextFloat() >= 0.2f) {
+                                // 设置随机主手物品
                                 ItemStack randomWeapon = getRandomWeapon();
                                 livingEntity.setItemInHand(InteractionHand.MAIN_HAND, randomWeapon);
                             }
@@ -416,25 +420,31 @@ public abstract class FishingHookMixin extends Projectile {
                                 DyeColor randomColor = DyeColor.byId((this.random.nextInt(16) + 1));
                                 shulker.setVariant(Optional.of(randomColor));
                             }
+                            if (entity instanceof MagmaCube magmaCube) {
+                                // 设置随机大小
+                                magmaCube.setSize(this.random.nextInt(5),true);
+                            }
                         }
                     } else {
                         // 钓到随机物品
                         ItemStack randomItemStack = createRandomItem();
                         if (!randomItemStack.isEmpty()) {
                             System.out.println(randomItemStack);
-                            ItemStack itemStack = randomItemStack.copy();
+
+                            // 获取冶炼后的物品，如果有的话
+                            ItemStack smeltedItem = getSmeltedItem(randomItemStack);
+
+                            // 使用冶炼后的物品或原物品
+                            ItemStack itemStack = smeltedItem.isEmpty() ? randomItemStack.copy() : smeltedItem;
                             itemStack.setCount(1 + efficiencyLevel); // 设置数量
 
+                            // 创建物品实体并投掷
                             ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 0.4, this.getZ(), itemStack);
                             double d0 = player.getX() - this.getX();
                             double d1 = player.getY() - this.getY();
                             double d2 = player.getZ() - this.getZ();
                             itementity.setDeltaMovement(d0 * 0.1, d1 * 0.1 + Math.sqrt(Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)) * 0.08, d2 * 0.1);
                             this.level().addFreshEntity(itementity);
-                            /*if (level() instanceof ServerLevel _level) {
-                                _level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolderOrThrow(FeatureUtils.createKey("bonus_chest")).value().place(_level, _level.getChunkSource().getGenerator(), _level.getRandom(), BlockPos.containing(player.getX(), player.getY(), player.getZ()));
-                            }*/
-
                         }
                     }
                 }
@@ -445,7 +455,7 @@ public abstract class FishingHookMixin extends Projectile {
     }
 
     private BlockState createRandomFallingBlock(RegistryAccess registryAccess) {
-        // 随机从已注册的方块里获取（但排除一些）
+        // 随机从已注册的方块里获取
         List<Block> fallingBlocks = registryAccess.registryOrThrow(Registries.BLOCK).stream()
                 .filter(block -> block != Blocks.WATER) // 水
                 .filter(block -> block != Blocks.KELP) // 海带
@@ -457,40 +467,28 @@ public abstract class FishingHookMixin extends Projectile {
     }
 
     private Entity createRandomEntity() {
-        List<EntityType<?>> specificEntities = List.of(
-                EntityType.PIGLIN,
-                EntityType.WITHER_SKELETON
-        );
-
-        // 其他实体列表
+        // 随机从已注册的实体里获取
         List<EntityType<?>> otherEntities = level().registryAccess().registryOrThrow(Registries.ENTITY_TYPE).stream()
-                .filter(entityType -> entityType != EntityType.PLAYER)
-                .filter(entityType -> entityType != EntityType.ENDER_DRAGON)
-                .filter(entityType -> entityType != EntityType.WITHER)
-                .filter(entityType -> entityType != EntityType.FISHING_BOBBER)
-                .filter(entityType -> entityType != EntityType.INTERACTION)
-                .filter(entityType -> entityType != EntityType.BLOCK_DISPLAY)
-                .filter(entityType -> entityType != EntityType.ITEM_DISPLAY)
-                .filter(entityType -> entityType != EntityType.TEXT_DISPLAY)
-                .filter(entityType -> entityType != EntityType.WARDEN)
+                .filter(entityType -> entityType != EntityType.PLAYER) // 玩家
+                .filter(entityType -> entityType != EntityType.ENDER_DRAGON) // 末影龙
+                .filter(entityType -> entityType != EntityType.WITHER) // 凋灵
+                .filter(entityType -> entityType != EntityType.FISHING_BOBBER) // 鱼漂
+                .filter(entityType -> entityType != EntityType.INTERACTION) // 交互实体
+                .filter(entityType -> entityType != EntityType.BLOCK_DISPLAY) // 展示实体
+                .filter(entityType -> entityType != EntityType.ITEM_DISPLAY) // 展示实体
+                .filter(entityType -> entityType != EntityType.TEXT_DISPLAY) // 展示实体
+                .filter(entityType -> entityType != EntityType.WARDEN) // 监守者
                 .toList();
 
-        // 根据概率选择列表
-        List<EntityType<?>> selectedList = this.random.nextDouble() < 0.2 ? specificEntities : otherEntities;
-
-        // 从选中的列表中随机选择一个实体
-        EntityType<?> entityType = selectedList.get(this.random.nextInt(selectedList.size()));
+        EntityType<?> entityType = otherEntities.get(this.random.nextInt(otherEntities.size()));
         return entityType.create(this.level());
     }
 
     private ItemStack getRandomWeapon() {
-
         // 随机从已注册的工具和武器里获取
         List<Item> items = new ArrayList<>(level().registryAccess().registryOrThrow(Registries.ITEM).stream()
                 .filter(item -> item instanceof TieredItem || item instanceof SwordItem)
                 .toList());
-
-        // 额外添加物品
         items.add(Items.MACE);
         items.add(Items.TOTEM_OF_UNDYING);
         items.add(Items.SHIELD);
@@ -521,5 +519,20 @@ public abstract class FishingHookMixin extends Projectile {
 
         Item randomItem = registeredItems.get(this.random.nextInt(registeredItems.size()));
         return new ItemStack(randomItem);
+    }
+
+    private ItemStack getSmeltedItem(ItemStack itemstack) {
+        if (itemstack.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        Level level = this.level();
+        if (level instanceof Level) {
+            // 查询冶炼配方
+            return level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(itemstack), level)
+                    .map(recipe -> recipe.value().getResultItem(level.registryAccess()).copy()) // 获取冶炼结果
+                    .orElse(ItemStack.EMPTY); // 如果没有冶炼配方，返回空物品
+        }
+
+        return ItemStack.EMPTY;
     }
 }
