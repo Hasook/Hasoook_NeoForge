@@ -7,13 +7,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:enchanted_book",
+          "name": "minecraft:trident",
           "weight": 60,
           "functions": [
             {
               "function": "minecraft:set_enchantments",
               "enchantments": {
-                "hasoook:swap": 1
+                "hasoook:betray": 3
               },
               "add": true
             }
