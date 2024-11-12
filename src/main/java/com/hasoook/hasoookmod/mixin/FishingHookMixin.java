@@ -342,7 +342,7 @@ public abstract class FishingHookMixin extends Projectile {
             float f1 = Mth.sin(f);
             float f2 = Mth.cos(f);
             double b0 = this.getX() + (double) (f1 * (float) this.timeUntilHooked * 0.1F);
-            double b1 = (double) ((float) Mth.floor(this.getY()) + 1.0F);
+            double b1 = ((float) Mth.floor(this.getY()) + 1.0F);
             double b2 = this.getZ() + (double) (f2 * (float) this.timeUntilHooked * 0.1F);
             BlockState blockstate = serverlevel.getBlockState(BlockPos.containing(b0, b1 - 1.0, b2));
 
@@ -385,7 +385,7 @@ public abstract class FishingHookMixin extends Projectile {
                         if (this.level() instanceof ServerLevel serverLevel) {
                             serverLevel.getPlayers(player2 -> player instanceof ServerPlayer).forEach(player2 -> {
                                 Packet<?> packet = new ClientboundSetEntityMotionPacket(fallingBlockEntity);
-                                ((ServerPlayer) player2).connection.send(packet);
+                                (player2).connection.send(packet);
                             });
                         }
                     }
