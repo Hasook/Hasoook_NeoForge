@@ -27,7 +27,7 @@ public class ItemRendererMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void renderItem(ItemStack pItemStack, ItemDisplayContext pDisplayContext, boolean pLeftHand, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pCombinedLight, int pCombinedOverlay, BakedModel pModel, CallbackInfo ci) {
         // 检查是否是特定物品
-        if (BuiltInRegistries.ITEM.getKey(pItemStack.getItem()).equals(ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID, "spit"))) {
+        if (BuiltInRegistries.ITEM.getKey(pItemStack.getItem()).equals(ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, "spit"))) {
             // 取消默认渲染
             ci.cancel();
 

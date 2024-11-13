@@ -18,7 +18,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public class ModBlock {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HasoookMod.MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HasoookMod.MOD_ID);
 
     public static final DeferredBlock<Block> CONFUSION_FLOWER = registerBlock("confusion_flower",
             ()-> new ConfusionFlower(MobEffects.CONFUSION,60,BlockBehaviour.Properties.ofFullCopy(Blocks.CORNFLOWER).noOcclusion().noCollission()));

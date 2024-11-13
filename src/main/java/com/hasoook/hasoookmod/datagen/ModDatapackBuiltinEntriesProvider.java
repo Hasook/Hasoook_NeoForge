@@ -19,7 +19,7 @@ public class ModDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesPro
 
     // 构造函数，初始化ModDatapackBuiltinEntriesProvider实例
     public ModDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, BUILDER, Set.of(HasoookMod.MODID));
+        super(output, registries, BUILDER, Set.of(HasoookMod.MOD_ID));
     }
 
 }

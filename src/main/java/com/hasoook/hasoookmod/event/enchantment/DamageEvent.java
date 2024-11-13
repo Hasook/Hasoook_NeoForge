@@ -18,7 +18,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.util.Random;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class DamageEvent {
     @SubscribeEvent
     public static void swapAttack(LivingIncomingDamageEvent event) {

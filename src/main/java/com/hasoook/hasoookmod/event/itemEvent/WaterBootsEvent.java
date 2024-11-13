@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class WaterBootsEvent {
     @SubscribeEvent
     public static void onFall(LivingFallEvent event) {

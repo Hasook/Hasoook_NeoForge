@@ -244,6 +244,6 @@ public class ModEnchantments {
     // 创建附魔资源键的方法
     private static ResourceKey<Enchantment> key(String name)
     {
-        return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID,name));
+        return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID,name));
     }
 }

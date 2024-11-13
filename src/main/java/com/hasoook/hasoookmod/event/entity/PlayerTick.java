@@ -14,7 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class PlayerTick {
     @SubscribeEvent
     public static void PlayerTickEvent(PlayerTickEvent.Post event){

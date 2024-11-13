@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,7 +26,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import java.util.Objects;
 import java.util.Set;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class EntityEnchantmentInteract {
     @SubscribeEvent
     public static void onPlayerInteractEntity(PlayerInteractEvent.EntityInteract event) {

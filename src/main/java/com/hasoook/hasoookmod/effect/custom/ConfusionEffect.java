@@ -6,6 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Random;
@@ -16,9 +17,8 @@ public class ConfusionEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity instanceof Mob) {
-            Mob mob = (Mob) entity;
+    public boolean applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
+        if (entity instanceof Mob mob) {
             LivingEntity target = mob.getTarget();
 
             if (target == null || !target.isAlive()) {
@@ -51,7 +51,7 @@ public class ConfusionEffect extends MobEffect {
     }
 
     @Override
-    public void onEffectStarted(LivingEntity entity, int amplifier) {
+    public void onEffectStarted(@NotNull LivingEntity entity, int amplifier) {
         if (entity instanceof Mob mob) {
             mob.setTarget(null);
         }

@@ -9,7 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;// 使用某种方法监听事件
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class registerPotionsBrewingEvent {
     @SubscribeEvent
     public static void onRegisterPotionsBrewing(RegisterBrewingRecipesEvent event) {

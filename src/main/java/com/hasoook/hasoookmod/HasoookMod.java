@@ -22,10 +22,10 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
-@Mod(HasoookMod.MODID)
+@Mod(HasoookMod.MOD_ID)
 public class HasoookMod
 {
-    public static final String MODID = "hasoook";
+    public static final String MOD_ID = "hasoook";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public HasoookMod(IEventBus modEventBus, ModContainer modContainer)

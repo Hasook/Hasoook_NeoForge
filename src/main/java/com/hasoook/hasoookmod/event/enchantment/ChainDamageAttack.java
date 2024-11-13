@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import java.util.List;
 import java.util.Random;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class ChainDamageAttack {
     private static final ThreadLocal<Boolean> IS_CHAIN_DAMAGE_PROCESSING = ThreadLocal.withInitial(() -> false);
 

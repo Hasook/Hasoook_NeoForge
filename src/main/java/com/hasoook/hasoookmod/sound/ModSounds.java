@@ -9,11 +9,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS =
-            DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, HasoookMod.MODID);
+            DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, HasoookMod.MOD_ID);
 
     public static final String SUBTITLES_DONG = "subtitles.item.huge_diamond_pickaxe.dong";
     public static final DeferredHolder<SoundEvent, SoundEvent> DONG = SOUNDS.register(
             "item.huge_diamond_pickaxe.dong",
-            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID, "item.huge_diamond_pickaxe.dong"))
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, "item.huge_diamond_pickaxe.dong"))
     );
 }

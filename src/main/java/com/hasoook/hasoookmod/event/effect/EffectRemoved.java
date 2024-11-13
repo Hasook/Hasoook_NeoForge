@@ -10,7 +10,7 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 import java.util.Objects;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class EffectRemoved {
     @SubscribeEvent
     public static void onEffectRemoved(MobEffectEvent.Remove event) {
@@ -26,7 +26,7 @@ public class EffectRemoved {
 
     private static void handleEffectEvent(MobEffectEvent event) {
         MobEffect effect = Objects.requireNonNull(event.getEffectInstance()).getEffect().value();
-        if (effect == ModEffects.UNYIELDING.get()) {
+        if (effect == ModEffects.UNYIELDING) {
             LivingEntity entity = event.getEntity();
             entity.kill(); // 杀死实体
         }

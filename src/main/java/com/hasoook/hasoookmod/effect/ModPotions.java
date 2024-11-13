@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModPotions {
-    public static DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, HasoookMod.MODID);
+    public static DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, HasoookMod.MOD_ID);
 
     public static Holder<Potion> CONFUSION = registerPotion("confusion",1200,0, ModEffects.CONFUSION);
 

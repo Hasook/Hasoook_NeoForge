@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-@EventBusSubscriber(modid = HasoookMod.MODID)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class HugeDiamondPickaxeEvent {
     private static final Set<BlockPos> HARVESTED_BLOCKS = new HashSet<>();
 

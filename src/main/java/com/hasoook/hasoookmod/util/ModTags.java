@@ -14,7 +14,7 @@ public class ModTags {
         public static final TagKey<Block> INCORRECT_FOR_BISMUTH_TOOL = createTag("incorrect_for_bismuth_tool");
 
         private static TagKey<Block> createTag(String name) {
-            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, name));
         }
     }
 
@@ -22,7 +22,7 @@ public class ModTags {
         public static final TagKey<Item> TRANSFORMABLE_ITEMS = createTag("transformable_items");
 
         private static TagKey<Item> createTag(String name) {
-            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, name));
         }
     }
 }

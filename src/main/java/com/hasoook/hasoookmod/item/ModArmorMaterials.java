@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ModArmorMaterials {
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS =
-            DeferredRegister.create(Registries.ARMOR_MATERIAL, HasoookMod.MODID);
+            DeferredRegister.create(Registries.ARMOR_MATERIAL, HasoookMod.MOD_ID);
 
     public static final Holder<ArmorMaterial> WATER =
             ARMOR_MATERIALS.register("water", () -> new ArmorMaterial(
@@ -29,7 +29,7 @@ public class ModArmorMaterials {
                         map.put(ArmorItem.Type.HELMET, 1);
                         map.put(ArmorItem.Type.BODY, 1);
                     }), 20, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Blocks.WATER),
-                    List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID, "water"))),
+                    List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, "water"))),
                     0, 0));
 
     public static void register(IEventBus eventBus) {

@@ -85,7 +85,7 @@ public class BlockStateSaverAndLoader extends SavedData {
 
             // 当第一次调用了方法 'getOrCreate' 后，它会创建新的 'BlockStateSaverAndLoader' 并将其存储于  'PersistentStateManager' 中。
             //  'getOrCreate' 的后续调用将本地的 'BlockStateSaverAndLoader' NBT 传递给 'BlockStateSaverAndLoader::createFromNbt'。
-            BlockStateSaverAndLoader state = persistentStateManager.computeIfAbsent(type, HasoookMod.MODID + "_block_enchantments");
+            BlockStateSaverAndLoader state = persistentStateManager.computeIfAbsent(type, HasoookMod.MOD_ID + "_block_enchantments");
 
             // 若状态未标记为脏(dirty)，当 Minecraft 关闭时， 'writeNbt' 不会被调用，相应地，没有数据会被保存。
             // 从技术上讲，只有在事实上发生数据变更时才应当将状态标记为脏(dirty)。

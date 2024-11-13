@@ -3,9 +3,14 @@ package com.hasoook.hasoookmod.effect;
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.effect.custom.ConfusionEffect;
 import com.hasoook.hasoookmod.effect.custom.NormalEffect;
-import net.minecraft.core.registries.Registries;
+import com.hasoook.hasoookmod.effect.custom.SlimeyEffect;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -13,16 +18,22 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public class ModEffects {
-    public static DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, HasoookMod.MODID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS =
+            DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, HasoookMod.MOD_ID);
 
-    public static final DeferredHolder<MobEffect,MobEffect> CONFUSION =registerDeferredHolder("confusion",()->new ConfusionEffect(MobEffectCategory.HARMFUL,0xe55590)) ;
-    public static final DeferredHolder<MobEffect,MobEffect> UNYIELDING =registerDeferredHolder("unyielding",()->new NormalEffect(MobEffectCategory.BENEFICIAL,0x828a9b)) ;
+    public static final Holder<MobEffect> SLIMEY_EFFECT = MOB_EFFECTS.register("slimey",
+            () -> new SlimeyEffect(MobEffectCategory.NEUTRAL, 0x36ebab)
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED,
+                            ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, "slimey"), -0.25f,
+                            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
-    public static DeferredHolder<MobEffect,MobEffect> registerDeferredHolder(String name, Supplier<MobEffect> supplier){
-        return EFFECTS.register(name,supplier);
-    }
+    public static final Holder<MobEffect> CONFUSION = MOB_EFFECTS.register("confusion",
+            () -> new ConfusionEffect(MobEffectCategory.HARMFUL, 0xe55590));
 
-    public static void register(IEventBus eventBus){
-        EFFECTS.register(eventBus);
+    public static final Holder<MobEffect> UNYIELDING = MOB_EFFECTS.register("unyielding",
+            () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x828a9b));
+
+    public static void register(IEventBus eventBus) {
+        MOB_EFFECTS.register(eventBus);
     }
 }

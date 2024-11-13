@@ -170,10 +170,10 @@ public abstract class FishingHookMixin extends Projectile {
                         }
 
                         if (!this.level().isClientSide) {
-                            this.catchingFish(blockpos); // 捕捞鱼
+                            this.catchingFish(blockpos);
                         }
                     } else {
-                        this.outOfWaterTime = Math.min(10, this.outOfWaterTime + 1); // 增加离水时间
+                        this.outOfWaterTime = Math.min(10, this.outOfWaterTime + 1);
                     }
                 }
             }
@@ -183,12 +183,12 @@ public abstract class FishingHookMixin extends Projectile {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.03, 0.0));
             }
 
-            this.move(MoverType.SELF, this.getDeltaMovement()); // 移动钩子
-            this.updateRotation(); // 更新钩子的旋转状态
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.updateRotation();
 
             // 检查钩子状态
             if (this.currentState == FishingHook.FishHookState.FLYING && (this.onGround() || this.horizontalCollision)) {
-                this.setDeltaMovement(Vec3.ZERO); // 停止钩子的移动
+                this.setDeltaMovement(Vec3.ZERO);
             }
 
             double d1 = 0.92;
@@ -336,7 +336,7 @@ public abstract class FishingHookMixin extends Projectile {
         int efficiencyLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, pStack);
         int fpLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_PROTECTION, pStack);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && fpLevel > 0) {
             ServerLevel serverlevel = (ServerLevel) this.level();
             float f = this.fishAngle * (float) (Math.PI / 180.0);
             float f1 = Mth.sin(f);

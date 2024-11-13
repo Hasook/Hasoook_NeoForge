@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundDefinitionsProvider extends SoundDefinitionsProvider {
     public ModSoundDefinitionsProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, HasoookMod.MODID, existingFileHelper);
+        super(output, HasoookMod.MOD_ID, existingFileHelper);
     }
 
     @Override

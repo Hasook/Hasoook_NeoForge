@@ -12,6 +12,6 @@ public class ModItemTags {
     public static final TagKey<Item> COMMON_TAG = bind("common_tag");
     public static final TagKey<Item> ENTITY_ENCHANTMENT = bind("entity_enchantment");
     private static TagKey<Item> bind(String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(HasoookMod.MODID,name));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID,name));
     }
 }
