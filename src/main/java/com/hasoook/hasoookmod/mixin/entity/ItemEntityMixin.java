@@ -124,7 +124,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
             // 将实体的速度发送到所有玩家
             serverLevel.getPlayers(player -> player instanceof ServerPlayer).forEach(player -> {
                 Packet<?> packet = new ClientboundSetEntityMotionPacket(this);
-                ((ServerPlayer) player).connection.send(packet);
+                (player).connection.send(packet);
             });
         }
     }
