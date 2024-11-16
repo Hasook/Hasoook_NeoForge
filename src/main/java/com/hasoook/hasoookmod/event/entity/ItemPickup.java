@@ -2,18 +2,16 @@ package com.hasoook.hasoookmod.event.entity;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -41,8 +39,6 @@ public class ItemPickup {
 
         // 判断能否拾起
         if (!pickupDelay) {
-            itemEntity.kill();
-
             // 获取所有潜影盒
             List<ItemStack> shulkerBoxes = findShulkerBoxesInInventory(player);
 
@@ -121,7 +117,7 @@ public class ItemPickup {
         entity.playSound(SoundEvents.DECORATED_POT_INSERT, 0.5F, 1F);
 
         Random random = new Random();
-        int ranCount = random.nextInt(5);
+        int ranCount = random.nextInt(4) + 1;
         serverlevel.sendParticles(
                 ParticleTypes.DUST_PLUME,
                 entity.getX(),

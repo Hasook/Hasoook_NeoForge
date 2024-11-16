@@ -8,6 +8,8 @@
     "FishingRodItemMixin",
     "SurrenderMixin",
     "ThrownEggMixin",
+    "block.CampfireBlockEntityMixin",
+    "block.SculkShriekerBlockEntityMixin",
     "entity.ItemEntityMixin",
     "entity.ThrownTridentMixin",
     "entityEnchantmentMixin.BoatMixin",
