@@ -17,7 +17,7 @@ public class BlockDrops {
         if (!level.isClientSide && blockentity != null) {
             // 获取掉落物
             ItemStack itemstack = event.getDrops().getFirst().getItem();
-            // 将方块实体的附魔给到掉落物
+            // 将方块实体的组件给掉落物
             itemstack.applyComponents(blockentity.collectComponents());
         }
     }

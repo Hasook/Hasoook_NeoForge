@@ -2,7 +2,6 @@ package com.hasoook.hasoookmod.event.entity;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -61,7 +61,8 @@ public class ItemPickup {
         // 只查找潜影盒
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
-            if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof ShulkerBoxBlock) {
+            int lootingLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, stack);
+            if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof ShulkerBoxBlock && lootingLevel > 0) {
                 shulkerBoxes.add(stack);
             }
         }

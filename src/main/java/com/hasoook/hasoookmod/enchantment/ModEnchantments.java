@@ -29,6 +29,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> BACKSTAB = key("backstab");
     public static final ResourceKey<Enchantment> BETRAY = key("betray");
     public static final ResourceKey<Enchantment> FLYING_THUNDER_GOD = key("flying_thunder_god");
+    public static final ResourceKey<Enchantment> RACIAL_DISCRIMINATION = key("racial_discrimination"); // 种族歧视
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -233,7 +234,21 @@ public class ModEnchantments {
                                 EquipmentSlotGroup.MAINHAND
                         )
                 )
-        );
+        );register(
+            context,
+            RACIAL_DISCRIMINATION, // 种族歧视
+            Enchantment.enchantment(
+                    Enchantment.definition(
+                            holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
+                            2,
+                            1,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            2,
+                            EquipmentSlotGroup.MAINHAND
+                    )
+            )
+    );
     }
 
     // 注册附魔的方法

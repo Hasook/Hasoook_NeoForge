@@ -333,7 +333,10 @@ public abstract class FishingHookMixin extends Projectile {
     @Inject(at = @At("HEAD"), method = "retrieve")
     public void retrieve(ItemStack pStack, CallbackInfoReturnable<Integer> cir) {
         Player player = this.getPlayerOwner();
-        int efficiencyLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, pStack);
+        int efficiencyLevel = 0;
+        if (ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, pStack) > 0) {
+            efficiencyLevel = random.nextInt(ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, pStack) * 2);
+        }
         int fpLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_PROTECTION, pStack);
 
         if (!this.level().isClientSide && fpLevel > 0) {

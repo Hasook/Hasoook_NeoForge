@@ -1,4 +1,4 @@
-// 1.21	2024-10-27T14:03:20.4523718	Registries
+// 1.21	2024-12-15T21:19:58.7926831	Registries
 458f2c8b637a0758b6d182d42054492744a4e512 data/hasoook/enchantment/backstab.json
 c66f5837b9ab85e3e837cebd9850bc1f57a2b07c data/hasoook/enchantment/betray.json
 3b6eff71e64de975d7e16a7af7bddbe183d006f5 data/hasoook/enchantment/chain_damage.json
@@ -7,6 +7,7 @@ c603870cfdaa95f251d4ef59b5f4abadfc1adf70 data/hasoook/enchantment/flying_thunder
 b70c730c8b3cd5787983a9351751ea64e0d7a070 data/hasoook/enchantment/give.json
 1ac635dcc0534f440d6915019caa22496532aee4 data/hasoook/enchantment/heartless.json
 63fd54276ab7e36e1aef5c3c422f7bbbf50afd78 data/hasoook/enchantment/kill_a_man_every_ten_paces.json
+f7608d27c216fa27f3f53a44e1770a7d81816195 data/hasoook/enchantment/racial_discrimination.json
 97f7e369786810cfa3d7d23079565083ada79548 data/hasoook/enchantment/random_bullets.json
 442958957bbb17cc70a7a2fddace158445265bd1 data/hasoook/enchantment/separation_explosion.json
 3f914ea10f0d89022a075e80cee999e3c3f0ded4 data/hasoook/enchantment/seven_step_snake_venom.json
