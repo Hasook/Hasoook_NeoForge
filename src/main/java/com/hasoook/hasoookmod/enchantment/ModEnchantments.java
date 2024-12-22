@@ -239,7 +239,7 @@ public class ModEnchantments {
             RACIAL_DISCRIMINATION, // 种族歧视
             Enchantment.enchantment(
                     Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
+                            holdergetter2.getOrThrow(ItemTags.BOW_ENCHANTABLE),
                             2,
                             1,
                             Enchantment.constantCost(25),

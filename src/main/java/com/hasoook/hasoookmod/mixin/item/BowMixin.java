@@ -2,9 +2,12 @@ package com.hasoook.hasoookmod.mixin.item;
 
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,6 +18,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,8 +43,12 @@ public class BowMixin extends Item {
         }
     }
 
+    @Inject(at = @At("HEAD"), method = "use", cancellable = true)
+    public void use(Level pLevel, Player pPlayer, InteractionHand pHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
+    }
+
     @Unique
-    List<EntityType<? extends Entity>> possibleEntities = Arrays.asList(
+    List<EntityType<? extends Entity>> hasoook_NeoForge$possibleEntities = Arrays.asList(
             EntityType.EXPERIENCE_BOTTLE,
             EntityType.SPECTRAL_ARROW,
             EntityType.TNT,
@@ -60,7 +68,7 @@ public class BowMixin extends Item {
     @Unique
     public void hasoookNeoForge$randomBullets(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
         Random randomEntity = new Random();
-        EntityType<? extends Entity> randomEntityType = possibleEntities.get(randomEntity.nextInt(possibleEntities.size()));
+        EntityType<? extends Entity> randomEntityType = hasoook_NeoForge$possibleEntities.get(randomEntity.nextInt(hasoook_NeoForge$possibleEntities.size()));
         Entity entity = randomEntityType.create(pLevel);
         int i = this.getUseDuration(pStack, pEntityLiving) - pTimeLeft;
         float time = getPowerForTime(i);
