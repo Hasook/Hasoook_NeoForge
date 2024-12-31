@@ -244,7 +244,7 @@ public class ModEnchantments {
                             1,
                             Enchantment.constantCost(25),
                             Enchantment.constantCost(50),
-                            2,
+                            8,
                             EquipmentSlotGroup.MAINHAND
                     )
             )
