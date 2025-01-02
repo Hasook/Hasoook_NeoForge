@@ -1,4 +1,4 @@
-package com.hasoook.hasoookmod.event.entity;
+package com.hasoook.hasoookmod.event.enchantment;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
