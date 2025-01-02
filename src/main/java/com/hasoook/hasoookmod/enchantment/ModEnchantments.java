@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
@@ -30,6 +31,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> BETRAY = key("betray");
     public static final ResourceKey<Enchantment> FLYING_THUNDER_GOD = key("flying_thunder_god");
     public static final ResourceKey<Enchantment> RACIAL_DISCRIMINATION = key("racial_discrimination"); // 种族歧视
+    public static final ResourceKey<Enchantment> MIDDLE_EAST_BEST_PILOT = key("middle_east_best_pilot"); // 中东最好的飞行员
+    public static final ResourceKey<Enchantment> DE_URBANIZATION = key("de_urbanization"); // 去城市化
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -240,6 +243,34 @@ public class ModEnchantments {
             Enchantment.enchantment(
                     Enchantment.definition(
                             holdergetter2.getOrThrow(ItemTags.BOW_ENCHANTABLE),
+                            2,
+                            1,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            8,
+                            EquipmentSlotGroup.MAINHAND
+                    )
+            )
+        );register(
+            context,
+            MIDDLE_EAST_BEST_PILOT, // 中东最好的飞行员
+            Enchantment.enchantment(
+                    Enchantment.definition(
+                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                            2,
+                            1,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            8,
+                            EquipmentSlotGroup.MAINHAND
+                    )
+            )
+    );register(
+            context,
+            DE_URBANIZATION, // 去城市化
+            Enchantment.enchantment(
+                    Enchantment.definition(
+                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                             2,
                             1,
                             Enchantment.constantCost(25),
