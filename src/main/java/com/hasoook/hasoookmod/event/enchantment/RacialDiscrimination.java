@@ -35,8 +35,10 @@ public class RacialDiscrimination {
         if (!livingEntity.level().isClientSide) {
             // 获取看着的实体
             Entity firstEntityInSight = getFirstEntityInSight(livingEntity, 30.0);
+            ItemStack itemStack = livingEntity.getMainHandItem();
+            int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
 
-            if (firstEntityInSight != null && isWhiteMob(firstEntityInSight)) {
+            if (firstEntityInSight != null && racialDiscrimination > 0 && isWhiteMob(firstEntityInSight)) {
                 event.setCanceled(true);
                 livingEntity.sendSystemMessage(Component.nullToEmpty("目标不合法！"));
             }
