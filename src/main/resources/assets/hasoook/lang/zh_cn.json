@@ -28,6 +28,8 @@
   "enchantment.hasoook.racial_discrimination": "种族歧视",
   "enchantment.hasoook.middle_east_best_pilot": "中东最好的飞行员",
   "enchantment.hasoook.de_urbanization": "去城市化",
+  "enchantment.hasoook.spotlight": "聚光",
+  "enchantment.hasoook.zero_cost_purchase": "零元购",
 
   "enchantment.hasoook.random_bullets.desc": "随机射出一种子弹.",
   "enchantment.hasoook.separation_explosion.desc": "与该物品的掉落物分离10米时自动爆炸.",
@@ -59,5 +61,6 @@
   "hasoook.configuration.items": "items",
 
   "hasoook.message.betray.attack": "<%s> 三叉戟生于天地之间，岂能郁郁久居人下！",
-  "hasoook.message.betray.defense": "<%s> 戟飘零半生，只恨未逢明主！"
+  "hasoook.message.betray.defense": "<%s> 戟飘零半生，只恨未逢明主！",
+  "hasoook.message.de_urbanization.block": "%s疑似太城市化了"
 }

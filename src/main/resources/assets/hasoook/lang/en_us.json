@@ -28,6 +28,8 @@
   "enchantment.hasoook.racial_discrimination": "Racial Discrimination",
   "enchantment.hasoook.middle_east_best_pilot": "Middle East Best Pilot",
   "enchantment.hasoook.de_urbanization": "De Urbanization",
+  "enchantment.hasoook.spotlight": "Spotlight",
+  "enchantment.hasoook.zero_cost_purchase": "Zero Cost Purchase",
 
   "enchantment.hasoook.random_bullets.desc": "Shoots a random type of bullet.",
   "enchantment.hasoook.separation_explosion.desc": "Automatically explodes when separated from the item’s drop by 10 meters.",
@@ -59,5 +61,6 @@
   "hasoook.configuration.items": "items",
 
   "hasoook.message.betray.attack": "<%s> The trident, born between heaven and earth, cannot long remain beneath others!",
-  "hasoook.message.betray.defense": "<%s> The trident has drifted for half a lifetime, only regretting not encountering a wise ruler!"
+  "hasoook.message.betray.defense": "<%s> The trident has drifted for half a lifetime, only regretting not encountering a wise ruler!",
+  "hasoook.message.de_urbanization.block": "The %s seems too urbanized"
 }

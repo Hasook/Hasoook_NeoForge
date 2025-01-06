@@ -33,6 +33,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> RACIAL_DISCRIMINATION = key("racial_discrimination"); // 种族歧视
     public static final ResourceKey<Enchantment> MIDDLE_EAST_BEST_PILOT = key("middle_east_best_pilot"); // 中东最好的飞行员
     public static final ResourceKey<Enchantment> DE_URBANIZATION = key("de_urbanization"); // 去城市化
+    public static final ResourceKey<Enchantment> SPOTLIGHT = key("spotlight"); // 聚光
+    public static final ResourceKey<Enchantment> ZERO_COST_PURCHASE = key("zero_cost_purchase"); // 零元购
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -265,7 +267,7 @@ public class ModEnchantments {
                             EquipmentSlotGroup.MAINHAND
                     )
             )
-    );register(
+        );register(
             context,
             DE_URBANIZATION, // 去城市化
             Enchantment.enchantment(
@@ -279,7 +281,35 @@ public class ModEnchantments {
                             EquipmentSlotGroup.MAINHAND
                     )
             )
-    );
+        );register(
+            context,
+            SPOTLIGHT, // 聚光
+            Enchantment.enchantment(
+                    Enchantment.definition(
+                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                            2,
+                            3,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            8,
+                            EquipmentSlotGroup.MAINHAND
+                    )
+            )
+        );register(
+            context,
+            ZERO_COST_PURCHASE, // 零元购
+            Enchantment.enchantment(
+                    Enchantment.definition(
+                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                            2,
+                            1,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            8,
+                            EquipmentSlotGroup.MAINHAND
+                    )
+            )
+        );
     }
 
     // 注册附魔的方法
