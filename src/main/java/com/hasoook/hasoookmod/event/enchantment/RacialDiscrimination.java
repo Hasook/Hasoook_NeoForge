@@ -7,6 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.Shulker;
@@ -54,7 +55,7 @@ public class RacialDiscrimination {
         int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
 
         // 如果是黑色的实体
-        if (!livingEntity.level().isClientSide && racialDiscrimination > 0 && firstEntityInSight != null && isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
+        if (!livingEntity.level().isClientSide && racialDiscrimination > 0 && firstEntityInSight != null && !isWhiteMob(firstEntityInSight) && isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
             if (livingEntity instanceof Player player) {
                 ItemStack arrowItem = new ItemStack(Items.ARROW);
                 // 检查玩家背包中是否有箭
@@ -69,7 +70,6 @@ public class RacialDiscrimination {
 
                     if (!player.hasInfiniteMaterials()) {
                         player.getInventory().clearOrCountMatchingItems(p -> arrowItem.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
-
                     }
                 }
             }
@@ -181,6 +181,11 @@ public class RacialDiscrimination {
             }
         }
 
+        // 检查装备
+        if (entity instanceof LivingEntity livingEntity) {
+            return livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.WITHER_SKELETON_SKULL);
+        }
+
         return false;
     }
 
@@ -223,6 +228,14 @@ public class RacialDiscrimination {
             }
             default -> {
             }
+        }
+
+        // 检查装备
+        if (entity instanceof LivingEntity livingEntity) {
+            ItemStack itemStack = livingEntity.getMainHandItem();
+            int ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
+            boolean head = livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.SKELETON_SKULL);
+            return ZCPLvl > 0 || head;
         }
 
         return false;
