@@ -1,6 +1,7 @@
 package com.hasoook.hasoookmod.event.enchantment;
 
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.particles.ParticleTypes;
@@ -25,6 +26,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @EventBusSubscriber(modid = HasoookMod.MOD_ID)
@@ -113,6 +115,18 @@ public class ZeroCostPurchase {
                 if (Math.random() > 0.5) {
                     offers.remove(selectedOffer); // 删除交易项
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void Sin(LivingIncomingDamageEvent event) {
+        LivingEntity entity = event.getEntity(); // 获取实体
+        if (entity.getEffect(ModEffects.SIN) != null) { // 检查 SIN 效果是否存在
+            int lvl = Objects.requireNonNull(entity.getEffect(ModEffects.SIN)).getAmplifier();
+            float amount = event.getAmount();
+            if (lvl > 0) {
+                event.setAmount(amount + (lvl * 0.1F * amount)); // 根据效果的等级修改伤害值
             }
         }
     }

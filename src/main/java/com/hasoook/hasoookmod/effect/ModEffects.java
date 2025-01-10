@@ -31,7 +31,7 @@ public class ModEffects {
 
     // 罪恶
     public static final Holder<MobEffect> SIN = MOB_EFFECTS.register("sin",
-            () -> new NormalEffect(MobEffectCategory.HARMFUL, 0xe55590));
+            () -> new NormalEffect(MobEffectCategory.HARMFUL, 0x7794a2));
 
     // 不屈
     public static final Holder<MobEffect> UNYIELDING = MOB_EFFECTS.register("unyielding",
