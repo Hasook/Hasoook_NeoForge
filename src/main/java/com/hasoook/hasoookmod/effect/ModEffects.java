@@ -29,6 +29,10 @@ public class ModEffects {
     public static final Holder<MobEffect> CONFUSION = MOB_EFFECTS.register("confusion",
             () -> new ConfusionEffect(MobEffectCategory.HARMFUL, 0xe55590));
 
+    // 罪恶
+    public static final Holder<MobEffect> SIN = MOB_EFFECTS.register("sin",
+            () -> new NormalEffect(MobEffectCategory.HARMFUL, 0xe55590));
+
     // 不屈
     public static final Holder<MobEffect> UNYIELDING = MOB_EFFECTS.register("unyielding",
             () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x828a9b));
