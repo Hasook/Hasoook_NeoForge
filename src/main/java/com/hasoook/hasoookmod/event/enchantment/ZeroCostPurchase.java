@@ -7,6 +7,7 @@ import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -81,39 +82,44 @@ public class ZeroCostPurchase {
     @SubscribeEvent
     public static void betrayAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
-        Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
+        if (event.getSource().getEntity() instanceof LivingEntity sourceEntity) {
 
-        int ZCPLvl = 0;
-        if (sourceEntity instanceof LivingEntity livingEntity) {
-            ItemStack itemStack = livingEntity.getMainHandItem();
+            int ZCPLvl = 0;
+
+            ItemStack itemStack = sourceEntity.getMainHandItem();
             ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
-        }
 
-        if ((ZCPLvl > 0) && (entity instanceof Villager || entity instanceof WanderingTrader)) {
-            MerchantOffers offers = null;
-            if (entity instanceof Villager villager) {
-                offers = villager.getOffers(); // 获取村民交易列表
-            } else if (entity instanceof WanderingTrader wanderingTrader) {
-                offers = wanderingTrader.getOffers(); // 获取流浪商人交易列表
-            }
+            if ((ZCPLvl > 0) && (entity instanceof Villager || entity instanceof WanderingTrader)) {
 
-            if (!offers.isEmpty()) {
-                // 随机选择一个交易项
-                Random random = new Random();
-                MerchantOffer selectedOffer = offers.get(random.nextInt(offers.size()));
-
-                ItemStack resultItem = selectedOffer.getResult(); // 获取交易项中的物品
-                ItemStack dropItem = resultItem.copy(); // 复制物品
-
-                // 生成掉落物
-                if (!dropItem.isEmpty()) {
-                    ItemEntity itemEntity = new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), dropItem);
-                    itemEntity.setPickUpDelay(10);
-                    entity.level().addFreshEntity(itemEntity);
+                MerchantOffers offers = null;
+                if (entity instanceof Villager villager) {
+                    offers = villager.getOffers(); // 获取村民交易列表
+                } else if (entity instanceof WanderingTrader wanderingTrader) {
+                    offers = wanderingTrader.getOffers(); // 获取流浪商人交易列表
                 }
 
-                if (Math.random() > 0.5) {
-                    offers.remove(selectedOffer); // 删除交易项
+                if (!offers.isEmpty()) {
+                    // 随机选择一个交易项
+                    Random random = new Random();
+                    MerchantOffer selectedOffer = offers.get(random.nextInt(offers.size()));
+
+                    ItemStack resultItem = selectedOffer.getResult(); // 获取交易项中的物品
+                    ItemStack dropItem = resultItem.copy(); // 复制物品
+
+                    // 生成掉落物
+                    if (!dropItem.isEmpty()) {
+                        ItemEntity itemEntity = new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), dropItem);
+                        itemEntity.setPickUpDelay(10);
+                        entity.level().addFreshEntity(itemEntity);
+                    }
+
+                    if (Math.random() > 0.5) {
+                        offers.remove(selectedOffer); // 删除交易项
+                    }
+
+                    // 判断是否有 “罪恶” 效果，如果有则设置为 等级+1 ，没有则设置为0
+                    int amplifier = (sourceEntity.getEffect(ModEffects.SIN) != null) ? Objects.requireNonNull(sourceEntity.getEffect(ModEffects.SIN)).getAmplifier() + 1 : 0;
+                    sourceEntity.addEffect(new MobEffectInstance(ModEffects.SIN, 1200, amplifier));
                 }
             }
         }
@@ -122,11 +128,11 @@ public class ZeroCostPurchase {
     @SubscribeEvent
     public static void Sin(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
-        if (entity.getEffect(ModEffects.SIN) != null) { // 检查 SIN 效果是否存在
+        if (entity.getEffect(ModEffects.SIN) != null) { // 检查是否有罪恶效果
             int lvl = Objects.requireNonNull(entity.getEffect(ModEffects.SIN)).getAmplifier();
             float amount = event.getAmount();
             if (lvl > 0) {
-                event.setAmount(amount + (lvl * 0.1F * amount)); // 根据效果的等级修改伤害值
+                event.setAmount(amount + (lvl * 0.2F * amount)); // 根据效果的等级修改伤害值
             }
         }
     }
