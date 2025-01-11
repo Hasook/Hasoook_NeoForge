@@ -300,7 +300,7 @@ public class ModEnchantments {
             ZERO_COST_PURCHASE, // 零元购
             Enchantment.enchantment(
                     Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                            holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
                             2,
                             1,
                             Enchantment.constantCost(25),
