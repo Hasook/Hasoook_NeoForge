@@ -5,7 +5,6 @@ import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
@@ -84,11 +84,11 @@ public class ZeroCostPurchase {
         LivingEntity entity = event.getEntity(); // 获取实体
         if (event.getSource().getEntity() instanceof LivingEntity sourceEntity) {
 
-            int ZCPLvl = 0;
-
+            // 获取主手物品的零元购等级
             ItemStack itemStack = sourceEntity.getMainHandItem();
-            ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
+            int ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
 
+            // 如果实体是村民或者流浪商人
             if ((ZCPLvl > 0) && (entity instanceof Villager || entity instanceof WanderingTrader)) {
 
                 MerchantOffers offers = null;
@@ -98,6 +98,7 @@ public class ZeroCostPurchase {
                     offers = wanderingTrader.getOffers(); // 获取流浪商人交易列表
                 }
 
+                // 如果村民有交易项
                 if (!offers.isEmpty()) {
                     // 随机选择一个交易项
                     Random random = new Random();
@@ -114,25 +115,31 @@ public class ZeroCostPurchase {
                     }
 
                     if (Math.random() > 0.5) {
-                        offers.remove(selectedOffer); // 删除交易项
+                        offers.remove(selectedOffer); // 有概率删除交易项
                     }
 
-                    // 判断是否有 “罪恶” 效果，如果有则设置为 等级+1 ，没有则设置为0
+                    // 判断是否有 “罪恶” 效果，如果有则设置为 等级+1 ，没有则设置为 0 级（0级在游戏里为1级）
                     int amplifier = (sourceEntity.getEffect(ModEffects.SIN) != null) ? Objects.requireNonNull(sourceEntity.getEffect(ModEffects.SIN)).getAmplifier() + 1 : 0;
                     sourceEntity.addEffect(new MobEffectInstance(ModEffects.SIN, 1200, amplifier));
+
+                }else if (Math.random() <= event.getAmount() * 0.1) {
+                    // 如果村民没有交易项，则有概率掉落绿宝石（概率受伤害值影响）
+                    ItemEntity itemEntity = new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), new ItemStack(Items.EMERALD));
+                    itemEntity.setPickUpDelay(10);
+                    entity.level().addFreshEntity(itemEntity);
                 }
             }
         }
     }
 
     @SubscribeEvent
-    public static void Sin(LivingIncomingDamageEvent event) {
+    public static void SinDamage(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
         if (entity.getEffect(ModEffects.SIN) != null) { // 检查是否有罪恶效果
-            int lvl = Objects.requireNonNull(entity.getEffect(ModEffects.SIN)).getAmplifier();
-            float amount = event.getAmount();
+            int lvl = Objects.requireNonNull(entity.getEffect(ModEffects.SIN)).getAmplifier(); // 获取等级
+            float amount = event.getAmount(); // 获取伤害值
             if (lvl > 0) {
-                event.setAmount(amount + (lvl * 0.2F * amount)); // 根据效果的等级修改伤害值
+                event.setAmount(amount + (lvl * 0.2F * amount)); // 根据效果等级修改伤害值
             }
         }
     }
