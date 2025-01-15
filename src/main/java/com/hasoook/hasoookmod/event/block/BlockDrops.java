@@ -14,7 +14,7 @@ public class BlockDrops {
     public static void BlockDropsEvent(BlockDropsEvent event) {
         Level level = event.getLevel();
         BlockEntity blockentity = event.getBlockEntity();
-        if (!level.isClientSide && blockentity != null) {
+        if (!level.isClientSide && blockentity != null && !event.getDrops().isEmpty()) {
             // 获取掉落物
             ItemStack itemstack = event.getDrops().getFirst().getItem();
             // 将方块实体的组件给掉落物
