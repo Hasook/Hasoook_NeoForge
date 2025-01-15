@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
@@ -74,6 +75,9 @@ public class ZeroCostPurchase {
                             }
                         }
                     }
+                }
+                if (entity instanceof IronGolem ironGolem && !player.isCreative() && !player.isSpectator()) {
+                    ironGolem.setTarget(player);
                 }
             }
         }
