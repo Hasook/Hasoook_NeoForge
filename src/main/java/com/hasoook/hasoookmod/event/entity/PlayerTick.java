@@ -22,48 +22,50 @@ public class PlayerTick {
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.FEET);
         int sSSV = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SEVEN_STEP_SNAKE_VENOM, itemStack);
 
-        if (sSSV > 0 && !player.level().isClientSide && !player.isSpectator() && !player.isCreative()) {
-            Minecraft minecraft = Minecraft.getInstance();
-            KeyMapping forwardKey = minecraft.options.keyUp; // 前进
-            KeyMapping backKey = minecraft.options.keyDown; // 后退
-            CompoundTag playerNbt = player.getPersistentData(); // 获取玩家NBT
+        if (sSSV > 0 && !player.isSpectator() && !player.isCreative()) {
+            // 只在客户端执行与Minecraft和KeyMapping相关的逻辑
+            if (player.level().isClientSide) {
+                Minecraft minecraft = Minecraft.getInstance();
+                KeyMapping forwardKey = minecraft.options.keyUp; // 前进
+                KeyMapping backKey = minecraft.options.keyDown; // 后退
 
-            float speed = 1; // 默认倍率
-            float speed2 = player.getSpeed() * 10; // 速度倍率
-            if (player.isShiftKeyDown()) {
-                speed = 0.2F; // 潜行时的倍率
-            }
+                CompoundTag playerNbt = player.getPersistentData(); // 获取玩家NBT
 
-            if (forwardKey.isDown()) {
-                float step = playerNbt.getFloat("forwardCount");
-                playerNbt.putFloat("forwardCount", step + speed * speed2);
-                player.displayClientMessage(Component.literal("前进"), true);
-                if (step >= 4) {
-                    if (player.getHealth() > 2) {
-                        player.setHealth(player.getHealth() - 2);
+                float speed = 1; // 默认倍率
+                float speed2 = player.getSpeed() * 10; // 速度倍率
+                if (player.isShiftKeyDown()) {
+                    speed = 0.2F; // 潜行时的倍率
+                }
+
+                if (forwardKey.isDown()) {
+                    float step = playerNbt.getFloat("forwardCount");
+                    playerNbt.putFloat("forwardCount", step + speed * speed2);
+                    // player.displayClientMessage(Component.literal("前进"), true);
+                    if (step >= 4) {
+                        if (player.getHealth() > 2) {
+                            player.setHealth(player.getHealth() - 2);
+                            playerNbt.putFloat("forwardCount", 0);
+                        } else {
+                            player.kill();
+                        }
+                    }
+                }
+
+                if (backKey.isDown()) {
+                    float step = playerNbt.getFloat("forwardCount");
+                    if (player.getHealth() <= player.getMaxHealth()) {
+                        playerNbt.putFloat("forwardCount", step - speed * speed2);
+                        // player.displayClientMessage(Component.literal("后退"), true);
+                    }
+                    if (step <= -4) {
+                        player.setHealth(player.getHealth() + 2);
                         playerNbt.putFloat("forwardCount", 0);
-                    } else {
-                        player.kill();
+                    }
+                    if (player.getHealth() >= player.getMaxHealth()) {
+                        playerNbt.putFloat("forwardCount", 0);
                     }
                 }
             }
-
-            if (backKey.isDown()) {
-                float step = playerNbt.getFloat("forwardCount");
-                if (player.getHealth() <= player.getMaxHealth()) {
-                    playerNbt.putFloat("forwardCount", step - speed * speed2);
-                    // player.displayClientMessage(Component.literal("后退"), true);
-                }
-                if (step <= -4) {
-                    player.setHealth(player.getHealth() + 2);
-                    playerNbt.putFloat("forwardCount", 0);
-                }
-                if (player.getHealth() >= player.getMaxHealth()) {
-                    playerNbt.putFloat("forwardCount", 0);
-                }
-            }
-
         }
     }
-
 }

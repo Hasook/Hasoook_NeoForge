@@ -46,7 +46,6 @@ public class HasoookMod
         NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
         NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
 
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         modContainer.registerConfig(ModConfig.Type.COMMON,Config.SPEC);
     }
 
