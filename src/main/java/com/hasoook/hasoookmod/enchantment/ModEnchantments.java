@@ -29,12 +29,13 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> HEARTLESS = key("heartless");
     public static final ResourceKey<Enchantment> BACKSTAB = key("backstab");
     public static final ResourceKey<Enchantment> BETRAY = key("betray");
-    public static final ResourceKey<Enchantment> FLYING_THUNDER_GOD = key("flying_thunder_god");
+    public static final ResourceKey<Enchantment> FLYING_THUNDER_GOD = key("flying_thunder_god"); // 飞雷神
     public static final ResourceKey<Enchantment> RACIAL_DISCRIMINATION = key("racial_discrimination"); // 种族歧视
     public static final ResourceKey<Enchantment> MIDDLE_EAST_BEST_PILOT = key("middle_east_best_pilot"); // 中东最好的飞行员
     public static final ResourceKey<Enchantment> DE_URBANIZATION = key("de_urbanization"); // 去城市化
     public static final ResourceKey<Enchantment> SPOTLIGHT = key("spotlight"); // 聚光
     public static final ResourceKey<Enchantment> ZERO_COST_PURCHASE = key("zero_cost_purchase"); // 零元购
+    public static final ResourceKey<Enchantment> POLITICAL_CORRECTNESS = key("political_correctness"); // 政治正确
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -298,6 +299,20 @@ public class ModEnchantments {
         );register(
             context,
             ZERO_COST_PURCHASE, // 零元购
+            Enchantment.enchantment(
+                    Enchantment.definition(
+                            holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                            2,
+                            1,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            8,
+                            EquipmentSlotGroup.MAINHAND
+                    )
+            )
+        );register(
+            context,
+            POLITICAL_CORRECTNESS, // 政治正确
             Enchantment.enchantment(
                     Enchantment.definition(
                             holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
