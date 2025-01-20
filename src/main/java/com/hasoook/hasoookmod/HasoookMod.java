@@ -9,7 +9,11 @@ import com.hasoook.hasoookmod.item.ModArmorMaterials;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
 import com.hasoook.hasoookmod.sound.ModSounds;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
@@ -48,5 +52,16 @@ public class HasoookMod
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+
     }
+
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents
+    {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event){
+
+        }
+    }
+
 }
