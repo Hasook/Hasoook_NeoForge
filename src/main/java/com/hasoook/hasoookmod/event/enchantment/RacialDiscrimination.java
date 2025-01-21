@@ -183,7 +183,10 @@ public class RacialDiscrimination {
 
         // 检查装备
         if (entity instanceof LivingEntity livingEntity) {
-            return livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.WITHER_SKELETON_SKULL);
+            ItemStack itemStack = livingEntity.getMainHandItem();
+            int ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
+            boolean head = livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.SKELETON_SKULL);
+            return ZCPLvl > 0 || head;
         }
 
         return false;
@@ -232,10 +235,7 @@ public class RacialDiscrimination {
 
         // 检查装备
         if (entity instanceof LivingEntity livingEntity) {
-            ItemStack itemStack = livingEntity.getMainHandItem();
-            int ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
-            boolean head = livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.SKELETON_SKULL);
-            return ZCPLvl > 0 || head;
+            return livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.WITHER_SKELETON_SKULL);
         }
 
         return false;
