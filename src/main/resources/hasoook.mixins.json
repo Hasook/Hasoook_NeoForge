@@ -10,6 +10,7 @@
     "ThrownEggMixin",
     "block.CampfireBlockEntityMixin",
     "block.SculkShriekerBlockEntityMixin",
+    "blockEntity.ShulkerBoxBlockEntityMixin",
     "entity.ItemEntityMixin",
     "entity.ThrownTridentMixin",
     "entityEnchantmentMixin.BoatMixin",
