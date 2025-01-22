@@ -31,8 +31,10 @@ public class Fission {
             int fissionLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.FISSION, attackerMainHandItem);
 
             float scale = entity.getScale(); // 获取实体尺寸
+            float health = entity.getHealth(); // 获取实体的生命值
+            float maxHealth = entity.getMaxHealth(); // 获取实体的最大生命值
 
-            if (fissionLvl > 0 && scale > 0.0625 && entity.getHealth() < entity.getMaxHealth() / 2) {
+            if (fissionLvl > 0 && scale > 0.0625 && health <= maxHealth / 2) {
                 // 获取攻击目标的实体类型
                 EntityType<?> targetEntityType = entity.getType();
 
@@ -49,17 +51,22 @@ public class Fission {
                         double randomZ = (Math.random() - 0.5) * 0.5;
                         newEntity.setDeltaMovement(randomX, 0.2, randomZ);
 
+                        int fission = entity.getPersistentData().getInt("fission");
+                        entity.getPersistentData().putInt("fission",fission + 1);
+
                         // 处理新实体的属性
                         AttributeInstance scaleAttr = Objects.requireNonNull(newEntity.getAttribute(Attributes.SCALE));
-                        scaleAttr.removeModifier(ResourceLocation.withDefaultNamespace("ee_power"));
-                        scaleAttr.addPermanentModifier(new AttributeModifier(ResourceLocation.withDefaultNamespace("ee_power"), scale - 1.2, AttributeModifier.Operation.ADD_VALUE));
+                        scaleAttr.removeModifier(ResourceLocation.withDefaultNamespace("fission_scale"));
+                        scaleAttr.addPermanentModifier(new AttributeModifier(ResourceLocation.withDefaultNamespace("fission_scale"), scale - 1.2, AttributeModifier.Operation.ADD_VALUE));
 
+                        // 处理新实体的生命上限属性
+                        AttributeInstance maxHealthAttr = Objects.requireNonNull(newEntity.getAttribute(Attributes.MAX_HEALTH));
+                        maxHealthAttr.removeModifiers();
+                        maxHealthAttr.setBaseValue(maxHealth * 0.8);
+
+                        System.out.println(newEntity.getMaxHealth());
                         // 将新实体添加到世界中
                         entity.level().addFreshEntity(newEntity);
-
-                        // 获取和设置持久数据值
-                        // entity.getPersistentData().get("AAA");
-                        // entity.getPersistentData().putInt("AAA",66666666);
                     }
                 }
                 // 粒子效果
