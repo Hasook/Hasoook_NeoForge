@@ -3,20 +3,22 @@ package com.hasoook.hasoookmod;
 import com.hasoook.hasoookmod.block.ModBlock;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
+import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
 import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import com.hasoook.hasoookmod.item.ModArmorMaterials;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
 import com.hasoook.hasoookmod.sound.ModSounds;
+import com.hasoook.hasoookmod.entity.client.TornadoRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -46,6 +48,8 @@ public class HasoookMod
         NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
         NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
 
+        ModEntities.register(modEventBus);
+
         modContainer.registerConfig(ModConfig.Type.COMMON,Config.SPEC);
     }
 
@@ -54,13 +58,19 @@ public class HasoookMod
 
     }
 
-    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event){
+    // Add the example block item to the building blocks tab
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
 
+    }
+
+    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            EntityRenderers.register(ModEntities.TORNADO.get(), TornadoRenderer::new);
         }
     }
+
 
 }

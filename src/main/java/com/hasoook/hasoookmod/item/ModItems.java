@@ -1,12 +1,14 @@
 package com.hasoook.hasoookmod.item;
 
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.item.custom.*;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -29,6 +31,10 @@ public class ModItems {
             () -> new HugeDiamondPickaxe(ModToolTiers.Huge_Diamond, new Item.Properties()
                     .attributes(PickaxeItem.createAttributes(ModToolTiers.Huge_Diamond, 11.0F, -3.2f))
                     .rarity(Rarity.RARE)));
+
+    public static final DeferredItem<Item> TORNADO_SPAWN_EGG = ITEMS.register("tornado_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.TORNADO, 0x31afaf, 0xffac00,
+                    new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
