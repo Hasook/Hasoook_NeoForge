@@ -32,10 +32,6 @@ public class ModItems {
                     .attributes(PickaxeItem.createAttributes(ModToolTiers.Huge_Diamond, 11.0F, -3.2f))
                     .rarity(Rarity.RARE)));
 
-    public static final DeferredItem<Item> TORNADO_SPAWN_EGG = ITEMS.register("tornado_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntities.TORNADO, 0x31afaf, 0xffac00,
-                    new Item.Properties()));
-
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }
