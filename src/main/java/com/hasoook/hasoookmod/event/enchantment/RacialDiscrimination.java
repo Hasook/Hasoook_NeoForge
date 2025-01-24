@@ -92,19 +92,20 @@ public class RacialDiscrimination {
     @SubscribeEvent
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
-        LivingEntity source = (LivingEntity) event.getSource().getEntity();
+        // 确保来源实体是 LivingEntity 类型
+        if (event.getSource().getEntity() instanceof LivingEntity source) {
+            if (!entity.level().isClientSide) {
+                ItemStack attackerMainHandItem = source.getMainHandItem();
+                int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, attackerMainHandItem);
 
-        if (!entity.level().isClientSide && source instanceof LivingEntity attacker) {
-            ItemStack attackerMainHandItem = attacker.getMainHandItem();
-            int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, attackerMainHandItem);
-
-            if (racialDiscrimination > 0) {
-                if (isBlackMob(entity)) {
-                    entity.invulnerableTime = 0;
-                }
-                if (isWhiteMob(entity)) {
-                    event.setCanceled(true);
-                    source.sendSystemMessage(Component.nullToEmpty("目标不合法！"));
+                if (racialDiscrimination > 0) {
+                    if (isBlackMob(entity)) {
+                        entity.invulnerableTime = 0;
+                    }
+                    if (isWhiteMob(entity)) {
+                        event.setCanceled(true);
+                        source.sendSystemMessage(Component.nullToEmpty("目标不合法！"));
+                    }
                 }
             }
         }

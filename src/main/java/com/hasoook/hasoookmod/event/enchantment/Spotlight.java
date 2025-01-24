@@ -6,6 +6,7 @@ import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -20,17 +21,18 @@ public class Spotlight {
     @SubscribeEvent
     public static void Damage(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity(); // 获取实体
-        LivingEntity sourceEntity = (LivingEntity) event.getSource().getEntity(); // 获取攻击者
+        Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
 
-        if (sourceEntity != null) {
-            ItemStack sourceMainHandItem = sourceEntity.getMainHandItem(); // 获取攻击者的主手物品
+        // 确保攻击者是LivingEntity
+        if (sourceEntity instanceof LivingEntity livingSource) {
+            ItemStack sourceMainHandItem = livingSource.getMainHandItem(); // 获取攻击者的主手物品
             int sLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SPOTLIGHT, sourceMainHandItem);
 
-            if (sLvl > 0 && sourceEntity.level() instanceof ServerLevel serverLevel) {
-                BlockPos sourcePos = sourceEntity.blockPosition(); // 获取攻击者当前位置
+            if (sLvl > 0 && livingSource.level() instanceof ServerLevel serverLevel) {
+                BlockPos sourcePos = livingSource.blockPosition(); // 获取攻击者当前位置
                 Vec3 targetPos = entity.position().add(0, entity.getBbHeight() / 2.0, 0); // 获取实体位置
                 int count = 0; // 记录方块数量
-                int range = Math.min(sLvl, 32) ; // 范围（为了照顾性能有最大限制）
+                int range = Math.min(sLvl, 32); // 范围（为了照顾性能有最大限制）
 
                 // 遍历范围内的方块
                 for (int x = -range; x <= range; x++) {
@@ -39,7 +41,7 @@ public class Spotlight {
                             // 计算方块的位置
                             BlockPos pos = sourcePos.offset(x, y, z);
                             // 获取方块的块状态
-                            BlockState blockState = sourceEntity.level().getBlockState(pos);
+                            BlockState blockState = serverLevel.getBlockState(pos);
                             // 获取方块的亮度
                             int lightLevel = blockState.getLightEmission(serverLevel, pos);
 
@@ -69,18 +71,19 @@ public class Spotlight {
                         }
                     }
                 }
-                System.out.println(count);
+                // 修改伤害量
                 float amount = event.getAmount();
-
                 event.setAmount(amount + count);
-                serverLevel.sendParticles(ParticleTypes.END_ROD, targetPos.x, targetPos.y, targetPos.z, count * 5, 0.1, 0.1, 0.1,  0.1 + 0.001 * count);
 
+                // 发送粒子效果
+                serverLevel.sendParticles(ParticleTypes.END_ROD, targetPos.x, targetPos.y, targetPos.z, count * 5, 0.1, 0.1, 0.1, 0.1 + 0.001 * count);
+
+                // 如果亮度大于20，添加火焰效果
                 if (count > 20) {
-                    entity.setRemainingFireTicks(Math.min(count * 5, 200));
+                    entity.setRemainingFireTicks(Math.min(count * 5, 200)); // 设置火焰时间
                     serverLevel.sendParticles(ParticleTypes.FLAME, targetPos.x, targetPos.y, targetPos.z, count, 0.1, 0.1, 0.1, 0.1);
                 }
             }
         }
-
     }
 }

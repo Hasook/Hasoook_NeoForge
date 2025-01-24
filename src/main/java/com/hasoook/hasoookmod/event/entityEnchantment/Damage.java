@@ -18,14 +18,15 @@ public class Damage {
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         Entity entity = event.getEntity(); // 获取实体
         Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
-        int fireAspectLevel = 0; // 火焰附加等级
-        int knockbackLevel = 0; // 击退附加等级
 
-        if (sourceEntity instanceof LivingEntity) {
-            // 仅在攻击者是 LivingEntity 时获取附魔等级
-            fireAspectLevel = EntityEnchantmentHelper.getEnchantmentLevel(sourceEntity, "minecraft:fire_aspect");
-            knockbackLevel = EntityEnchantmentHelper.getEnchantmentLevel(sourceEntity, "minecraft:knockback");
+        // 确保攻击者是 LivingEntity 类型
+        if (!(sourceEntity instanceof LivingEntity attacker)) {
+            return;  // 如果不是 LivingEntity 类型，直接返回，不进行后续操作
         }
+
+        // 安全地将攻击者转换为 LivingEntity
+        int fireAspectLevel = EntityEnchantmentHelper.getEnchantmentLevel(attacker, "minecraft:fire_aspect");
+        int knockBackLevel = EntityEnchantmentHelper.getEnchantmentLevel(attacker, "minecraft:knockback");
 
         // 火焰附加效果
         if (fireAspectLevel > 0) {
@@ -33,23 +34,10 @@ public class Damage {
         }
 
         // 击退效果
-        if (knockbackLevel > 0) {
-            // 计算击退向量，确保方向是从攻击者到受害者
-            Vec3 direction = entity.position().subtract(sourceEntity.position()).normalize();
-            double knockbackStrength = 0.8 * knockbackLevel; // 设定击退的力量（可以根据需要调整）
+        if (knockBackLevel > 0) {
+            Vec3 direction = entity.position().subtract(sourceEntity.position()).normalize(); // 计算击退向量
+            double knockbackStrength = 0.8 * knockBackLevel; // 设定击退的力量
             entity.push(direction.x * knockbackStrength, direction.y * knockbackStrength, direction.z * knockbackStrength); // 应用击退
-        }
-    }
-
-    @SubscribeEvent
-    public static void fireImmune(LivingIncomingDamageEvent event) {
-        Entity entity = event.getEntity(); // 获取实体
-        int fireProtection = EntityEnchantmentHelper.getEnchantmentLevel(entity, "minecraft:fire_protection");
-        if (fireProtection > 0) {
-            String source = event.getSource().getMsgId();
-            if (source.equals("onFire") || source.equals("inFire")) {
-                event.setCanceled(true);
-            }
         }
     }
 
