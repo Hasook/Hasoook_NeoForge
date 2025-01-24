@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.entity.custom;
 
+import com.hasoook.hasoookmod.Config;
 import com.hasoook.hasoookmod.entity.ModEntities;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -83,7 +84,7 @@ public class TornadoEntity extends Animal {
         this.tornadoFit();
 
         // 龙卷风消失
-        if (this.age > 200 && this.level() instanceof ServerLevel serverLevel) {
+        if (this.age > Config.durationOfTornado && this.level() instanceof ServerLevel serverLevel) {
             int scale = (int) this.getScale();
             serverLevel.sendParticles(
                     ParticleTypes.GUST,

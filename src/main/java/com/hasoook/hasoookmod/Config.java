@@ -27,6 +27,10 @@ public class Config
             .comment("超大钻石镐增加的交互距离，默认值：6")
             .defineInRange("hugeDiamondPickInteractionRange", 6, 0, Integer.MAX_VALUE);
 
+    private static final ModConfigSpec.IntValue DURATION_OF_TORNADO = BUILDER
+            .comment("龙卷风持续时间，默认值：200")
+            .defineInRange("durationOfTornado", 200, 0, Integer.MAX_VALUE);
+
     private static final ModConfigSpec.BooleanValue Water_Boots_Lose_Durability = BUILDER
             .comment("水靴子在寒冷或热带群系中会持续减少耐久值，默认值：开")
             .define("waterBootsLoseDurability", true);
@@ -46,6 +50,7 @@ public class Config
 
     public static int hugeDiamondPickMiningRange;
     public static int hugeDiamondPickInteractionRange;
+    public static int durationOfTornado;
     public static boolean waterBootsLoseDurability;
     public static boolean lamaGiveSpit;
     public static String magicNumberIntroduction;
@@ -61,6 +66,7 @@ public class Config
     {
         hugeDiamondPickMiningRange = HUGE_DIAMOND_PICK_MINING_RANGE.get();
         hugeDiamondPickInteractionRange = HUGE_DIAMOND_PICK_INTERACTION_RANGE.get();
+        durationOfTornado = DURATION_OF_TORNADO.get();
         waterBootsLoseDurability = Water_Boots_Lose_Durability.get();
         lamaGiveSpit = Lama_Give_Spit.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
