@@ -4,8 +4,6 @@ import com.hasoook.hasoookmod.entity.ModEntities;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
@@ -23,11 +21,11 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class TornadoEntity extends Animal {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -53,7 +51,7 @@ public class TornadoEntity extends Animal {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
         return ModEntities.TORNADO.get().create(level);
     }
 
@@ -67,7 +65,7 @@ public class TornadoEntity extends Animal {
     }
 
     @Override
-    public boolean isFood(ItemStack pStack) {
+    public boolean isFood(@NotNull ItemStack pStack) {
         return false;
     }
 
@@ -179,12 +177,13 @@ public class TornadoEntity extends Animal {
         List<Entity> entities = this.level().getEntities(this, new AABB(tornadoPosition.subtract(radius, radius, radius), tornadoPosition.add(radius, radius, radius)));
 
         for (Entity entity : entities) {
-            if (entity instanceof TornadoEntity tornado) {
-                tornado.discard();
+            int fissionLvl = entity.getPersistentData().getInt("fission");
+            if (entity instanceof TornadoEntity || fissionLvl > 0) {
+                entity.discard();
 
-                AttributeInstance maxHealthAttr = Objects.requireNonNull(this.getAttribute(Attributes.SCALE));
-                maxHealthAttr.removeModifiers();
-                maxHealthAttr.setBaseValue(scale + 1);
+                AttributeInstance scaleAttr = Objects.requireNonNull(this.getAttribute(Attributes.SCALE));
+                scaleAttr.removeModifiers();
+                scaleAttr.setBaseValue(scale + 1);
 
                 this.level().addParticle(
                         ParticleTypes.GUST,

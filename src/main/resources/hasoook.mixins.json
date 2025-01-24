@@ -13,6 +13,7 @@
     "blockEntity.ShulkerBoxBlockEntityMixin",
     "entity.ItemEntityMixin",
     "entity.ThrownTridentMixin",
+    "entity.WindChargeMixin",
     "entityEnchantmentMixin.BoatMixin",
     "entityEnchantmentMixin.CreeperMixin",
     "entityEnchantmentMixin.SlimeMixin",
@@ -20,7 +21,8 @@
     "item.BowMixin",
     "item.EggItemMixin",
     "item.TridentItemEntityMixin",
-    "item.TridentItemMixin"
+    "item.TridentItemMixin",
+    "item.WindChargeItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
