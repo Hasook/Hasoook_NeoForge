@@ -2,11 +2,13 @@ package com.hasoook.hasoookmod.mixin.entity;
 
 import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.entity.custom.TornadoEntity;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.windcharge.AbstractWindCharge;
 import net.minecraft.world.entity.projectile.windcharge.WindCharge;
 import net.minecraft.world.level.Level;
@@ -15,8 +17,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(WindCharge.class)
 public class WindChargeMixin extends AbstractWindCharge {
@@ -49,8 +49,27 @@ public class WindChargeMixin extends AbstractWindCharge {
         Level level = this.level();
         if (fissionLvl > 0) {
             TornadoEntity tornado = new TornadoEntity(ModEntities.TORNADO.get(), level);
-            tornado.setPos(pPos.x, pPos.y - 0.2, pPos.z);
+            tornado.setPos(pPos.x, pPos.y - 0.25, pPos.z);
             level.addFreshEntity(tornado);
+
+            // 粒子和音效
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(
+                        ParticleTypes.GUST,
+                        this.getX(),
+                        this.getY(),
+                        this.getZ(),
+                        1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                );
+                serverLevel.playSound(
+                        null, this.getX(), this.getY(), this.getZ(), SoundEvents.WIND_CHARGE_BURST, this.getSoundSource(), 1.0F, 1.0F
+                );
+            }
+
             ci.cancel();
         }
     }

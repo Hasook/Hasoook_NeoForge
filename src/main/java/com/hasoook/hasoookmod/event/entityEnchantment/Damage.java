@@ -5,6 +5,7 @@ import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,25 +18,26 @@ public class Damage {
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         Entity entity = event.getEntity(); // 获取实体
         Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
-        int fire_aspect = 0; // 火焰附加
-        int knockback = 0; // 击退
+        int fireAspectLevel = 0; // 火焰附加等级
+        int knockbackLevel = 0; // 击退附加等级
 
-        if (sourceEntity != null) {
-            fire_aspect = EntityEnchantmentHelper.getEnchantmentLevel(sourceEntity, "minecraft:fire_aspect");
-            // 获取攻击者的火焰附加等级
-            knockback = EntityEnchantmentHelper.getEnchantmentLevel(sourceEntity, "minecraft:knockback");
-            // 获取攻击者的击退等级
+        if (sourceEntity instanceof LivingEntity) {
+            // 仅在攻击者是 LivingEntity 时获取附魔等级
+            fireAspectLevel = EntityEnchantmentHelper.getEnchantmentLevel(sourceEntity, "minecraft:fire_aspect");
+            knockbackLevel = EntityEnchantmentHelper.getEnchantmentLevel(sourceEntity, "minecraft:knockback");
         }
 
-        if (fire_aspect > 0) {
-            entity.setRemainingFireTicks(fire_aspect * 80);
+        // 火焰附加效果
+        if (fireAspectLevel > 0) {
+            entity.setRemainingFireTicks(fireAspectLevel * 80); // 设置火焰持续时间
         }
 
-        if (knockback > 0) {
-            // 计算击退向量
-            Vec3 direction = entity.position().subtract(sourceEntity.position()).normalize(); // 获取从攻击者到受害者的单位向量
-            double strength = 0.8 * knockback; // 设定击退的力量
-            entity.push(direction.x * strength, direction.y * strength, direction.z * strength); // 应用击退效果
+        // 击退效果
+        if (knockbackLevel > 0) {
+            // 计算击退向量，确保方向是从攻击者到受害者
+            Vec3 direction = entity.position().subtract(sourceEntity.position()).normalize();
+            double knockbackStrength = 0.8 * knockbackLevel; // 设定击退的力量（可以根据需要调整）
+            entity.push(direction.x * knockbackStrength, direction.y * knockbackStrength, direction.z * knockbackStrength); // 应用击退
         }
     }
 

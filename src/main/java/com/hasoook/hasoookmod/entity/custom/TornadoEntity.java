@@ -4,15 +4,12 @@ import com.hasoook.hasoookmod.entity.ModEntities;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +18,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,14 +36,15 @@ public class TornadoEntity extends Animal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.1));
+        super.registerGoals();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 10d)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
 
@@ -73,7 +72,6 @@ public class TornadoEntity extends Animal {
     public void tick() {
         this.age++;
         this.noPhysics = true;
-        this.setNoGravity(true);
         this.setInvulnerable(true);
         super.tick();
         if(this.level().isClientSide()) {
@@ -84,7 +82,34 @@ public class TornadoEntity extends Animal {
         this.attractEntities();
         this.tornadoFit();
 
-        if (this.age > 100 && !this.level().isClientSide) {
+        // 龙卷风消失
+        if (this.age > 200 && this.level() instanceof ServerLevel serverLevel) {
+            int scale = (int) this.getScale();
+            serverLevel.sendParticles(
+                    ParticleTypes.GUST,
+                    this.getX(),
+                    this.getY(),
+                    this.getZ(),
+                    1,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+            );
+            serverLevel.sendParticles(
+                    ParticleTypes.CLOUD,
+                    this.getX(),
+                    this.getY() + scale,
+                    this.getZ(),
+                    5 * scale,
+                    0.2 * scale,
+                    0.4 * scale,
+                    0.2 * scale,
+                    0.1
+            );
+            serverLevel.playSound(
+                    null, this.getX(), this.getY(), this.getZ(), SoundEvents.WIND_CHARGE_BURST, this.getSoundSource(), 1.0F, 1.0F
+            );
             this.discard();
         }
     }
@@ -105,7 +130,7 @@ public class TornadoEntity extends Animal {
     public void emitCloudParticles() {
         float scale = this.getScale();
         int bound = Math.max(1, (int) (16 - scale));
-        int particleCount = Math.max(1, (int) (scale * 0.5));  // 根据尺寸计算粒子数量
+        int particleCount = (int) Math.max(1, scale * 1.5);  // 根据尺寸计算粒子数量
 
         for (int i = 0; i < particleCount; i++) {
             if (this.random.nextInt(bound) == 0) {
@@ -142,32 +167,40 @@ public class TornadoEntity extends Animal {
         }
     }
 
+    // 吸引实体
     private void attractEntities() {
-        Vec3 tornadoPosition = this.position().add(0, this.getBbHeight() * 2, 0); // 获取龙卷风当前位置
+        Vec3 tornadoPosition = this.position().add(0, this.getBbHeight() * 7, 0); // 获取龙卷风当前位置
         float scale = this.getScale(); // 获取龙卷风尺寸
-
-        // 查找范围内的实体
-        double radius = 4.0 * scale;  // 设置吸引范围
+        double radius = 2.0 * scale;  // 设置吸引范围
         List<Entity> entities = this.level().getEntities(this, new AABB(tornadoPosition.subtract(radius, radius, radius), tornadoPosition.add(radius, radius, radius)));
-
         for (Entity entity : entities) {
-            // 不吸引创造模式的玩家
+            // 不吸引创造模式的玩家和龙卷风
             if (entity instanceof Player && ((Player) entity).isCreative() || entity instanceof TornadoEntity) {
                 continue;
             }
 
-            // 计算吸引力：计算当前位置与目标生物的向量差
+            /* 持有重锤时免疫
+            if (entity instanceof LivingEntity) {
+                Item mainHandItem = livingEntity.getMainHandItem().getItem();
+                Item offHandItem = livingEntity.getOffhandItem().getItem();
+                if (mainHandItem == Items.MACE || offHandItem == Items.MACE) {
+                    continue;
+                }
+            }*/
+
+            // 计算当前位置与目标生物的向量差
             Vec3 direction = tornadoPosition.subtract(entity.position()).normalize();
             double distance = tornadoPosition.distanceTo(entity.position());
 
-            // 吸引力度：随着距离增加逐渐减小
-            double attractionStrength = Math.min(1.0, 10.0 * scale / (distance * distance));  // 根据距离调整吸引力度
+            // 计算吸引力，距离越近吸引力越大
+            double attractionStrength = Math.min(1.0, 11.0 * scale / (distance * distance));  // 根据距离调整吸引力度
 
-            // 向目标生物施加力
-            entity.setDeltaMovement(entity.getDeltaMovement().add(direction.scale(attractionStrength * 0.1)));  // 调整吸引力的强度
+            // 设置吸引力（运动向量）
+            entity.setDeltaMovement(entity.getDeltaMovement().add(direction.scale(attractionStrength * 0.1)));
         }
     }
 
+    // 龙卷风合体
     private void tornadoFit() {
         Vec3 tornadoPosition = this.position(); // 获取龙卷风当前位置
         float scale = this.getScale(); // 获取龙卷风尺寸
@@ -185,15 +218,22 @@ public class TornadoEntity extends Animal {
                 scaleAttr.removeModifiers();
                 scaleAttr.setBaseValue(scale + 1);
 
-                this.level().addParticle(
-                        ParticleTypes.GUST,
-                        this.getX(),
-                        this.getY(),
-                        this.getZ(),
-                        0,
-                        0,
-                        0
-                );
+                if (entity.level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(
+                            ParticleTypes.GUST,
+                            entity.getX(),
+                            entity.getY(),
+                            entity.getZ(),
+                            1,
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                    );
+                    serverLevel.playSound(
+                            null, this.getX(), this.getY(), this.getZ(), SoundEvents.WIND_CHARGE_BURST, this.getSoundSource(), 1.0F, 1.0F
+                    );
+                }
                 this.age = 0; // 重置时间
             }
         }
@@ -206,5 +246,30 @@ public class TornadoEntity extends Animal {
             this.discard();
         }
         return false;
+    }
+
+    @Override
+    public boolean isPushable() {
+        return false; // 不可被推挤
+    }
+
+    @Override
+    public boolean isPushedByFluid(@NotNull FluidType type) {
+        return false; // 不可被流体推动
+    }
+
+    @Override
+    public boolean shouldRenderAtSqrDistance(double pDistance) {
+        return true; // 总是渲染
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return true; // 无重力
+    }
+
+    @Override
+    public boolean canRide(@NotNull Entity entity) {
+        return false;// 禁止骑乘
     }
 }

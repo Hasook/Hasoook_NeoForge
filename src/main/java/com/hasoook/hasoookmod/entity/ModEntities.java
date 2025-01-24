@@ -16,7 +16,7 @@ public class ModEntities {
 
     public static final Supplier<EntityType<TornadoEntity>> TORNADO =
             ENTITY_TYPES.register("tornado", () -> EntityType.Builder.of(TornadoEntity::new, MobCategory.CREATURE)
-                    .sized(0.75f, 0.35f).build("tornado"));
+                    .sized(0.1f, 0.1f).build("tornado"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
