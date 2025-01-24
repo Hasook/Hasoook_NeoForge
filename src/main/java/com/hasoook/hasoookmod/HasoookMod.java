@@ -17,8 +17,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -71,6 +74,4 @@ public class HasoookMod
             EntityRenderers.register(ModEntities.TORNADO.get(), TornadoRenderer::new);
         }
     }
-
-
 }
