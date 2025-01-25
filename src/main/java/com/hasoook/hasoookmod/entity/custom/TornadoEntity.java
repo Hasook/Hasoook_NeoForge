@@ -137,9 +137,9 @@ public class TornadoEntity extends Animal {
             if (this.random.nextInt(bound) == 0) {
                 // 随机位置生成，根据尺寸计算
                 Vec3 randomOffset = new Vec3(
-                        (this.random.nextFloat() - 0.5) * scale * 2.5,
+                        (this.random.nextFloat() - 0.5) * scale * 4,
                         this.random.nextFloat() * 2.5 * scale,
-                        (this.random.nextFloat() - 0.5) * scale * 2.5
+                        (this.random.nextFloat() - 0.5) * scale * 4
                 );
 
                 // 粒子初始位置为实体位置 + 随机偏移
@@ -194,7 +194,7 @@ public class TornadoEntity extends Animal {
             double distance = tornadoPosition.distanceTo(entity.position());
 
             // 计算吸引力，距离越近吸引力越大
-            double attractionStrength = Math.min(1.0, 11.0 * scale / (distance * distance));  // 根据距离调整吸引力度
+            double attractionStrength = Math.min(0.9, 11.0 * scale / (distance * distance));  // 根据距离调整吸引力度
 
             // 设置吸引力（运动向量）
             entity.setDeltaMovement(entity.getDeltaMovement().add(direction.scale(attractionStrength * 0.1)));

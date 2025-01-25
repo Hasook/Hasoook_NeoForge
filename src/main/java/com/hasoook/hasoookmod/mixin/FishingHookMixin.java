@@ -383,7 +383,6 @@ public abstract class FishingHookMixin extends Projectile {
                         fallingBlockEntity.setHurtsEntities(1,40); // 坠落伤害
                         fallingBlockEntity.setDeltaMovement(c0 * 0.1, c1 * 0.1 + Math.sqrt(Math.sqrt(c0 * c0 + c1 * c1 + c2 * c2)) * 0.08, c2 * 0.1);
                         serverlevel.addFreshEntity(fallingBlockEntity);
-                        System.out.println(fallingBlockEntity.getBlockState());
 
                         if (this.level() instanceof ServerLevel serverLevel) {
                             serverLevel.getPlayers(player2 -> player instanceof ServerPlayer).forEach(player2 -> {
@@ -397,7 +396,6 @@ public abstract class FishingHookMixin extends Projectile {
                     cumulativeChance += entityChance;
                     if (randomValue < cumulativeChance) {
                         Entity randomEntity = createRandomEntity();
-                        System.out.println(randomEntity);
 
                         for (int i = 0; i <= efficiencyLevel; i++) {
                             Entity entity = randomEntity.getType().create(this.level());
@@ -432,7 +430,6 @@ public abstract class FishingHookMixin extends Projectile {
                         // 钓到随机物品
                         ItemStack randomItemStack = createRandomItem();
                         if (!randomItemStack.isEmpty()) {
-                            System.out.println(randomItemStack);
 
                             // 获取冶炼后的物品，如果有的话
                             ItemStack smeltedItem = getSmeltedItem(randomItemStack);

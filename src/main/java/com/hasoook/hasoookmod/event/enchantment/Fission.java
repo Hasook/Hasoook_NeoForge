@@ -64,7 +64,6 @@ public class Fission {
                         maxHealthAttr.removeModifiers();
                         maxHealthAttr.setBaseValue(maxHealth * 0.8);
 
-                        System.out.println(newEntity.getMaxHealth());
                         // 将新实体添加到世界中
                         entity.level().addFreshEntity(newEntity);
                     }

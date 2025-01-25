@@ -84,8 +84,7 @@ public class RacialDiscrimination {
         Entity firstEntityInSight = getFirstEntityInSight(player, 20.0);
 
         if (racialDiscrimination > 0 && firstEntityInSight != null && isBlackMob(firstEntityInSight)) {
-            player.attackStrengthTicker = (int) player.getCurrentItemAttackStrengthDelay();;
-            System.out.println(player.attackStrengthTicker);
+            player.attackStrengthTicker = (int) player.getCurrentItemAttackStrengthDelay();
         }
     }
 

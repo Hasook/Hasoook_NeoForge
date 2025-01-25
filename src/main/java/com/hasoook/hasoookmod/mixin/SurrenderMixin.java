@@ -37,7 +37,6 @@ public abstract class SurrenderMixin extends Entity {
                 surrender = true;
                 itemstack = itemstack1.copy();
                 itemstack1.shrink(1);
-                System.out.println("111111");
                 this.setHealth(1.0F);
                 break;
             }

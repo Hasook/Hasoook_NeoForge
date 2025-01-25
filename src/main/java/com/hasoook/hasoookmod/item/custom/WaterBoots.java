@@ -53,7 +53,6 @@ public class WaterBoots extends ArmorItem {
         if (temperature <= 0 && currentDamage < maxDamage - 1 && Config.waterBootsLoseDurability) {
             stack.hurtAndBreak(1, entity, EquipmentSlot.FEET);
         } else if (temperature <= 0 && currentDamage >= maxDamage - 1) {
-            System.out.println(entity.getTicksRequiredToFreeze());
             entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Blocks.ICE)); // 替换为冰块
         }
         // 如果在高温群系

@@ -6,8 +6,11 @@ import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -73,7 +76,12 @@ public class Spotlight {
                 }
                 // 修改伤害量
                 float amount = event.getAmount();
-                event.setAmount(amount + count);
+                if (entity.getType().is(EntityTypeTags.UNDEAD)) {
+                    event.setAmount(amount + count * 1.2F);
+                    serverLevel.sendParticles(ParticleTypes.ENCHANTED_HIT, targetPos.x, targetPos.y + entity.getBbHeight() / 2, targetPos.z, count, 0.5, 0.5, 0.5, 0.1 + 0.002 * count);
+                } else {
+                    event.setAmount(amount + count);
+                }
 
                 // 发送粒子效果
                 serverLevel.sendParticles(ParticleTypes.END_ROD, targetPos.x, targetPos.y, targetPos.z, count * 5, 0.1, 0.1, 0.1, 0.1 + 0.001 * count);
