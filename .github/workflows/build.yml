@@ -26,5 +26,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: hasoook-neofroge
+          name: hasoook-neoforge
           path: build/libs/*.jar
