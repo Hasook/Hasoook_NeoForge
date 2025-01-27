@@ -168,36 +168,42 @@ public class TornadoEntity extends Animal {
         }
     }
 
-    // 吸引实体
     private void attractEntities() {
-        Vec3 tornadoPosition = this.position().add(0, this.getBbHeight() * 7, 0); // 获取龙卷风当前位置
         float scale = this.getScale(); // 获取龙卷风尺寸
+        Vec3 tornadoPosition = this.position().add(0, this.getBbHeight() * 8, 0); // 获取龙卷风位置
         double radius = 2.0 * scale;  // 设置吸引范围
         List<Entity> entities = this.level().getEntities(this, new AABB(tornadoPosition.subtract(radius, radius, radius), tornadoPosition.add(radius, radius, radius)));
+
         for (Entity entity : entities) {
             // 不吸引创造模式的玩家和龙卷风
             if (entity instanceof Player && ((Player) entity).isCreative() || entity instanceof TornadoEntity) {
                 continue;
             }
 
-            /* 持有重锤时免疫
-            if (entity instanceof LivingEntity) {
-                Item mainHandItem = livingEntity.getMainHandItem().getItem();
-                Item offHandItem = livingEntity.getOffhandItem().getItem();
-                if (mainHandItem == Items.MACE || offHandItem == Items.MACE) {
-                    continue;
-                }
-            }*/
-
             // 计算当前位置与目标生物的向量差
             Vec3 direction = tornadoPosition.subtract(entity.position()).normalize();
-            double distance = tornadoPosition.distanceTo(entity.position());
+            double distance = Math.max(1, tornadoPosition.distanceTo(entity.position()));
 
-            // 计算吸引力，距离越近吸引力越大
-            double attractionStrength = Math.min(0.9, 11.0 * scale / (distance * distance));  // 根据距离调整吸引力度
+            // 计算吸引力，尺寸越大吸引力越大，距离越近吸引力越大
+            double attractionStrength = Math.min(0.7 + (scale * 0.1), scale / distance);
 
-            // 设置吸引力（运动向量）
-            entity.setDeltaMovement(entity.getDeltaMovement().add(direction.scale(attractionStrength * 0.1)));
+            // 计算旋转效果
+            double angle = Math.atan2(direction.z(), direction.x()); // 计算角度
+            double rotationSpeed = 0.05 * scale; // 旋转速度
+            double newAngle = angle - rotationSpeed; // 旋转角度
+
+            // 计算旋转方向的向量
+            double cosAngle = Math.cos(newAngle);
+            double sinAngle = Math.sin(newAngle);
+
+            // 旋转后的方向
+            Vec3 rotatedDirection = new Vec3((float) cosAngle, 0, (float) sinAngle);
+
+            // 将旋转方向和吸引力结合
+            Vec3 attractionForce = rotatedDirection.scale(attractionStrength * 0.06).add(direction.scale(attractionStrength * 0.1)); // 旋转力和吸引力结合
+
+            // 设置吸引力
+            entity.setDeltaMovement(entity.getDeltaMovement().add(attractionForce));
         }
     }
 
