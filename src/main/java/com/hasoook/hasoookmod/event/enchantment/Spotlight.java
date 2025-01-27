@@ -35,7 +35,7 @@ public class Spotlight {
                 BlockPos sourcePos = livingSource.blockPosition(); // 获取攻击者当前位置
                 Vec3 targetPos = entity.position().add(0, entity.getBbHeight() / 2.0, 0); // 获取实体位置
                 int count = 0; // 记录方块数量
-                int range = Math.min(sLvl, 32); // 范围（为了照顾性能有最大限制）
+                int range = Math.min(sLvl, 64); // 范围（为了照顾性能有最大限制）
 
                 // 遍历范围内的方块
                 for (int x = -range; x <= range; x++) {
@@ -59,13 +59,13 @@ public class Spotlight {
                                 double distance = blockPos.distanceTo(targetPos);
 
                                 // 通过距离来动态设置粒子数量和步长
-                                int numParticles = (int) (distance / 0.5); // 粒子数量根据距离来设置，0.5 控制粒子间隔
+                                int numParticles = (int) (distance / 0.2); // 粒子数量根据距离来设置，0.2 控制粒子间隔
                                 if (numParticles < 10) numParticles = 10; // 最少生成 10 个粒子
 
                                 // 生成粒子沿路径
                                 for (int i = 0; i < numParticles; i++) {
                                     // 计算每个粒子的位置，按步长推进
-                                    Vec3 particlePos = blockPos.add(direction.x * i * 0.5, direction.y * i * 0.5, direction.z * i * 0.5); // 步长 0.5
+                                    Vec3 particlePos = blockPos.add(direction.x * i * 0.2, direction.y * i * 0.2, direction.z * i * 0.2); // 步长 0.2
 
                                     // 在路径上生成粒子
                                     serverLevel.sendParticles(ParticleTypes.END_ROD, particlePos.x, particlePos.y, particlePos.z, 1, 0.1, 0.1, 0.1, 0.02);
@@ -74,6 +74,7 @@ public class Spotlight {
                         }
                     }
                 }
+
                 // 修改伤害量
                 float amount = event.getAmount();
                 if (entity.getType().is(EntityTypeTags.UNDEAD)) {
