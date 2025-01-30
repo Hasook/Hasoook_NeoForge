@@ -86,6 +86,11 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         ItemStack tridentItem = this.getPickupItemStackOrigin(); // 获取三叉戟的物品
         int betrayLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.BETRAY, tridentItem);
         // 获取物品的“背叛”等级
+
+        if (betrayLevel < 1) {
+            return;
+        }
+
         if (this.inGroundTime == 1 && betrayLevel > this.random.nextInt(3) + 1) {
             AABB boundingBox = this.getBoundingBox().inflate(16.0D);
             List<Entity> nearbyEntities = this.level().getEntities(this, boundingBox);
