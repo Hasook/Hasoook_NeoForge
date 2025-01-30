@@ -25,13 +25,18 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
     @Unique
     private static final EntityDimensions ZERO_SIZED_DIMENSIONS = EntityDimensions.fixed(0.0F, 0.0F);
 
-    @Override
-    protected void onHit(HitResult pResult) {
+    @Inject(method = "onHit", at = @At("HEAD"))
+    protected void onHit(HitResult pResult, CallbackInfo ci) {
         super.onHit(pResult);
         ItemStack itemStack = this.getItem(); // 获取鸡蛋的 ItemStack
         int fortuneLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack);
         // 获取物品的“时运”等级
-        if (!this.level().isClientSide && fortuneLevel > 0) {
+
+        if (fortuneLevel < 1) {
+            return;
+        }
+
+        if (!this.level().isClientSide) {
             if (this.random.nextInt(8) == 0) {
                 int i = 1;
                 if (this.random.nextInt(32) == 0) { // 1/32的概率生成4只鸡
