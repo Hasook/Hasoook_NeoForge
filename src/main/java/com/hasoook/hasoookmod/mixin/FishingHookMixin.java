@@ -87,8 +87,8 @@ public abstract class FishingHookMixin extends Projectile {
     public void tick(CallbackInfo ci) {
         this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level().getGameTime());
         super.tick();
-
         Player player = this.getPlayerOwner();
+
         if (player == null) {
             this.discard();
         } else if (this.level().isClientSide || !this.shouldStopFishing(player)) {
@@ -198,138 +198,6 @@ public abstract class FishingHookMixin extends Projectile {
         ci.cancel();
     }
 
-    @Inject(at = @At("HEAD"), method = "catchingFish")
-    private void catchingFish(BlockPos pPos, CallbackInfo ci) {
-        ServerLevel serverlevel = (ServerLevel)this.level(); // 获取当前服务器的世界
-        int i = 1; // 初始化鱼的捕获状态
-        BlockPos blockpos = pPos.above(); // 获取钓鱼位置上方的方块位置
-
-        // 检查当前是否在下雨，增加捕获几率
-        if (this.random.nextFloat() < 0.25F && this.level().isRainingAt(blockpos)) {
-            i++;
-        }
-
-        // 检查是否能看到天空，减少捕获几率
-        if (this.random.nextFloat() < 0.5F && !this.level().canSeeSky(blockpos)) {
-            i--;
-        }
-
-        // 如果正在 nibble 状态（鱼咬钩）
-        if (this.nibble > 0) {
-            this.nibble--; // 减少 nibble 值
-            if (this.nibble <= 0) { // 如果 nibble 值归零
-                this.timeUntilLured = 0; // 设置引诱时间为0
-                this.timeUntilHooked = 0; // 设置上钩时间为0
-                this.getEntityData().set(DATA_BITING, false); // 更新咬钩状态
-            }
-        } else if (this.timeUntilHooked > 0) { // 如果还有上钩时间
-            this.timeUntilHooked -= i; // 根据捕获几率减少上钩时间
-            // 计算鱼的角度并发送水花粒子效果
-            this.fishAngle = this.fishAngle + (float)this.random.triangle(0.0, 9.188);
-            float f = this.fishAngle * (float) (Math.PI / 180.0);
-            float f1 = Mth.sin(f);
-            float f2 = Mth.cos(f);
-            float f3 = f1 * 0.04F;
-            float f4 = f2 * 0.04F;
-            double d0 = this.getX() + (double)(f1 * (float)this.timeUntilHooked * 0.1F);
-            double d1 = (double)((float)Mth.floor(this.getY()) + 1.0F);
-            double d2 = this.getZ() + (double)(f2 * (float)this.timeUntilHooked * 0.1F);
-            BlockState blockstate = serverlevel.getBlockState(BlockPos.containing(d0, d1 - 1.0, d2));
-            if (this.timeUntilHooked > 0) {
-                // 检查水并生成粒子效果
-                if (blockstate.is(Blocks.WATER)) {
-                    if (this.random.nextFloat() < 0.15F) {
-                        serverlevel.sendParticles(ParticleTypes.BUBBLE, d0, d1 - 0.1F, d2, 1, f1, 0.1, (double)f2, 0.0);
-                    }
-                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, f4, 0.01, (-f3), 1.0);
-                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, -f4, 0.01, f3, 1.0);
-                }
-                // 检查熔岩并生成粒子效果
-                if (blockstate.is(Blocks.LAVA)) {
-                    if (this.random.nextFloat() < 0.15F) {
-                        serverlevel.sendParticles(ParticleTypes.LAVA, d0, d1 - 0.1F, d2, 1, (double)f1, 0.1, (double)f2, 0.0);
-                    }
-                    serverlevel.sendParticles(ParticleTypes.LAVA, d0, d1, d2, 0, (double)f4, 0.01, (double)(-f3), 1.0);
-                    serverlevel.sendParticles(ParticleTypes.LAVA, d0, d1, d2, 0, (double)(-f4), 0.01, (double)f3, 1.0);
-                }
-            } else { // 如果上钩时间归零
-                this.playSound(SoundEvents.FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-                double d3 = this.getY() + 0.5;
-                if (blockstate.is(Blocks.LAVA)) {
-                    serverlevel.sendParticles(
-                            ParticleTypes.LAVA,
-                            this.getX(),
-                            d3,
-                            this.getZ(),
-                            (int)(2.0F + this.getBbWidth() * 20.0F),
-                            (double)this.getBbWidth(),
-                            0.0,
-                            (double)this.getBbWidth(),
-                            0.2F
-                    );
-                } else {
-                    serverlevel.sendParticles(
-                            ParticleTypes.BUBBLE,
-                            this.getX(),
-                            d3,
-                            this.getZ(),
-                            (int)(1.0F + this.getBbWidth() * 20.0F),
-                            (double)this.getBbWidth(),
-                            0.0,
-                            (double)this.getBbWidth(),
-                            0.2F
-                    );
-                    serverlevel.sendParticles(
-                            ParticleTypes.FISHING,
-                            this.getX(),
-                            d3,
-                            this.getZ(),
-                            (int)(1.0F + this.getBbWidth() * 20.0F),
-                            (double)this.getBbWidth(),
-                            0.0,
-                            (double)this.getBbWidth(),
-                            0.2F
-                    );
-                }
-                this.nibble = Mth.nextInt(this.random, 20, 40); // 随机设置下一次 nibble 的时间
-                this.getEntityData().set(DATA_BITING, true); // 更新咬钩状态
-            }
-        } else if (this.timeUntilLured > 0) { // 如果还有引诱时间
-            this.timeUntilLured -= i; // 根据捕获几率减少引诱时间
-            float f5 = 0.15F; // 基础引诱概率
-            // 根据引诱时间调整引诱概率
-            if (this.timeUntilLured < 20) {
-                f5 += (float)(20 - this.timeUntilLured) * 0.05F;
-            } else if (this.timeUntilLured < 40) {
-                f5 += (float)(40 - this.timeUntilLured) * 0.02F;
-            } else if (this.timeUntilLured < 60) {
-                f5 += (float)(60 - this.timeUntilLured) * 0.01F;
-            }
-
-            // 随机生成水花粒子效果
-            if (this.random.nextFloat() < f5) {
-                float f6 = Mth.nextFloat(this.random, 0.0F, 360.0F) * (float) (Math.PI / 180.0);
-                float f7 = Mth.nextFloat(this.random, 25.0F, 60.0F);
-                double d4 = this.getX() + (double)(Mth.sin(f6) * f7) * 0.1;
-                double d5 = (double)((float)Mth.floor(this.getY()) + 1.0F);
-                double d6 = this.getZ() + (double)(Mth.cos(f6) * f7) * 0.1;
-                BlockState blockstate1 = serverlevel.getBlockState(BlockPos.containing(d4, d5 - 1.0, d6));
-                if (blockstate1.is(Blocks.WATER)) {
-                    serverlevel.sendParticles(ParticleTypes.SPLASH, d4, d5, d6, 2 + this.random.nextInt(2), 0.1F, 0.0, 0.1F, 0.0);
-                }
-            }
-
-            // 如果引诱时间归零，设置鱼的角度和上钩时间
-            if (this.timeUntilLured <= 0) {
-                this.fishAngle = Mth.nextFloat(this.random, 0.0F, 360.0F);
-                this.timeUntilHooked = Mth.nextInt(this.random, 20, 80);
-            }
-        } else { // 如果没有引诱时间
-            this.timeUntilLured = Mth.nextInt(this.random, 100, 600); // 随机设置引诱时间
-            this.timeUntilLured = this.timeUntilLured - this.lureSpeed; // 减去钓饵速度
-        }
-    }
-
     @Inject(at = @At("HEAD"), method = "retrieve")
     public void retrieve(ItemStack pStack, CallbackInfoReturnable<Integer> cir) {
         Player player = this.getPlayerOwner();
@@ -339,7 +207,11 @@ public abstract class FishingHookMixin extends Projectile {
         }
         int fpLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_PROTECTION, pStack);
 
-        if (!this.level().isClientSide && fpLevel > 0) {
+        if (fpLevel <= 0) {
+            return;
+        }
+
+        if (!this.level().isClientSide) {
             ServerLevel serverlevel = (ServerLevel) this.level();
             float f = this.fishAngle * (float) (Math.PI / 180.0);
             float f1 = Mth.sin(f);
