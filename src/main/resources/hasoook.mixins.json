@@ -11,6 +11,7 @@
     "block.SculkShriekerBlockEntityMixin",
     "blockEntity.ShulkerBoxBlockEntityMixin",
     "entity.ItemEntityMixin",
+    "entity.OminousItemSpawnerMixin",
     "entity.ThrownTridentMixin",
     "entity.WindChargeMixin",
     "entityEnchantmentMixin.BoatMixin",
