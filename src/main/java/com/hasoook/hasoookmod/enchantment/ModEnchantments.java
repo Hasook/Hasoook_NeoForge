@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
@@ -44,316 +45,201 @@ public class ModEnchantments {
     {
         // 获取各种注册表的持有者获取器
         HolderGetter<net.minecraft.world.damagesource.DamageType> holdergetter = context.lookup(Registries.DAMAGE_TYPE);
-        HolderGetter<Enchantment> holdergetter1 = context.lookup(Registries.ENCHANTMENT);
-        HolderGetter<Item> holdergetter2 = context.lookup(Registries.ITEM);
-        HolderGetter<Block> holdergetter3 = context.lookup(Registries.BLOCK);
+        var enchantments = context.lookup(Registries.ENCHANTMENT);
+        var items = context.lookup(Registries.ITEM);
+        var blocks = context.lookup(Registries.BLOCK);
 
         // 注册自定义附魔
-        register(
-                context,
-                RANDOM_BULLETS, // 随机子弹
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.BOW_ENCHANTABLE),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                8,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 随机子弹
+        register(context, RANDOM_BULLETS,Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.BOW_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+                .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE)) // 附魔排斥
         );
-        register(
-                context,
-                SEPARATION_EXPLOSION, // 分离爆炸
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ModItemTags.SEPARATION_ITEMS),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                4,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 分离爆炸
+        register(context, SEPARATION_EXPLOSION, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ModItemTags.SEPARATION_ITEMS),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                4,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                DISDAIN, // 嫌弃
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
-                                2,
-                                2,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                8,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 嫌弃
+        register(context, DISDAIN, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ModItemTags.COMMON_TAG),
+                2,
+                2,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                SWAP, // 交换
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                8,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 交换
+        register(context, SWAP, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ModItemTags.COMMON_TAG),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                CHAIN_DAMAGE, // 连锁打怪
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                                2,
-                                2,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                20,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 连锁打怪
+        register(context, CHAIN_DAMAGE, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                2,
+                2,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                20,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                GIVE, // 给予
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ModItemTags.COMMON_TAG),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 给予
+        register(context, GIVE, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ModItemTags.COMMON_TAG),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                2,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                UNYIELDING, // 不屈
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
-                                2,
-                                5,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 不屈
+        register(context, UNYIELDING, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                2,
+                5,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                2,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                SEVEN_STEP_SNAKE_VENOM, // 七步蛇毒
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
-                                2,
-                                3,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.FEET
-                        )
-                )
+        // 七步蛇毒
+        register(context, SEVEN_STEP_SNAKE_VENOM, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
+                2,
+                3,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                2,
+                EquipmentSlotGroup.FEET))
         );
-        register(
-                context,
-                KILL_A_MAN_EVERY_TEN_PACES, // 十步杀一人
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.FEET
-                        )
-                )
+        // 十步杀一人
+        register(context, KILL_A_MAN_EVERY_TEN_PACES, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                2,
+                EquipmentSlotGroup.FEET))
         );
-        register(
-                context,
-                HEARTLESS, // 绝情
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 背刺
+        register(context, BACKSTAB, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                10,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                BACKSTAB, // 背刺
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                                2,
-                                1,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                10,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
+        // 背叛
+        register(context, BETRAY, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
+                2,
+                3,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                2,
+                EquipmentSlotGroup.MAINHAND))
         );
-        register(
-                context,
-                BETRAY, // 背叛
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
-                                2,
-                                3,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
-        );register(
-                context,
-                FLYING_THUNDER_GOD, // 飞雷神
-                Enchantment.enchantment(
-                        Enchantment.definition(
-                                holdergetter2.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
-                                2,
-                                3,
-                                Enchantment.constantCost(25),
-                                Enchantment.constantCost(50),
-                                2,
-                                EquipmentSlotGroup.MAINHAND
-                        )
-                )
-        );register(
-            context,
-            RACIAL_DISCRIMINATION, // 种族歧视
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.BOW_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            MIDDLE_EAST_BEST_PILOT, // 中东最好的飞行员
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            DE_URBANIZATION, // 去城市化
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            SPOTLIGHT, // 聚光
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                            2,
-                            3,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            ZERO_COST_PURCHASE, // 零元购
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            POLITICAL_CORRECTNESS, // 政治正确
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            FISSION, // 分裂
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
-        );register(
-            context,
-            TORNADO, // 分裂
-            Enchantment.enchantment(
-                    Enchantment.definition(
-                            holdergetter2.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
-                            2,
-                            1,
-                            Enchantment.constantCost(25),
-                            Enchantment.constantCost(50),
-                            8,
-                            EquipmentSlotGroup.MAINHAND
-                    )
-            )
+        // 种族歧视
+        register(context, RACIAL_DISCRIMINATION, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.BOW_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 中东最好的飞行员
+        register(context, MIDDLE_EAST_BEST_PILOT, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 去城市化
+        register(context, DE_URBANIZATION, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 聚光
+        register(context, SPOTLIGHT, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                2,
+                3,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 零元购
+        register(context, ZERO_COST_PURCHASE, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 政治正确
+        register(context, POLITICAL_CORRECTNESS, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 分裂
+        register(context, FISSION, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 龙卷
+        register(context, TORNADO, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
         );
     }
 
@@ -365,6 +251,6 @@ public class ModEnchantments {
     // 创建附魔资源键的方法
     private static ResourceKey<Enchantment> key(String name)
     {
-        return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID,name));
+        return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, name));
     }
 }
