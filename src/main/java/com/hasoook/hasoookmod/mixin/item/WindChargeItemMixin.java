@@ -26,21 +26,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WindChargeItem.class)
-public class WindChargeItemMixin extends Item implements ProjectileItem {
+public class WindChargeItemMixin extends Item{
     public WindChargeItemMixin(Properties pProperties) {
         super(pProperties);
-    }
-
-    @Override
-    public @NotNull Projectile asProjectile(Level p_338589_, Position p_338670_, @NotNull ItemStack p_338308_, Direction p_338206_) {
-        RandomSource randomsource = p_338589_.getRandom();
-        double d0 = randomsource.triangle(p_338206_.getStepX(), 0.11485000000000001);
-        double d1 = randomsource.triangle(p_338206_.getStepY(), 0.11485000000000001);
-        double d2 = randomsource.triangle(p_338206_.getStepZ(), 0.11485000000000001);
-        Vec3 vec3 = new Vec3(d0, d1, d2);
-        WindCharge windcharge = new WindCharge(p_338589_, p_338670_.x(), p_338670_.y(), p_338670_.z(), vec3);
-        windcharge.setDeltaMovement(vec3);
-        return windcharge;
     }
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)

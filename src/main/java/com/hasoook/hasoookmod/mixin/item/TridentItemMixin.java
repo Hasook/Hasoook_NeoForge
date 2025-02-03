@@ -30,21 +30,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TridentItem.class)
-public abstract class TridentItemMixin extends Item implements ProjectileItem {
+public abstract class TridentItemMixin extends Item{
     @Shadow
     private static boolean isTooDamagedToUse(ItemStack pStack) {
-        return false;
+        return pStack.getDamageValue() >= pStack.getMaxDamage() - 1;
     }
 
     public TridentItemMixin(Properties pProperties) {
         super(pProperties);
-    }
-
-    @Override
-    public @NotNull Projectile asProjectile(Level pLevel, Position pPos, ItemStack pStack, @NotNull Direction pDirection) {
-        ThrownTrident throwntrident = new ThrownTrident(pLevel, pPos.x(), pPos.y(), pPos.z(), pStack.copyWithCount(1));
-        throwntrident.pickup = AbstractArrow.Pickup.ALLOWED;
-        return throwntrident;
     }
 
     @Inject(at = @At("HEAD"), method = "releaseUsing", cancellable = true)
