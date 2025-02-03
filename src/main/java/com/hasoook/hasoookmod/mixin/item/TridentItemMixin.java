@@ -22,6 +22,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,8 +41,10 @@ public abstract class TridentItemMixin extends Item implements ProjectileItem {
     }
 
     @Override
-    public Projectile asProjectile(Level pLevel, Position pPos, ItemStack pStack, Direction pDirection) {
-        return null;
+    public @NotNull Projectile asProjectile(Level pLevel, Position pPos, ItemStack pStack, @NotNull Direction pDirection) {
+        ThrownTrident throwntrident = new ThrownTrident(pLevel, pPos.x(), pPos.y(), pPos.z(), pStack.copyWithCount(1));
+        throwntrident.pickup = AbstractArrow.Pickup.ALLOWED;
+        return throwntrident;
     }
 
     @Inject(at = @At("HEAD"), method = "releaseUsing", cancellable = true)

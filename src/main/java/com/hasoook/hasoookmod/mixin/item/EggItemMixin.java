@@ -1,7 +1,6 @@
 package com.hasoook.hasoookmod.mixin.item;
 
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
-import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,7 +42,9 @@ public class EggItemMixin extends Item implements ProjectileItem {
     }
 
     @Override
-    public Projectile asProjectile(Level pLevel, Position pPos, ItemStack pStack, Direction pDirection) {
-        return null;
+    public @NotNull Projectile asProjectile(@NotNull Level pLevel, Position pPos, @NotNull ItemStack pStack, @NotNull Direction pDirection) {
+        ThrownEgg thrownegg = new ThrownEgg(pLevel, pPos.x(), pPos.y(), pPos.z());
+        thrownegg.setItem(pStack);
+        return thrownegg;
     }
 }

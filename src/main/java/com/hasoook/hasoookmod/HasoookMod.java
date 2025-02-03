@@ -1,6 +1,7 @@
 package com.hasoook.hasoookmod;
 
 import com.hasoook.hasoookmod.block.ModBlock;
+import com.hasoook.hasoookmod.client.HideHeadHandler;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
 import com.hasoook.hasoookmod.entity.ModEntities;
@@ -17,11 +18,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import org.checkerframework.checker.units.qual.C;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -35,7 +33,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 public class HasoookMod
 {
     public static final String MOD_ID = "hasoook";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public HasoookMod(IEventBus modEventBus, ModContainer modContainer)
     {
@@ -47,9 +45,6 @@ public class HasoookMod
         ModPotions.register(modEventBus);
         ModArmorMaterials.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
-
-        NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
-        NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
 
         ModEntities.register(modEventBus);
 
