@@ -38,7 +38,6 @@ public class HideHeadHandler {
             humanoidModel.hat.visible = false;
         }
 
-        // 通过反射处理其他模型
         try {
             Field headField = model.getClass().getDeclaredField("head");
             headField.setAccessible(true);
