@@ -3,6 +3,7 @@
   "description": {
     "translate": "enchantment.hasoook.random_bullets"
   },
+  "exclusive_set": "#minecraft:exclusive_set/damage",
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0

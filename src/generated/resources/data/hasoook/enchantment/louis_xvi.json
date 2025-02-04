@@ -1,13 +1,13 @@
 {
-  "anvil_cost": 2,
+  "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.hasoook.flying_thunder_god"
+    "translate": "enchantment.hasoook.louis_xvi"
   },
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0
   },
-  "max_level": 3,
+  "max_level": 1,
   "min_cost": {
     "base": 25,
     "per_level_above_first": 0
@@ -15,6 +15,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/trident",
+  "supported_items": "#minecraft:enchantable/sword",
   "weight": 2
 }

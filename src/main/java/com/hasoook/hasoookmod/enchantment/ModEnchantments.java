@@ -39,6 +39,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> POLITICAL_CORRECTNESS = key("political_correctness"); // 政治正确
     public static final ResourceKey<Enchantment> FISSION = key("fission"); // 分裂
     public static final ResourceKey<Enchantment> TORNADO = key("tornado"); // 龙卷
+    public static final ResourceKey<Enchantment> LOUIS_XVI = key("louis_xvi"); // 龙卷
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -233,6 +234,16 @@ public class ModEnchantments {
         );
         // 龙卷
         register(context, TORNADO, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                2,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                8,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 路易十六
+        register(context, LOUIS_XVI, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
                 2,
                 1,
