@@ -23,7 +23,7 @@ public class HideHeadHandler {
 
     @SubscribeEvent
     public static void onRenderPre(RenderLivingEvent.Pre<?, ?> event) {
-        Entity entity = event.getEntity(); // 实体
+        Entity entity = event.getEntity();
         boolean louisXvi = entity.getPersistentData().getBoolean("louis_xvi"); // 获取实体的nbt
         if (!louisXvi) return;
 
