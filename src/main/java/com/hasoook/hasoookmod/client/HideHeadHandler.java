@@ -30,7 +30,6 @@ public class HideHeadHandler {
         List<ModelPartState> states = new ArrayList<>();
         Object model = event.getRenderer().getModel();
 
-        // 处理人形生物模型
         if (model instanceof HumanoidModel<?> humanoidModel) {
             states.add(new ModelPartState(humanoidModel.head, humanoidModel.head.visible));
             states.add(new ModelPartState(humanoidModel.hat, humanoidModel.hat.visible));
