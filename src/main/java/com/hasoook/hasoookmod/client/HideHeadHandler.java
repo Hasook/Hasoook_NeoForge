@@ -1,11 +1,9 @@
 package com.hasoook.hasoookmod.client;
 
-import com.hasoook.hasoookmod.effect.ModEffects;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,7 +22,7 @@ public class HideHeadHandler {
     @SubscribeEvent
     public static void onRenderPre(RenderLivingEvent.Pre<?, ?> event) {
         Entity entity = event.getEntity();
-        boolean louisXvi = entity.getPersistentData().getBoolean("louis_xvi"); // 获取实体的nbt
+        boolean louisXvi = entity.getPersistentData().getBoolean("louis_xvi");
         if (!louisXvi) return;
 
         List<ModelPartState> states = new ArrayList<>();
@@ -35,14 +33,20 @@ public class HideHeadHandler {
             states.add(new ModelPartState(humanoidModel.hat, humanoidModel.hat.visible));
             humanoidModel.head.visible = false;
             humanoidModel.hat.visible = false;
+        } else if (model instanceof QuadrupedModel<?> quadrupedModel) {
+            states.add(new ModelPartState(quadrupedModel.head, quadrupedModel.head.visible));
+            quadrupedModel.head.visible = false;
         }
 
+        // 尝试通过反射获取头部部分，适用于其他模型
         try {
             Field headField = model.getClass().getDeclaredField("head");
             headField.setAccessible(true);
             ModelPart head = (ModelPart) headField.get(model);
-            states.add(new ModelPartState(head, head.visible));
-            head.visible = false;
+            if (head != null && states.stream().noneMatch(state -> state.modelPart == head)) {
+                states.add(new ModelPartState(head, head.visible));
+                head.visible = false;
+            }
         } catch (Exception ignored) {}
 
         if (!states.isEmpty()) {
