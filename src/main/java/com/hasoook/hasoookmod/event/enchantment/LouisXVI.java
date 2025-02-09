@@ -13,6 +13,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -69,12 +70,17 @@ public class LouisXVI {
                     ? net.minecraft.world.entity.EquipmentSlot.MAINHAND
                     : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
 
-            // 取消事件
-            event.setCanceled(true);
+            entity.gameEvent(GameEvent.SHEAR, player); // 触发修剪事件
+            event.setCanceled(true);// 取消事件
 
         } else if (louisXvi && itemStack.is(Items.CARVED_PUMPKIN)) {
             persistentData.putBoolean("louis_xvi", false);
             player.swing(event.getHand());
+
+            if (!player.isCreative()) {
+                itemStack.shrink(1); // 如果不是创造模式，减少一个物品
+            }
+
             event.setCanceled(true);
         }
     }
