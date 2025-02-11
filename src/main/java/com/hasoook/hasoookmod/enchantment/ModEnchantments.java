@@ -245,10 +245,10 @@ public class ModEnchantments {
         register(context, LOUIS_XVI, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ModItemTags.LOUIS_XVI),
                 2,
-                1,
+                16,
                 Enchantment.dynamicCost(5, 7),
                 Enchantment.dynamicCost(25, 7),
-                8,
+                0,
                 EquipmentSlotGroup.MAINHAND))
         );
     }

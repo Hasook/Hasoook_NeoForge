@@ -140,8 +140,9 @@ public class LouisXVI {
             );
         }
 
-        itemStack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+        itemStack.hurtAndBreak(16, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         player.swing(hand);
+        player.getCooldowns().addCooldown(itemStack.getItem(), 16);
         entity.gameEvent(GameEvent.SHEAR, player);
         entity.playSound(SoundEvents.SHEEP_SHEAR, 1.0f, 1.0f);
     }

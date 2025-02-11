@@ -1,20 +1,20 @@
 {
-  "anvil_cost": 8,
+  "anvil_cost": 1,
   "description": {
     "translate": "enchantment.hasoook.tornado"
   },
   "max_cost": {
-    "base": 50,
+    "base": 1,
     "per_level_above_first": 0
   },
   "max_level": 1,
   "min_cost": {
-    "base": 25,
+    "base": 1,
     "per_level_above_first": 0
   },
   "slots": [
     "mainhand"
   ],
   "supported_items": "#hasoook:tornado_items",
-  "weight": 2
+  "weight": 10
 }
