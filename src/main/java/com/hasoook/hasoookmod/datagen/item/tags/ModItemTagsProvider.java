@@ -31,5 +31,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 .addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE)
                 .addTag(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(ItemTags.BOW_ENCHANTABLE);
+        this.tag(ModItemTags.LOUIS_XVI).addTag(ItemTags.SWORDS)
+                .addTag(ItemTags.AXES)
+                .add(Items.SHEARS);
+        this.tag(ModItemTags.TORNADO_ITEMS).add(Items.WIND_CHARGE);
     }
 }

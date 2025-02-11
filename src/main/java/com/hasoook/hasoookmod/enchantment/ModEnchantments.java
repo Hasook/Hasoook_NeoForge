@@ -30,7 +30,6 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> HEARTLESS = key("heartless");
     public static final ResourceKey<Enchantment> BACKSTAB = key("backstab");
     public static final ResourceKey<Enchantment> BETRAY = key("betray");
-    public static final ResourceKey<Enchantment> FLYING_THUNDER_GOD = key("flying_thunder_god"); // 飞雷神
     public static final ResourceKey<Enchantment> RACIAL_DISCRIMINATION = key("racial_discrimination"); // 种族歧视
     public static final ResourceKey<Enchantment> MIDDLE_EAST_BEST_PILOT = key("middle_east_best_pilot"); // 中东最好的飞行员
     public static final ResourceKey<Enchantment> DE_URBANIZATION = key("de_urbanization"); // 去城市化
@@ -39,7 +38,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> POLITICAL_CORRECTNESS = key("political_correctness"); // 政治正确
     public static final ResourceKey<Enchantment> FISSION = key("fission"); // 分裂
     public static final ResourceKey<Enchantment> TORNADO = key("tornado"); // 龙卷
-    public static final ResourceKey<Enchantment> LOUIS_XVI = key("louis_xvi"); // 龙卷
+    public static final ResourceKey<Enchantment> LOUIS_XVI = key("louis_xvi"); // 路易十六
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -234,21 +233,21 @@ public class ModEnchantments {
         );
         // 龙卷
         register(context, TORNADO, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
-                2,
+                items.getOrThrow(ModItemTags.TORNADO_ITEMS),
+                10,
                 1,
-                Enchantment.constantCost(25),
-                Enchantment.constantCost(50),
-                8,
+                Enchantment.constantCost(1),
+                Enchantment.constantCost(1),
+                1,
                 EquipmentSlotGroup.MAINHAND))
         );
         // 路易十六
         register(context, LOUIS_XVI, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                items.getOrThrow(ModItemTags.LOUIS_XVI),
                 2,
                 1,
-                Enchantment.constantCost(25),
-                Enchantment.constantCost(50),
+                Enchantment.dynamicCost(5, 7),
+                Enchantment.dynamicCost(25, 7),
                 8,
                 EquipmentSlotGroup.MAINHAND))
         );

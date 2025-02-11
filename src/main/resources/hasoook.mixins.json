@@ -19,6 +19,7 @@
     "entityEnchantmentMixin.SnowGolemMixin",
     "item.BowMixin",
     "item.EggItemMixin",
+    "item.ItemMixin",
     "item.TridentItemEntityMixin",
     "item.TridentItemMixin",
     "item.WindChargeItemMixin"

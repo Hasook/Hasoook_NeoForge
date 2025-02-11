@@ -1,4 +1,6 @@
-// 1.21	2024-08-29T00:46:12.0621006	Tags for minecraft:item mod id hasoook
+// 1.21	2025-02-12T00:59:57.6235073	Tags for minecraft:item mod id hasoook
 8e3aabc6caa173f79739878f3051d2e60eb91c8e data/hasoook/tags/item/common_tag.json
 56766bbf8d79164fc848041203efa60c692eb7ce data/hasoook/tags/item/enchantable/separation_items.json
 0f3226c355cdcb90f8de3c0301edef1be93f4f89 data/hasoook/tags/item/entity_enchantment.json
+a743626ee37dccd298ed1407cd76853ee2753265 data/hasoook/tags/item/louis_xvi.json
+bb60f484beb4987b151845a8c5ab1e00c4b5afda data/hasoook/tags/item/tornado_items.json
