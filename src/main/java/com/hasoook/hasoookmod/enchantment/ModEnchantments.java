@@ -2,6 +2,7 @@ package com.hasoook.hasoookmod.enchantment;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.tags.ModItemTags;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -13,7 +14,11 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // 自定义附魔类，用于定义和注册新的附魔
 public class ModEnchantments {
@@ -244,10 +249,10 @@ public class ModEnchantments {
         // 路易十六
         register(context, LOUIS_XVI, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ModItemTags.LOUIS_XVI),
-                2,
-                16,
-                Enchantment.dynamicCost(5, 7),
-                Enchantment.dynamicCost(25, 7),
+                1,
+                1,
+                Enchantment.constantCost(1),
+                Enchantment.constantCost(1),
                 0,
                 EquipmentSlotGroup.MAINHAND))
         );
@@ -255,12 +260,24 @@ public class ModEnchantments {
 
     // 注册附魔的方法
     private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
-        context.register(key, builder.build(key.location()));
+        Holder.Reference<Enchantment> holder = context.register(key, builder.build(key.location()));
+        ENCHANTMENT_HOLDERS.put(key, holder); // 缓存 Holder
     }
 
     // 创建附魔资源键的方法
     private static ResourceKey<Enchantment> key(String name)
     {
         return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(HasoookMod.MOD_ID, name));
+    }
+
+    // 新增一个静态 Map 用于缓存 Holder<Enchantment>
+    private static final Map<ResourceKey<Enchantment>, Holder.Reference<Enchantment>> ENCHANTMENT_HOLDERS = new HashMap<>();
+
+    public static Holder<Enchantment> getHolder(
+            BootstrapContext<Enchantment> context,
+            ResourceKey<Enchantment> key
+    ) {
+        HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
+        return context.lookup(Registries.ENCHANTMENT).getOrThrow(key);
     }
 }

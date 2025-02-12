@@ -12,7 +12,7 @@ public class EnchantmentValueRegistry {
 
     // 为原版物品修改附魔能力
     static {
-        register(Items.SHEARS, 15);  // 剪刀 附魔能力值15
+        register(Items.SHEARS, 2);  // 剪刀 附魔能力值15
         register(Items.ELYTRA, 10);
     }
 

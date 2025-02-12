@@ -62,7 +62,8 @@
   "hasoook.configuration.hugeDiamondPickMiningRange": "Huge Diamond Pick Mining Range",
   "hasoook.configuration.hugeDiamondPickInteractionRange": "Huge Diamond Pick Interaction Range",
   "hasoook.configuration.durationOfTornado": "The Duration Of A Tornado, Measured In Tick",
-  "hasoook.configuration.lamaGiveSpit": "The llama's spit attack will give the spit item.",
+  "hasoook.configuration.lamaGiveSpit": "The llama's spit attack will give the spit item",
+  "hasoook.configuration.louisXviBlindness": "Shearing blinds the player",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
   "hasoook.configuration.items": "items",
 

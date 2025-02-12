@@ -31,13 +31,17 @@ public class Config
             .comment("龙卷风持续时间，默认值：200")
             .defineInRange("durationOfTornado", 200, 0, Integer.MAX_VALUE);
 
-    private static final ModConfigSpec.BooleanValue Water_Boots_Lose_Durability = BUILDER
+    private static final ModConfigSpec.BooleanValue WATER_BOOTS_LOSE_DURABILITY = BUILDER
             .comment("水靴子在寒冷或热带群系中会持续减少耐久值，默认值：开")
             .define("waterBootsLoseDurability", true);
 
-    private static final ModConfigSpec.BooleanValue Lama_Give_Spit = BUILDER
-            .comment("羊驼口水攻击玩家时，会给予玩家一个口水物品，默认值：开")
+    private static final ModConfigSpec.BooleanValue LAMA_GIVE_SPIT = BUILDER
+            .comment("羊驼口水攻击玩家时，是否会给予玩家一个口水物品，默认值：开")
             .define("lamaGiveSpit", true);
+
+    private static final ModConfigSpec.BooleanValue LOUIS_XVI_BLINDNESS = BUILDER
+            .comment("路易十六的'剪头'是否会使玩家失明，默认值：关")
+            .define("louisXviBlindness", false);
 
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
             .comment("这只是一个模板，没什么用")
@@ -53,6 +57,7 @@ public class Config
     public static int durationOfTornado;
     public static boolean waterBootsLoseDurability;
     public static boolean lamaGiveSpit;
+    public static boolean louisXviBlindness;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
@@ -67,8 +72,9 @@ public class Config
         hugeDiamondPickMiningRange = HUGE_DIAMOND_PICK_MINING_RANGE.get();
         hugeDiamondPickInteractionRange = HUGE_DIAMOND_PICK_INTERACTION_RANGE.get();
         durationOfTornado = DURATION_OF_TORNADO.get();
-        waterBootsLoseDurability = Water_Boots_Lose_Durability.get();
-        lamaGiveSpit = Lama_Give_Spit.get();
+        waterBootsLoseDurability = WATER_BOOTS_LOSE_DURABILITY.get();
+        lamaGiveSpit = LAMA_GIVE_SPIT.get();
+        louisXviBlindness = LOUIS_XVI_BLINDNESS.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items
