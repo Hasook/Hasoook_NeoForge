@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.event.enchantment;
 
+import com.hasoook.hasoookmod.Config;
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
@@ -13,12 +14,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -26,7 +29,6 @@ import net.minecraft.world.phys.Vec2;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -90,25 +92,6 @@ public class LouisXVI {
             headReversion(event.getHand(), player, player, persistentData, itemStack);
         }
     }
-
-    /**
-     * 处理造成伤害时剪头的方法
-     */
-    /*@SubscribeEvent
-    public static void onEntityAttack(LivingIncomingDamageEvent event) {
-        Entity source = event.getSource().getEntity();
-        Entity entity = event.getEntity();
-
-        if (source instanceof LivingEntity sourceEntity) {
-            ItemStack itemStack = sourceEntity.getItemInHand(InteractionHand.MAIN_HAND);
-            int lvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.LOUIS_XVI, itemStack);
-            CompoundTag persistentData = entity.getPersistentData();
-            boolean louisXvi = persistentData.getBoolean("louis_xvi");
-            if (lvl > 0 && !louisXvi) {
-                handleLouisXVIInteraction(null, null, entity, persistentData, itemStack);
-            }
-        }
-    }*/
 
     /**
      * 处理剪头交互逻辑
@@ -210,6 +193,18 @@ public class LouisXVI {
                         toItem.shrink(1);
                     }
                 });
+            } else if (!toItem.is(Items.AIR)) {
+                entity.setItemSlot(slot, event.getFrom());
+                // 将尝试装备的物品放回实体手中或掉落
+                if (entity instanceof Player player) {
+                    if (!player.addItem(toItem)) {
+                        // 背包已满时掉落物品
+                        player.drop(toItem, false);
+                    }
+                } else {
+                    // 非玩家实体直接掉落
+                    entity.spawnAtLocation(toItem);
+                }
             }
         }
     }
@@ -235,6 +230,9 @@ public class LouisXVI {
                     .stream()
                     .filter(player::hasLineOfSight)
                     .forEach(mob -> PacketDistributor.sendToPlayer((ServerPlayer) player, new LouisXVIS2CPacket(mob.getId(), true)));
+        }
+        if (player.getPersistentData().getBoolean("louis_xvi") && Config.louisXviBlindness) {
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 32,15));
         }
     }
 }
