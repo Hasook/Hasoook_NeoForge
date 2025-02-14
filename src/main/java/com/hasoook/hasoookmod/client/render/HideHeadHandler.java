@@ -1,4 +1,4 @@
-package com.hasoook.hasoookmod.client;
+package com.hasoook.hasoookmod.client.render;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.QuadrupedModel;
