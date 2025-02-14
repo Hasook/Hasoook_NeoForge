@@ -1,14 +1,12 @@
 package com.hasoook.hasoookmod.item;
 
 import com.hasoook.hasoookmod.HasoookMod;
-import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.item.custom.*;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
