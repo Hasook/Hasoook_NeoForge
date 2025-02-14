@@ -22,8 +22,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraft.world.item.component.ResolvableProfile;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
@@ -149,9 +149,10 @@ public class LouisXVI {
             entity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
         }
 
+        int efficiencyLevel = ModEnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, itemStack);
         itemStack.hurtAndBreak(16, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-        player.swing(hand);
-        player.getCooldowns().addCooldown(itemStack.getItem(), 16);
+        player.swing(hand); // 挥动手臂
+        player.getCooldowns().addCooldown(itemStack.getItem(), 320 / (1 + efficiencyLevel)); // 冷却时间
         entity.gameEvent(GameEvent.SHEAR, player);
         entity.playSound(SoundEvents.SHEEP_SHEAR, 1.0f, 1.0f);
     }

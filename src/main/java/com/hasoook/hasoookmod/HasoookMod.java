@@ -1,12 +1,9 @@
 package com.hasoook.hasoookmod;
 
 import com.hasoook.hasoookmod.block.ModBlock;
-import com.hasoook.hasoookmod.client.HideHeadHandler;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
 import com.hasoook.hasoookmod.entity.ModEntities;
-import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
-import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import com.hasoook.hasoookmod.item.ModArmorMaterials;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
@@ -18,7 +15,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.slf4j.Logger;
 

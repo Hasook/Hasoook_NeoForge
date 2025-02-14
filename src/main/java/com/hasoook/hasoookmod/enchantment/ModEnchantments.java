@@ -243,9 +243,9 @@ public class ModEnchantments {
                 items.getOrThrow(ModItemTags.LOUIS_XVI),
                 1,
                 1,
-                Enchantment.constantCost(1),
-                Enchantment.constantCost(1),
-                0,
+                Enchantment.constantCost(20),
+                Enchantment.constantCost(50),
+                1,
                 EquipmentSlotGroup.MAINHAND))
         );
     }

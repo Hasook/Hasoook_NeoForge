@@ -1,7 +1,7 @@
 package com.hasoook.hasoookmod.event;
 
 import com.hasoook.hasoookmod.HasoookMod;
-import com.hasoook.hasoookmod.client.HideHeadHandler;
+import com.hasoook.hasoookmod.client.render.HideHeadHandler;
 import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.entity.client.TornadoModel;
 import com.hasoook.hasoookmod.entity.custom.TornadoEntity;
