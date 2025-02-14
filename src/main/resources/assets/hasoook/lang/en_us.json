@@ -63,7 +63,8 @@
   "hasoook.configuration.hugeDiamondPickInteractionRange": "Huge Diamond Pick Interaction Range",
   "hasoook.configuration.durationOfTornado": "The Duration Of A Tornado, Measured In Tick",
   "hasoook.configuration.lamaGiveSpit": "The llama's spit attack will give the spit item",
-  "hasoook.configuration.louisXviBlindness": "Shearing blinds the player",
+  "hasoook.configuration.louisXviBlindness": "Decapitation status effect blinds the player",
+  "hasoook.configuration.louisXviHead": "Decapitation status effect disables the helmet slot",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
   "hasoook.configuration.items": "items",
 

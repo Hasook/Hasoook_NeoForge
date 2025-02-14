@@ -63,7 +63,8 @@
   "hasoook.configuration.hugeDiamondPickInteractionRange": "超大钻石镐增加的交互距离",
   "hasoook.configuration.durationOfTornado": "龙卷风的持续时间，以刻为单位",
   "hasoook.configuration.lamaGiveSpit": "羊驼攻击会给予口水物品",
-  "hasoook.configuration.louisXviBlindness": "“剪头”是否使玩家失明",
+  "hasoook.configuration.louisXviBlindness": "斩首状态使玩家失明",
+  "hasoook.configuration.louisXviHead": "斩首状态限制使用头盔槽",
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
   "hasoook.configuration.items": "items",
 

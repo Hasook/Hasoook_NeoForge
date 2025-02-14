@@ -40,8 +40,12 @@ public class Config
             .define("lamaGiveSpit", true);
 
     private static final ModConfigSpec.BooleanValue LOUIS_XVI_BLINDNESS = BUILDER
-            .comment("路易十六的'剪头'是否会使玩家失明，默认值：关")
+            .comment("斩首状态使玩家失明，默认值：关")
             .define("louisXviBlindness", false);
+
+    private static final ModConfigSpec.BooleanValue LOUIS_XVI_HEAD = BUILDER
+            .comment("斩首状态限制使用头盔槽，默认值：开")
+            .define("louisXviHead", true);
 
     public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
             .comment("这只是一个模板，没什么用")
@@ -58,6 +62,7 @@ public class Config
     public static boolean waterBootsLoseDurability;
     public static boolean lamaGiveSpit;
     public static boolean louisXviBlindness;
+    public static boolean louisXviHead;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
@@ -75,6 +80,7 @@ public class Config
         waterBootsLoseDurability = WATER_BOOTS_LOSE_DURABILITY.get();
         lamaGiveSpit = LAMA_GIVE_SPIT.get();
         louisXviBlindness = LOUIS_XVI_BLINDNESS.get();
+        louisXviHead = LOUIS_XVI_HEAD.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items
