@@ -21,14 +21,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class RacialDiscrimination {
@@ -44,7 +41,9 @@ public class RacialDiscrimination {
 
             if (firstEntityInSight != null && racialDiscrimination > 0 && isWhiteMob(firstEntityInSight)) {
                 event.setCanceled(true);
-                livingEntity.sendSystemMessage(Component.nullToEmpty("目标不合法！"));
+                if (livingEntity instanceof Player player) {
+                    player.displayClientMessage(Component.literal("目标不合法！"), false);
+                }
             }
         }
     }
@@ -92,24 +91,31 @@ public class RacialDiscrimination {
     public static void onEntityAttack(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
         // 确保来源实体是 LivingEntity 类型
-        if (event.getSource().getEntity() instanceof LivingEntity source) {
-            if (!entity.level().isClientSide) {
-                ItemStack attackerMainHandItem = source.getMainHandItem();
-                int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, attackerMainHandItem);
+        if (event.getSource().getEntity() instanceof LivingEntity source && !entity.level().isClientSide) {
+            ItemStack attackerMainHandItem = source.getMainHandItem();
+            int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, attackerMainHandItem);
+            if (racialDiscrimination > 0) {
+                // 如果是黑色生物
+                if (isBlackMob(entity)) {
+                    entity.invulnerableTime = 0; // 重置无敌帧
+                    if (source.getMainHandItem().is(Items.LEAD) && event.getSource().getDirectEntity() == source) {
+                        // 判断是否有 “去工作” 效果，如果有则设置为 等级+1 ，没有则设置为0级（0级在游戏里为1级）
+                        int goWorkAmplifier = (entity.getEffect(ModEffects.GO_WORK) != null) ? Objects.requireNonNull(entity.getEffect(ModEffects.GO_WORK)).getAmplifier() + 1 : 0;
+                        int goWorkTime = (entity.getEffect(ModEffects.GO_WORK) != null) ? Objects.requireNonNull(entity.getEffect(ModEffects.GO_WORK)).getDuration() + 200 : 200;
+                        entity.addEffect(new MobEffectInstance(ModEffects.GO_WORK, Math.min(goWorkTime, 500), goWorkAmplifier));
 
-                if (racialDiscrimination > 0) {
-                    if (isBlackMob(entity)) {
-                        entity.invulnerableTime = 0;
-                        if (source.getMainHandItem().is(Items.LEAD) && event.getSource().getDirectEntity() == source) {
-                            // 判断是否有 “去工作” 效果，如果有则设置为 等级+1 ，没有则设置为0级（0级在游戏里为1级）
-                            int goWorkAmplifier = (entity.getEffect(ModEffects.GO_WORK) != null) ? Objects.requireNonNull(entity.getEffect(ModEffects.GO_WORK)).getAmplifier() + 1 : 0;
-                            int goWorkTime = (entity.getEffect(ModEffects.GO_WORK) != null) ? Objects.requireNonNull(entity.getEffect(ModEffects.GO_WORK)).getDuration() + 200 : 200;
-                            entity.addEffect(new MobEffectInstance(ModEffects.GO_WORK, Math.min(goWorkTime, 600), goWorkAmplifier));
+                        if (source instanceof Player player) {
+                            if (goWorkAmplifier > 0) {
+                                player.displayClientMessage(Component.literal("§c鞭打连击！§lx"  + (goWorkAmplifier + 1)), true);
+                            } else {
+                                source.sendSystemMessage(Component.nullToEmpty("<" + source.getName().getString() + "> 去工作！"));
+                            }
                         }
                     }
-                    if (isWhiteMob(entity)) {
-                        event.setCanceled(true);
-                        source.sendSystemMessage(Component.nullToEmpty("目标不合法！"));
+                } else if (isWhiteMob(entity)) {
+                    event.setCanceled(true);
+                    if (source instanceof Player player) {
+                        player.displayClientMessage(Component.literal("目标不合法！"), false);
                     }
                 }
             }

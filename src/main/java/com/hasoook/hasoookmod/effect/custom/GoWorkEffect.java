@@ -49,8 +49,12 @@ public class GoWorkEffect extends MobEffect {
     @Override
     public boolean applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
         if (entity instanceof Mob mob && !entity.level().isClientSide) {
+            if (mob.getTarget() != null) {
+                onEffectAdded(entity, amplifier);
+            }
+
             long lastTime = lastHarvestTime.getOrDefault(entity, 0L);
-            if (entity.level().getGameTime() - lastTime < 20 - amplifier * 4L) { // 1秒冷却
+            if (entity.level().getGameTime() - lastTime < 20 - amplifier * 2L) { // 1秒冷却
                 return true;
             }
             lastHarvestTime.put(entity, entity.level().getGameTime());
@@ -69,7 +73,7 @@ public class GoWorkEffect extends MobEffect {
                         target.getX() + 0.5,
                         target.getY(),
                         target.getZ() + 0.5,
-                         Math.min(1.2 + amplifier * 0.1, 2))) {
+                         Math.min(1.2 + amplifier * 0.05, 2))) {
 
                     // 检查距离
                     if (mob.distanceToSqr(target.getX(), target.getY(), target.getZ()) < 5) {
