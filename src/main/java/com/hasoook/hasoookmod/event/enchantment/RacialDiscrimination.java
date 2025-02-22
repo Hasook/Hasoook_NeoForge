@@ -144,7 +144,7 @@ public class RacialDiscrimination {
         return null;
     }
 
-    // 判断实体类型
+    // 判断是否为白色生物
     public static boolean isWhiteMob(Entity entity) {
         List<EntityType<?>> invalidEntities = Arrays.asList(
                 EntityType.SKELETON,
@@ -198,7 +198,7 @@ public class RacialDiscrimination {
         return false;
     }
 
-    // 判断实体类型
+    // 判断是否为黑色生物
     private static boolean isBlackMob(Entity entity) {
         List<EntityType<?>> invalidEntities = Arrays.asList(
                 EntityType.WITHER_SKELETON,
