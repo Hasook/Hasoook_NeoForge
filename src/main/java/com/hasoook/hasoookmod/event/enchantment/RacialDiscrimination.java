@@ -1,19 +1,18 @@
 package com.hasoook.hasoookmod.event.enchantment;
 
 import com.hasoook.hasoookmod.HasoookMod;
+import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,10 +21,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class RacialDiscrimination {
@@ -47,31 +50,28 @@ public class RacialDiscrimination {
     }
 
     @SubscribeEvent
-    public static void LivingEntityUseItemEvent(LivingEntityUseItemEvent.Tick event){
+    public static void LivingEntityUseItemEvent(LivingEntityUseItemEvent.Tick event) {
         LivingEntity livingEntity = event.getEntity();
-        Entity firstEntityInSight = getFirstEntityInSight(livingEntity, 20.0);
-        int duration = event.getDuration();
-        ItemStack itemStack = livingEntity.getMainHandItem();
-        int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
+        if (!livingEntity.level().isClientSide) {
+            Entity firstEntityInSight = getFirstEntityInSight(livingEntity, 20.0);
+            int duration = event.getDuration();
+            ItemStack itemStack = livingEntity.getMainHandItem();
+            int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
 
-        // 如果是黑色的实体
-        if (!livingEntity.level().isClientSide && racialDiscrimination > 0 && firstEntityInSight != null && !isWhiteMob(firstEntityInSight) && isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
-            if (livingEntity instanceof Player player) {
-                ItemStack arrowItem = new ItemStack(Items.ARROW);
-                // 检查玩家背包中是否有箭
-                if (player.getInventory().contains(arrowItem) || player.hasInfiniteMaterials()) {
-                    // 创建箭实体
-                    AbstractArrow arrow = new Arrow(EntityType.ARROW, livingEntity.level());
-                    arrow.setPos(livingEntity.getX(), livingEntity.getY() + livingEntity.getEyeHeight(), livingEntity.getZ());
-                    arrow.shoot(player.getLookAngle().x, player.getLookAngle().y, player.getLookAngle().z, 2, 6);
-                    arrow.setOwner(livingEntity);
-                    // arrow.igniteForSeconds(100);
-                    livingEntity.level().addFreshEntity(arrow);// 将箭添加到世界中
-
-                    if (!player.hasInfiniteMaterials()) {
-                        player.getInventory().clearOrCountMatchingItems(p -> arrowItem.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
-                    }
+            // 如果看向的生物是黑色的生物
+            if (racialDiscrimination > 0 && firstEntityInSight != null && isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
+                // 检查是否有箭或无限材料
+                if (livingEntity.getProjectile(itemStack).isEmpty() && !livingEntity.hasInfiniteMaterials()) {
+                    event.setCanceled(true); // 取消事件
                 }
+
+                // 调用弓的releaseUsing方法
+                ItemStack Bow = new ItemStack(Items.BOW);
+                BowItem bowItem = (BowItem) Bow.getItem();
+                bowItem.releaseUsing(Bow, livingEntity.level(), livingEntity, 0);
+
+                // 损失耐久度
+                itemStack.hurtAndBreak(1, livingEntity, event.getEntity().getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             }
         }
     }
@@ -100,6 +100,12 @@ public class RacialDiscrimination {
                 if (racialDiscrimination > 0) {
                     if (isBlackMob(entity)) {
                         entity.invulnerableTime = 0;
+                        if (source.getMainHandItem().is(Items.LEAD) && event.getSource().getDirectEntity() == source) {
+                            // 判断是否有 “去工作” 效果，如果有则设置为 等级+1 ，没有则设置为0级（0级在游戏里为1级）
+                            int goWorkAmplifier = (entity.getEffect(ModEffects.GO_WORK) != null) ? Objects.requireNonNull(entity.getEffect(ModEffects.GO_WORK)).getAmplifier() + 1 : 0;
+                            int goWorkTime = (entity.getEffect(ModEffects.GO_WORK) != null) ? Objects.requireNonNull(entity.getEffect(ModEffects.GO_WORK)).getDuration() + 200 : 200;
+                            entity.addEffect(new MobEffectInstance(ModEffects.GO_WORK, Math.min(goWorkTime, 600), goWorkAmplifier));
+                        }
                     }
                     if (isWhiteMob(entity)) {
                         event.setCanceled(true);
@@ -139,7 +145,7 @@ public class RacialDiscrimination {
     }
 
     // 判断实体类型
-    private static boolean isWhiteMob(Entity entity) {
+    public static boolean isWhiteMob(Entity entity) {
         List<EntityType<?>> invalidEntities = Arrays.asList(
                 EntityType.SKELETON,
                 EntityType.SKELETON_HORSE,
@@ -199,6 +205,8 @@ public class RacialDiscrimination {
                 EntityType.WITHER,
                 EntityType.ENDER_DRAGON,
                 EntityType.MULE,
+                EntityType.SPIDER,
+                EntityType.BAT,
                 EntityType.ENDERMAN
         );
 

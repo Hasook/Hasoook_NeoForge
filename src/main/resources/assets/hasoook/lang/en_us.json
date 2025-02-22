@@ -8,6 +8,10 @@
   "item.hasoook.water_boots": "Water Boots",
   "item.hasoook.spit": "Spit",
   "item.hasoook.ripen_flint_and_steel": "Ripen Flint And Steel",
+  "item.hasoookmod.pet_compass": "Pet Compass",
+  "item.hasoookmod.pet_compass_linked": "Pet Compass Linked",
+
+  "item.hasoookmod.angle": "Angle",
 
   "block.hasoook.confusion_flower": "Confusion Flower",
   "block.hasoook.hasoook_lucky_block": "Hasoook Lucky Block",
@@ -54,6 +58,7 @@
   "effect.hasoook.unyielding": "Unyielding",
   "effect.hasoook.slimey": "Slimey",
   "effect.hasoook.sin": "Sin",
+  "effect.hasoook.go_work": "Go Work",
 
   "painting.hasoook.hasoook.title": "Hasoook",
 

@@ -6,6 +6,7 @@ import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.entity.client.TornadoModel;
 import com.hasoook.hasoookmod.entity.custom.TornadoEntity;
 import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
+import com.hasoook.hasoookmod.event.effect.GoWork;
 import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -22,6 +23,7 @@ public class ModEventBusEvents {
         NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
         NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
         NeoForge.EVENT_BUS.register(HideHeadHandler.class);
+        NeoForge.EVENT_BUS.register(GoWork.class);
     }
 
     @SubscribeEvent

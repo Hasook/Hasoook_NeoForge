@@ -18,5 +18,4 @@ public class registerPotionsBrewingEvent {
         builder.addMix(Potions.AWKWARD, ModBlock.CONFUSION_FLOWER.asItem(), ModPotions.CONFUSION);
         // 混乱药水
     }
-
 }

@@ -8,6 +8,10 @@
   "item.hasoook.water_boots": "水靴子",
   "item.hasoook.spit": "口水",
   "item.hasoook.ripen_flint_and_steel": "全熟打火石",
+  "item.hasoookmod.pet_compass": "宠物指针",
+  "item.hasoookmod.pet_compass_linked": "已绑定的宠物指针",
+
+  "item.hasoookmod.angle": "指向角度",
 
   "block.hasoook.confusion_flower": "混乱花",
   "block.hasoook.hasoook_lucky_block": "Hasoook的幸运方块",
@@ -54,6 +58,7 @@
   "effect.hasoook.unyielding": "不屈",
   "effect.hasoook.slimey": "黏糊糊",
   "effect.hasoook.sin": "罪恶",
+  "effect.hasoook.go_work": "去工作",
 
   "painting.hasoook.hasoook.title": "Hasoook",
 

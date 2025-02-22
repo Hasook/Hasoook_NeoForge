@@ -2,6 +2,7 @@ package com.hasoook.hasoookmod.effect;
 
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.effect.custom.ConfusionEffect;
+import com.hasoook.hasoookmod.effect.custom.GoWorkEffect;
 import com.hasoook.hasoookmod.effect.custom.NormalEffect;
 import com.hasoook.hasoookmod.effect.custom.SlimeyEffect;
 import net.minecraft.core.Holder;
@@ -36,6 +37,10 @@ public class ModEffects {
     // 不屈
     public static final Holder<MobEffect> UNYIELDING = MOB_EFFECTS.register("unyielding",
             () -> new NormalEffect(MobEffectCategory.BENEFICIAL, 0x828a9b));
+
+    // 去工作
+    public static final Holder<MobEffect> GO_WORK = MOB_EFFECTS.register("go_work",
+            () -> new GoWorkEffect(MobEffectCategory.HARMFUL, 0x343434));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
