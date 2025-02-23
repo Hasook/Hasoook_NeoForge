@@ -4,16 +4,13 @@ import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
-import net.minecraft.core.Holder;
+import com.hasoook.hasoookmod.entity.ModEntityHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.*;
@@ -23,7 +20,6 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,7 +35,7 @@ public class RacialDiscrimination {
             ItemStack itemStack = livingEntity.getMainHandItem();
             int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
 
-            if (firstEntityInSight != null && racialDiscrimination > 0 && isWhiteMob(firstEntityInSight)) {
+            if (firstEntityInSight != null && racialDiscrimination > 0 && ModEntityHelper.isWhiteMob(firstEntityInSight)) {
                 event.setCanceled(true);
                 if (livingEntity instanceof Player player) {
                     player.displayClientMessage(Component.literal("目标不合法！"), false);
@@ -58,7 +54,7 @@ public class RacialDiscrimination {
             int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
 
             // 如果看向的生物是黑色的生物
-            if (racialDiscrimination > 0 && firstEntityInSight != null && isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
+            if (racialDiscrimination > 0 && firstEntityInSight != null && ModEntityHelper.isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
                 // 检查是否有箭或无限材料
                 if (livingEntity.getProjectile(itemStack).isEmpty() && !livingEntity.hasInfiniteMaterials()) {
                     event.setCanceled(true); // 取消事件
@@ -82,7 +78,7 @@ public class RacialDiscrimination {
         int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
         Entity firstEntityInSight = getFirstEntityInSight(player, 20.0);
 
-        if (racialDiscrimination > 0 && firstEntityInSight != null && isBlackMob(firstEntityInSight)) {
+        if (racialDiscrimination > 0 && firstEntityInSight != null && ModEntityHelper.isBlackMob(firstEntityInSight)) {
             player.attackStrengthTicker = (int) player.getCurrentItemAttackStrengthDelay();
         }
     }
@@ -94,9 +90,10 @@ public class RacialDiscrimination {
         if (event.getSource().getEntity() instanceof LivingEntity source && !entity.level().isClientSide) {
             ItemStack attackerMainHandItem = source.getMainHandItem();
             int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, attackerMainHandItem);
+            int swap = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.SWAP, attackerMainHandItem);
             if (racialDiscrimination > 0) {
                 // 如果是黑色生物
-                if (isBlackMob(entity)) {
+                if (ModEntityHelper.isBlackMob(entity)) {
                     entity.invulnerableTime = 0; // 重置无敌帧
                     if (source.getMainHandItem().is(Items.LEAD) && event.getSource().getDirectEntity() == source) {
                         // 判断是否有 “去工作” 效果，如果有则设置为 等级+1 ，没有则设置为0级（0级在游戏里为1级）
@@ -112,7 +109,7 @@ public class RacialDiscrimination {
                             }
                         }
                     }
-                } else if (isWhiteMob(entity)) {
+                } else if (ModEntityHelper.isWhiteMob(entity) && swap < 1) {
                     event.setCanceled(true);
                     if (source instanceof Player player) {
                         player.displayClientMessage(Component.literal("目标不合法！"), false);
@@ -149,110 +146,4 @@ public class RacialDiscrimination {
         // 如果没有找到符合条件的实体，返回null
         return null;
     }
-
-    // 判断是否为白色生物
-    public static boolean isWhiteMob(Entity entity) {
-        List<EntityType<?>> invalidEntities = Arrays.asList(
-                EntityType.SKELETON,
-                EntityType.SKELETON_HORSE,
-                EntityType.GOAT,
-                EntityType.POLAR_BEAR,
-                EntityType.IRON_GOLEM,
-                EntityType.CHICKEN,
-                EntityType.GHAST
-        );
-
-        // 检查实体是否属于无效实体类型
-        if (invalidEntities.contains(entity.getType())) {
-            return true;
-        }
-
-        switch (entity) {
-            // 判断羊的颜色
-            case Sheep sheep -> {
-                return sheep.getColor() == DyeColor.WHITE;
-            }
-
-            // 判断潜影贝的颜色
-            case Shulker shulker -> {
-                return shulker.getColor() == DyeColor.WHITE;
-            }
-
-            // 判断猫的品种
-            case Cat cat -> {
-                Holder<CatVariant> catType = cat.getVariant();
-                return catType.is(CatVariant.WHITE) || catType.is(CatVariant.RAGDOLL);
-            }
-
-            // 判断狼的品种
-            case Wolf wolf -> {
-                Holder<WolfVariant> wolfVariant = wolf.getVariant();
-                return wolfVariant.is(WolfVariants.SNOWY);
-            }
-            default -> {
-            }
-        }
-
-        // 检查装备
-        if (entity instanceof LivingEntity livingEntity) {
-            ItemStack itemStack = livingEntity.getMainHandItem();
-            int ZCPLvl = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.ZERO_COST_PURCHASE, itemStack);
-            boolean head = livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.SKELETON_SKULL);
-            return ZCPLvl > 0 || head;
-        }
-
-        return false;
-    }
-
-    // 判断是否为黑色生物
-    private static boolean isBlackMob(Entity entity) {
-        List<EntityType<?>> invalidEntities = Arrays.asList(
-                EntityType.WITHER_SKELETON,
-                EntityType.WITHER,
-                EntityType.ENDER_DRAGON,
-                EntityType.MULE,
-                EntityType.SPIDER,
-                EntityType.BAT,
-                EntityType.ENDERMAN
-        );
-
-        // 检查实体是否属于无效实体类型
-        if (invalidEntities.contains(entity.getType())) {
-            return true;
-        }
-
-        switch (entity) {
-            // 判断羊的颜色
-            case Sheep sheep -> {
-                return sheep.getColor() == DyeColor.BLACK;
-            }
-
-            // 判断潜影贝的颜色
-            case Shulker shulker -> {
-                return shulker.getColor() == DyeColor.BLACK;
-            }
-
-            // 判断猫的品种
-            case Cat cat -> {
-                Holder<CatVariant> catType = cat.getVariant();
-                return catType.is(CatVariant.BLACK) || catType.is(CatVariant.ALL_BLACK);
-            }
-
-            // 判断狼的品种
-            case Wolf wolf -> {
-                Holder<WolfVariant> wolfVariant = wolf.getVariant();
-                return wolfVariant.is(WolfVariants.BLACK);
-            }
-            default -> {
-            }
-        }
-
-        // 检查装备
-        if (entity instanceof LivingEntity livingEntity) {
-            return livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(Items.WITHER_SKELETON_SKULL);
-        }
-
-        return false;
-    }
-
 }
