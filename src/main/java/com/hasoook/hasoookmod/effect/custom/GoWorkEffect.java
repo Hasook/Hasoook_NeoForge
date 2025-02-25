@@ -1,19 +1,28 @@
 package com.hasoook.hasoookmod.effect.custom;
 
+import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.entity.ModEntityHelper;
+import com.hasoook.hasoookmod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -37,7 +46,25 @@ public class GoWorkEffect extends MobEffect {
     }
 
     @Override
+    public void onMobRemoved(LivingEntity pLivingEntity, int pAmplifier, Entity.RemovalReason pReason) {
+        int goWorkTime = Objects.requireNonNull(pLivingEntity.getEffect(ModEffects.GO_WORK)).getDuration();
+        if (goWorkTime == -1) {
+            ItemStack stoneStack = new ItemStack(ModItems.DISK_CRICKET_MOTION_BADGE.get());
+            ItemEntity stoneEntity = new ItemEntity(
+                    pLivingEntity.level(),
+                    pLivingEntity.getX(),
+                    pLivingEntity.getY(),
+                    pLivingEntity.getZ(),
+                    stoneStack
+            );
+            pLivingEntity.level().addFreshEntity(stoneEntity);
+        }
+        super.onMobRemoved(pLivingEntity, pAmplifier, pReason);
+    }
+
+    @Override
     public boolean applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
+        // 如果是黑色生物
         if (ModEntityHelper.isBlackMob(entity) && entity instanceof Mob mob && !entity.level().isClientSide) {
             // 如果生物有攻击目标，重新触发效果，清除攻击目标
             if (mob.getTarget() != null) onEffectAdded(entity, amplifier);
@@ -68,7 +95,42 @@ public class GoWorkEffect extends MobEffect {
                 }
             }
         }
+        // 如果是白色生物
+        else if (ModEntityHelper.isWhiteMob(entity) && entity instanceof Mob mob && !entity.level().isClientSide) {
+            if (mob.getTarget() != null) onEffectAdded(entity, amplifier);
+
+            // 创建搜索范围（16格）
+            AABB searchArea = new AABB(mob.blockPosition()).inflate(16);
+
+            // 目标筛选
+            List<LivingEntity> targets = mob.level()
+                    .getEntitiesOfClass(LivingEntity.class, searchArea, e ->
+                            e != mob && ModEntityHelper.isBlackMob(e) // 选择黑色生物
+                                     && !(e instanceof Player player && player.isCreative())); // 排除创造模式玩家
+
+            // 找到最近的黑色生物
+            if (!targets.isEmpty()) {
+                LivingEntity nearest = findNearest(mob.position(), targets);
+                mob.setTarget(nearest); // 设置攻击目标
+                mob.getNavigation().setSpeedModifier(1.8);
+            }
+        }
         return super.applyEffectTick(entity, amplifier);
+    }
+
+    // 查找最近的生物
+    private LivingEntity findNearest(Vec3 origin, List<LivingEntity> entities) {
+        LivingEntity nearest = null;
+        double minDistance = Double.MAX_VALUE;
+
+        for (LivingEntity entity : entities) {
+            double distance = entity.distanceToSqr(origin);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearest = entity;
+            }
+        }
+        return nearest;
     }
 
     /**

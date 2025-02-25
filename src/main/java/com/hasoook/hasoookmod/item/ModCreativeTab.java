@@ -28,6 +28,8 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.WATER_BOOTS.get());
                 pOutput.accept(ModItems.SPIT.get());
                 pOutput.accept(ModItems.RIPEN_FLINT_AND_STEEL.get());
+                pOutput.accept(ModItems.PET_COMPASS.get());
+                pOutput.accept(ModItems.DISK_CRICKET_MOTION_BADGE.get());
 
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
                 pOutput.accept(ModBlock.HASOOOK_LUCKY_BLOCK.get());

@@ -5,19 +5,21 @@ import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import com.hasoook.hasoookmod.entity.ModEntityHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.Nameable;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
@@ -114,6 +116,27 @@ public class RacialDiscrimination {
                     if (source instanceof Player player) {
                         player.displayClientMessage(Component.literal("目标不合法！"), false);
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        BlockPos pos = event.getPos();
+        BlockEntity blockEntity = event.getLevel().getBlockEntity(pos); // 获取方块实体
+
+        if (blockEntity != null) {
+            Player player = event.getPlayer();
+            ItemStack mainHandItem = player.getMainHandItem(); // 获取主手物品
+            boolean rd = ModEnchantmentHelper.getBlockEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, blockEntity) > 0;
+
+            if (rd && mainHandItem.getItem() instanceof TieredItem tieredItem && tieredItem.getTier() != Tiers.IRON) {
+                event.setCanceled(true); // 阻止方块被破坏
+                if (blockEntity instanceof Nameable nameable) {
+                    Component customName = nameable.getDisplayName();
+                    String name = customName.getString(); // 将文本组件转换为字符串
+                    player.displayClientMessage(Component.literal("<" + name + "> 目标不合法！"), false);
                 }
             }
         }

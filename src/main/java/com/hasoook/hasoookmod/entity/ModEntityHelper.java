@@ -91,7 +91,7 @@ public class ModEntityHelper {
         switch (entity) {
             // 判断羊的颜色
             case Sheep sheep -> {
-                return sheep.getColor() == DyeColor.BLACK;
+                return sheep.getColor() == DyeColor.BLACK || sheep.getColor() == DyeColor.GRAY ;
             }
 
             // 判断潜影贝的颜色
