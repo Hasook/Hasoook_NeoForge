@@ -25,6 +25,7 @@ public class ModEntityHelper {
                 EntityType.GOAT,
                 EntityType.POLAR_BEAR,
                 EntityType.IRON_GOLEM,
+                EntityType.SNOW_GOLEM,
                 EntityType.CHICKEN,
                 EntityType.GHAST
         );
