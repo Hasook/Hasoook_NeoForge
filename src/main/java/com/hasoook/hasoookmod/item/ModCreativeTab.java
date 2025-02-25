@@ -78,7 +78,7 @@ public class ModCreativeTab {
                 addEnchantedBook.accept(ModEnchantments.FISSION);
                 addEnchantedBook.accept(ModEnchantments.TORNADO);
                 addEnchantedBook.accept(ModEnchantments.LOUIS_XVI);
-                
+
             })
             .build());
 
