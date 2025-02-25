@@ -12,8 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class DiskCricketMotionBadge extends Item {
     public DiskCricketMotionBadge(Properties pProperties) {
         super(pProperties);
