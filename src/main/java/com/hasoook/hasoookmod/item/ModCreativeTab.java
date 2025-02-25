@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.neoforged.bus.api.IEventBus;
@@ -26,7 +27,7 @@ public class ModCreativeTab {
     public static final Supplier<CreativeModeTab> EXAMPLE_TAB  = CREATIVE_MODE_TABS.register("example_tab",() -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .title(Component.translatable(HASOOOK_MOD_TAB_STRING))
-            .icon(ModItems.HUGE_DIAMOND_PICKAXE.get()::getDefaultInstance)
+            .icon(Items.ENCHANTED_BOOK::getDefaultInstance)
             .displayItems((pParameters, pOutput) -> {
                 // 添加自定义的物品
                 pOutput.accept(ModItems.TOTEM_OF_SURRENDER.get());
@@ -50,6 +51,24 @@ public class ModCreativeTab {
                 // 添加自定义附魔的附魔书
                 addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.RANDOM_BULLETS);
                 addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.SEPARATION_EXPLOSION);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.DISDAIN);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.SWAP);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.CHAIN_DAMAGE);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.GIVE);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.UNYIELDING);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.SEVEN_STEP_SNAKE_VENOM);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.KILL_A_MAN_EVERY_TEN_PACES);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.BACKSTAB);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.BETRAY);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.RACIAL_DISCRIMINATION);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.MIDDLE_EAST_BEST_PILOT);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.DE_URBANIZATION);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.SPOTLIGHT);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.ZERO_COST_PURCHASE);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.POLITICAL_CORRECTNESS);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.FISSION);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.TORNADO);
+                addMaxLevelEnchantedBook(pOutput, enchantments, ModEnchantments.LOUIS_XVI);
 
             })
             .build());

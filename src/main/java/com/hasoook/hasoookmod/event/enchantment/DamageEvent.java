@@ -91,23 +91,6 @@ public class DamageEvent {
     }
 
     @SubscribeEvent
-    public static void heartlessAttack(LivingIncomingDamageEvent event) {
-        LivingEntity target = event.getEntity(); // 获取实体
-        Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者
-
-        if (sourceEntity instanceof LivingEntity attacker && !sourceEntity.level().isClientSide) {
-            ItemStack attackerMainHandItem = attacker.getMainHandItem(); // 获取攻击者的主手物品
-            int heartlessLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.HEARTLESS, attackerMainHandItem);
-            if (heartlessLevel > 0) {
-                event.setCanceled(true); // 取消交互事件
-                float amount = event.getAmount();
-                float health = target.getHealth();
-                target.setHealth(health - amount);
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void lootingWritableBook(LivingIncomingDamageEvent event) {
         LivingEntity target = event.getEntity(); // 获取实体
         Entity sourceEntity = event.getSource().getEntity(); // 获取攻击者

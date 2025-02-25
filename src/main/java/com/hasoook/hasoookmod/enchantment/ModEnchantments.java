@@ -24,7 +24,6 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> UNYIELDING = key("unyielding");
     public static final ResourceKey<Enchantment> SEVEN_STEP_SNAKE_VENOM = key("seven_step_snake_venom");
     public static final ResourceKey<Enchantment> KILL_A_MAN_EVERY_TEN_PACES = key("kill_a_man_every_ten_paces");
-    public static final ResourceKey<Enchantment> HEARTLESS = key("heartless");
     public static final ResourceKey<Enchantment> BACKSTAB = key("backstab");
     public static final ResourceKey<Enchantment> BETRAY = key("betray");
     public static final ResourceKey<Enchantment> RACIAL_DISCRIMINATION = key("racial_discrimination"); // 种族歧视
