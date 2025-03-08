@@ -45,7 +45,7 @@ public class GoWorkEffect extends MobEffect {
         super.onEffectAdded(pLivingEntity, pAmplifier);
     }
 
-    @Override
+    /*@Override
     public void onMobRemoved(LivingEntity pLivingEntity, int pAmplifier, Entity.RemovalReason pReason) {
         int goWorkTime = Objects.requireNonNull(pLivingEntity.getEffect(ModEffects.GO_WORK)).getDuration();
         if (goWorkTime == -1) {
@@ -60,7 +60,7 @@ public class GoWorkEffect extends MobEffect {
             pLivingEntity.level().addFreshEntity(stoneEntity);
         }
         super.onMobRemoved(pLivingEntity, pAmplifier, pReason);
-    }
+    }*/
 
     @Override
     public boolean applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
@@ -210,7 +210,7 @@ public class GoWorkEffect extends MobEffect {
             // 处理可可豆的特殊补种逻辑
             Direction facing = state.getValue(CocoaBlock.FACING);
             level.destroyBlock(pos, true);
-            // 重新种植可可豆并保留原方向
+            // 重新种植可可豆
             level.setBlock(pos, block.defaultBlockState()
                     .setValue(CocoaBlock.AGE, 0)
                     .setValue(CocoaBlock.FACING, facing), 3);

@@ -2,6 +2,7 @@ package com.hasoook.hasoookmod.datagen.item.tags;
 
 import com.hasoook.hasoookmod.tags.ModItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
@@ -23,10 +24,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.tag(ModItemTags.SEPARATION_ITEMS).add(Items.TNT)
                 .add(Items.TNT_MINECART)
                 .add(Items.WIND_CHARGE);
-        this.tag(ModItemTags.COMMON_TAG).addTag(ItemTags.WEAPON_ENCHANTABLE)
-                .addTag(ModItemTags.SEPARATION_ITEMS)
-                .add(Items.FISHING_ROD)
-                .addTag(ItemTags.EQUIPPABLE_ENCHANTABLE);
         this.tag(ModItemTags.ENTITY_ENCHANTMENT).addTag(ItemTags.ARMOR_ENCHANTABLE)
                 .addTag(ItemTags.CHEST_ARMOR_ENCHANTABLE)
                 .addTag(ItemTags.DURABILITY_ENCHANTABLE)
@@ -35,5 +32,11 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 .addTag(ItemTags.AXES)
                 .add(Items.SHEARS);
         this.tag(ModItemTags.TORNADO_ITEMS).add(Items.WIND_CHARGE);
+        this.tag(ModItemTags.RACIAL_DISCRIMINATION_ITEMS).addTag(ItemTags.SWORDS)
+                .addTag(ItemTags.AXES)
+                .addTag(ItemTags.WEAPON_ENCHANTABLE)
+                .addTag(ItemTags.BOW_ENCHANTABLE)
+                .add(Items.LEAD)
+                .add(Items.CHEST);
     }
 }

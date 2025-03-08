@@ -69,7 +69,7 @@ public class ModEnchantments {
         );
         // 嫌弃
         register(context, DISDAIN, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModItemTags.COMMON_TAG),
+                items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
                 2,
                 2,
                 Enchantment.constantCost(25),
@@ -79,7 +79,7 @@ public class ModEnchantments {
         );
         // 交换
         register(context, SWAP, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModItemTags.COMMON_TAG),
+                items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
                 2,
                 1,
                 Enchantment.constantCost(25),
@@ -99,7 +99,7 @@ public class ModEnchantments {
         );
         // 给予
         register(context, GIVE, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModItemTags.COMMON_TAG),
+                items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
                 2,
                 1,
                 Enchantment.constantCost(25),
@@ -159,7 +159,7 @@ public class ModEnchantments {
         );
         // 种族歧视
         register(context, RACIAL_DISCRIMINATION, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ItemTags.BOW_ENCHANTABLE),
+                items.getOrThrow(ModItemTags.RACIAL_DISCRIMINATION_ITEMS),
                 2,
                 1,
                 Enchantment.constantCost(25),

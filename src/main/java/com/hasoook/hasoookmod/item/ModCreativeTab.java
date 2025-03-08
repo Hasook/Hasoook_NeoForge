@@ -30,14 +30,12 @@ public class ModCreativeTab {
             .title(Component.translatable(HASOOOK_MOD_TAB_STRING))
             .icon(Items.ENCHANTED_BOOK::getDefaultInstance)
             .displayItems((pParameters, pOutput) -> {
-                // 获取附魔注册表查询接口
                 final HolderGetter<Enchantment> enchantments = pParameters.holders().lookupOrThrow(Registries.ENCHANTMENT);
-                // 定义一个用于快速添加附魔书的 Consumer 函数式接口
                 Consumer<ResourceKey<Enchantment>> addEnchantedBook = enchantKey -> {
-                    Holder.Reference<Enchantment> holder = enchantments.getOrThrow(enchantKey); // 通过附魔注册表键获取对应的Holder容器
-                    Enchantment enchantment = holder.value(); // 从Holder中提取具体的附魔实例对象
+                    Holder.Reference<Enchantment> holder = enchantments.getOrThrow(enchantKey);
+                    Enchantment enchantment = holder.value();
                     pOutput.accept(EnchantedBookItem.createForEnchantment(
-                            new EnchantmentInstance(holder, enchantment.getMaxLevel()) // 创建最高等级的附魔书物品
+                            new EnchantmentInstance(holder, enchantment.getMaxLevel())
                     ));
                 };
 
@@ -51,6 +49,7 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.RIPEN_FLINT_AND_STEEL.get());
                 pOutput.accept(ModItems.PET_COMPASS.get());
                 pOutput.accept(ModItems.DISK_CRICKET_MOTION_BADGE.get());
+                pOutput.accept(ModItems.INSIGHT_MAGNIFIER.get());
 
                 // 添加自定义的方块
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
@@ -78,13 +77,9 @@ public class ModCreativeTab {
                 addEnchantedBook.accept(ModEnchantments.FISSION);
                 addEnchantedBook.accept(ModEnchantments.TORNADO);
                 addEnchantedBook.accept(ModEnchantments.LOUIS_XVI);
-
             })
             .build());
-
-    //记得在总线上注册
     public static void register(IEventBus eventBus){
         CREATIVE_MODE_TABS.register(eventBus);
     }
 }
-

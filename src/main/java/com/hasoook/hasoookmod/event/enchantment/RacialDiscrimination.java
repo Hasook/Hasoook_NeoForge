@@ -5,23 +5,38 @@ import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.enchantment.ModEnchantmentHelper;
 import com.hasoook.hasoookmod.enchantment.ModEnchantments;
 import com.hasoook.hasoookmod.entity.ModEntityHelper;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +48,7 @@ public class RacialDiscrimination {
 
         if (!livingEntity.level().isClientSide) {
             // 获取看着的实体
-            Entity firstEntityInSight = getFirstEntityInSight(livingEntity, 30.0);
+            Entity firstEntityInSight = ModEntityHelper.getFirstInSight(livingEntity, 30);
             ItemStack itemStack = livingEntity.getMainHandItem();
             int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
 
@@ -49,26 +64,37 @@ public class RacialDiscrimination {
     @SubscribeEvent
     public static void LivingEntityUseItemEvent(LivingEntityUseItemEvent.Tick event) {
         LivingEntity livingEntity = event.getEntity();
-        if (!livingEntity.level().isClientSide) {
-            Entity firstEntityInSight = getFirstEntityInSight(livingEntity, 20.0);
-            int duration = event.getDuration();
-            ItemStack itemStack = livingEntity.getMainHandItem();
-            int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
+        Level level = livingEntity.level();
 
-            // 如果看向的生物是黑色的生物
-            if (racialDiscrimination > 0 && firstEntityInSight != null && ModEntityHelper.isBlackMob(firstEntityInSight) && 72000 - duration >= 15) {
-                // 检查是否有箭或无限材料
-                if (livingEntity.getProjectile(itemStack).isEmpty() && !livingEntity.hasInfiniteMaterials()) {
-                    event.setCanceled(true); // 取消事件
+        if (!level.isClientSide) {
+            Entity firstEntityInSight = ModEntityHelper.getFirstInSight(livingEntity, 20);
+            int duration = event.getDuration();
+            ItemStack usedItem = event.getItem();
+            int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, usedItem);
+            boolean isUsingLongEnough = (72000 - duration) >= 15;
+
+            if (racialDiscrimination > 0 && firstEntityInSight != null && ModEntityHelper.isBlackMob(firstEntityInSight) && isUsingLongEnough) {
+                // 检查弹药和无限材料
+                if (livingEntity.getProjectile(usedItem).isEmpty() && !livingEntity.hasInfiniteMaterials()) {
+                    event.setCanceled(true);
                 }
 
-                // 调用弓的releaseUsing方法
-                ItemStack Bow = new ItemStack(Items.BOW);
-                BowItem bowItem = (BowItem) Bow.getItem();
-                bowItem.releaseUsing(Bow, livingEntity.level(), livingEntity, 0);
+                // 使用实际附魔的弓触发释放逻辑
+                if (usedItem.getItem() instanceof BowItem bowItem) {
+                    // 保留弓的附魔数据
+                    ItemStack enchantedBow = usedItem.copy();
 
-                // 损失耐久度
-                itemStack.hurtAndBreak(1, livingEntity, event.getEntity().getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                    // 调用releaseUsing方法并传递剩余时间（影响箭的威力）
+                    int useDuration = usedItem.getUseDuration(livingEntity) - duration;
+                    bowItem.releaseUsing(enchantedBow, level, livingEntity, useDuration);
+
+                    // 同步客户端动画（可选）
+                    if (livingEntity instanceof ServerPlayer serverPlayer) {
+                        CriteriaTriggers.USING_ITEM.trigger(serverPlayer, enchantedBow);
+                    }
+                }
+                // 消耗耐久
+                usedItem.hurtAndBreak(16, livingEntity, event.getEntity().getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             }
         }
     }
@@ -78,7 +104,7 @@ public class RacialDiscrimination {
         Player player = event.getEntity();
         ItemStack itemStack = player.getMainHandItem();
         int racialDiscrimination = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, itemStack);
-        Entity firstEntityInSight = getFirstEntityInSight(player, 20.0);
+        Entity firstEntityInSight = ModEntityHelper.getFirstInSight(player, 20);
 
         if (racialDiscrimination > 0 && firstEntityInSight != null && ModEntityHelper.isBlackMob(firstEntityInSight)) {
             player.attackStrengthTicker = (int) player.getCurrentItemAttackStrengthDelay();
@@ -122,51 +148,123 @@ public class RacialDiscrimination {
     }
 
     @SubscribeEvent
-    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+    public static void RightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
         BlockPos pos = event.getPos();
-        BlockEntity blockEntity = event.getLevel().getBlockEntity(pos); // 获取方块实体
+        Level level = event.getLevel();
+        BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        if (blockEntity != null) {
-            Player player = event.getPlayer();
-            ItemStack mainHandItem = player.getMainHandItem(); // 获取主手物品
-            boolean rd = ModEnchantmentHelper.getBlockEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, blockEntity) > 0;
-
-            if (rd && mainHandItem.getItem() instanceof TieredItem tieredItem && tieredItem.getTier() != Tiers.IRON) {
-                event.setCanceled(true); // 阻止方块被破坏
-                if (blockEntity instanceof Nameable nameable) {
-                    Component customName = nameable.getDisplayName();
-                    String name = customName.getString(); // 将文本组件转换为字符串
-                    player.displayClientMessage(Component.literal("<" + name + "> 目标不合法！"), false);
+        if (!level.isClientSide && blockEntity != null && ModEntityHelper.isBlackMob(player)) {
+            int lvl = ModEnchantmentHelper.getBlockEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, blockEntity);
+            if (lvl > 0) {
+                boolean success = teleportBlock(level, pos, player);
+                if (success) {
+                    event.setCanceled(true);
                 }
             }
         }
     }
 
-    /**
-     * 获取玩家视线中的第一个实体
-     *
-     * @param livingEntity 观察者实体
-     * @param maxDistance  最大视距
-     * @return 第一个被射线检测到的实体，或 null
-     */
-    public static Entity getFirstEntityInSight(LivingEntity livingEntity, double maxDistance) {
-        Vec3 vec3 = livingEntity.getViewVector(1.0F).normalize();
-        Vec3 playerPos = livingEntity.getEyePosition(1.0F); // 获取玩家眼睛位置
-        Vec3 rayEnd = playerPos.add(vec3.x * maxDistance, vec3.y * maxDistance, vec3.z * maxDistance); // 计算射线的终点
-        // 获取射线与实体的交点
-        List<Entity> nearbyEntities = livingEntity.level().getEntities(livingEntity, livingEntity.getBoundingBox().inflate(maxDistance), entity -> entity != livingEntity);
+    @SubscribeEvent
+    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        BlockPos pos = event.getPos();
+        Player player = event.getPlayer();
+        Level level = player.level();
+        BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        // 遍历所有在范围内的实体
-        for (Entity entity : nearbyEntities) {
-            AABB entityBoundingBox = entity.getBoundingBox(); // 获取实体的碰撞箱
+        if (!level.isClientSide && blockEntity != null && ModEntityHelper.isBlackMob(player)) {
+            int lvl = ModEnchantmentHelper.getBlockEnchantmentLevel(ModEnchantments.RACIAL_DISCRIMINATION, blockEntity);
+            if (lvl > 0) {
+                boolean success = teleportBlock(level, pos, player);
+                if (success) {
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
 
-            if (entityBoundingBox.clip(playerPos, rayEnd).isPresent()) {
-                // 如果射线与实体的碰撞箱相交，返回该实体
-                return entity;
+    private static boolean  teleportBlock(Level level, BlockPos pos, @Nullable Player player) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity == null) return false;
+
+        // 收集原始数据
+        BlockState originalState = level.getBlockState(pos);
+        DataComponentMap originalComponents = blockEntity.collectComponents();
+
+        // 获取周围的空气方块
+        List<BlockPos> airPositions = new ArrayList<>();
+        for (int x = -2; x <= 2; x++) {
+            for (int y = -2; y <= 2; y++) {
+                for (int z = -2; z <= 2; z++) {
+                    BlockPos currentPos = pos.offset(x, y, z);
+                    if (level.isEmptyBlock(currentPos)) {
+                        airPositions.add(currentPos);
+                    }
+                }
             }
         }
 
-        // 如果没有找到符合条件的实体，返回null
-        return null;
+        if (airPositions.isEmpty()) {
+            return false;
+        }
+
+        BlockPos targetPos = airPositions.get(level.getRandom().nextInt(airPositions.size()));
+
+        // 放置新方块
+        level.setBlock(targetPos, originalState, Block.UPDATE_ALL);
+
+        // 复制组件数据
+        BlockEntity newBlockEntity = level.getBlockEntity(targetPos);
+        if (newBlockEntity != null) {
+            ItemStack dummyItem = new ItemStack(originalState.getBlock().asItem());
+            dummyItem.applyComponents(originalComponents);
+            newBlockEntity.applyComponentsFromItemStack(dummyItem);
+            newBlockEntity.setChanged();
+        }
+
+        // 清空原方块的存储物品
+        if (blockEntity instanceof Container container) {
+            for (int slot = 0; slot < container.getContainerSize(); slot++) {
+                container.setItem(slot, ItemStack.EMPTY);
+            }
+            container.setChanged();
+        }
+
+        // 移除原方块
+        level.removeBlock(pos, false);
+        level.removeBlockEntity(pos);
+        level.levelEvent(2001, pos, Block.getId(originalState));
+
+        // 粒子效果和音效
+        if (level instanceof ServerLevel serverLevel) {
+            Vec3 start = Vec3.atCenterOf(pos);
+            Vec3 end = Vec3.atCenterOf(targetPos);
+            Vec3 direction = end.subtract(start);
+            double distance = direction.length();
+            direction = direction.normalize();
+
+            int particleCount = (int) (distance * 6);
+            for (int i = 0; i < particleCount; i++) {
+                double ratio = (double) i / particleCount;
+                Vec3 currentPos = start.add(
+                        direction.x * distance * ratio,
+                        direction.y * distance * ratio,
+                        direction.z * distance * ratio
+                );
+                serverLevel.sendParticles(
+                        ParticleTypes.PORTAL,
+                        currentPos.x, currentPos.y, currentPos.z,
+                        1, 0.1, 0.1, 0.1, 0.02
+                );
+            }
+            serverLevel.sendParticles(ParticleTypes.PORTAL, end.x, end.y, end.z, 10, 0.2, 0.2, 0.2, 0.5);
+            level.playSound(null, end.x, end.y, end.z,
+                    SoundEvents.ENDERMAN_TELEPORT,
+                    player != null ? player.getSoundSource() : SoundSource.BLOCKS,
+                    1.0F, 1.0F
+            );
+        }
+
+        return true;
     }
 }

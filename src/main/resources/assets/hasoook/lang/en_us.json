@@ -11,6 +11,7 @@
   "item.hasoook.pet_compass": "Pet Compass",
   "item.hasoook.pet_compass_linked": "Pet Compass Linked",
   "item.hasoook.disk_cricket_motion_badge": "Disk-Cricket-Motion Badge",
+  "item.hasoook.insight_magnifier": "Insight Magnifier",
 
   "item.hasoookmod.angle": "Angle",
 
@@ -84,5 +85,30 @@
 
   "hasoook.message.betray.attack": "<%s> The trident, born between heaven and earth, cannot long remain beneath others!",
   "hasoook.message.betray.defense": "<%s> The trident has drifted for half a lifetime, only regretting not encountering a wise ruler!",
-  "hasoook.message.de_urbanization.block": "The %s seems too urbanized"
+  "hasoook.message.de_urbanization.block": "The %s seems too urbanized",
+
+  "item.hasoook.disk_cricket_motion_badge.insight": "对生物使用使其成为一名骑士",
+  "item.hasoook.insight_magnifier.insight": "持有时可查看物品的详细说明",
+  "item.hasoook.totem_of_surrender.insight": "使用后丢弃一半的物品，立即传送回重生点",
+
+  "hasoook.tooltip.applicable_items": "适用物品：",
+  "hasoook.tooltip.tag.minecraft.swords": "剑",
+  "hasoook.tooltip.tag.minecraft.axes": "斧",
+  "hasoook.tooltip.tag.minecraft.pickaxes": "镐",
+  "hasoook.tooltip.tag.minecraft.shovels": "铲",
+  "hasoook.tooltip.tag.minecraft.hoes": "锄",
+  "hasoook.tooltip.tag.minecraft.chest_armor": "胸甲",
+  "hasoook.tooltip.tag.minecraft.foot_armor": "靴子",
+  "hasoook.tooltip.tag.minecraft.leg_armor": "护腿",
+  "hasoook.tooltip.tag.minecraft.head_armor": "头盔",
+  "hasoook.tooltip.tag.minecraft.skulls": "头颅",
+  "hasoook.tooltip.etc": "...",
+
+  "hasoook.tooltip.nutrition": "Hunger: %d",
+  "hasoook.tooltip.saturation": "Saturation: %s",
+
+  "hasoook.tooltip.effect_entry": "%d%% 概率获得 %s %s 持续 %s",
+  "hasoook.tooltip.effect_entry.100": "获得 %s %s 持续 %s",
+
+  "hasoook.tooltip.spawn_egg_health": "生命值：%s"
 }

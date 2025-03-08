@@ -15,6 +15,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/bow",
+  "supported_items": "#hasoook:racial_discrimination_items",
   "weight": 2
 }

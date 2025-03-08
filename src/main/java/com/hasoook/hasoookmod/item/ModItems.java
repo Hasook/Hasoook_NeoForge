@@ -22,6 +22,7 @@ public class ModItems {
     public static final Supplier<Item> RIPEN_FLINT_AND_STEEL = ITEMS.register("ripen_flint_and_steel",() -> new RipenFlintAndSteel(new Item.Properties().food(ModFoods.RIPENFlintAndSteel)));
     public static final Supplier<Item> PET_COMPASS = ITEMS.register("pet_compass",() -> new PetCompassItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> DISK_CRICKET_MOTION_BADGE = ITEMS.register("disk_cricket_motion_badge",() -> new DiskCricketMotionBadge(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+    public static final Supplier<Item> INSIGHT_MAGNIFIER = ITEMS.register("insight_magnifier",() -> new InsightMagnifier(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static final DeferredItem<Item> WATER_BOOTS = ITEMS.register("water_boots",
             () -> new WaterBoots(ModArmorMaterials.WATER, ArmorItem.Type.BOOTS,

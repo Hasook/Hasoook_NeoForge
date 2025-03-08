@@ -11,6 +11,7 @@
   "item.hasoook.pet_compass": "宠物指针",
   "item.hasoook.pet_compass_linked": "已绑定的宠物指针",
   "item.hasoook.disk_cricket_motion_badge": "骑士徽章",
+  "item.hasoook.insight_magnifier": "洞察放大镜",
 
   "item.hasoookmod.angle": "指向角度",
 
@@ -39,12 +40,12 @@
   "enchantment.hasoook.tornado": "龙卷",
   "enchantment.hasoook.louis_xvi": "路易十六",
 
-  "enchantment.hasoook.random_bullets.desc": "随机射出一种子弹.",
-  "enchantment.hasoook.separation_explosion.desc": "与该物品的掉落物分离10米时自动爆炸.",
-  "enchantment.hasoook.disdain.desc": "该物品的掉落物会主动远离你.",
-  "enchantment.hasoook.swap.desc": "攻击交换双方的主手物品.",
-  "enchantment.hasoook.chain_damage.desc": "攻击对范围内与同类型的生物造成一次伤害.",
-  "enchantment.hasoook.give.desc": "攻击时把物品给予目标.",
+  "enchantment.hasoook.random_bullets.desc": "随机射出一种子弹",
+  "enchantment.hasoook.separation_explosion.desc": "与该物品的掉落物分离10米时自动爆炸",
+  "enchantment.hasoook.disdain.desc": "该物品的掉落物会主动远离你",
+  "enchantment.hasoook.swap.desc": "攻击会交换双方的主手物品",
+  "enchantment.hasoook.chain_damage.desc": "攻击对范围内与同类型的生物造成一次伤害",
+  "enchantment.hasoook.give.desc": "攻击时把物品给予目标",
   "enchantment.hasoook.unyielding.desc": "在受到致命伤害时，短暂进入不屈状态，延迟死亡",
   "enchantment.hasoook.seven_step_snake_venom.desc": "前进时消耗生命，后退时恢复生命",
   "enchantment.hasoook.backstab.desc": "闪现至目标身后，背击造成双倍伤害",
@@ -84,5 +85,30 @@
 
   "hasoook.message.betray.attack": "<%s> 三叉戟生于天地之间，岂能郁郁久居人下！",
   "hasoook.message.betray.defense": "<%s> 戟飘零半生，只恨未逢明主！",
-  "hasoook.message.de_urbanization.block": "%s疑似太城市化了"
+  "hasoook.message.de_urbanization.block": "%s疑似太城市化了",
+
+  "item.hasoook.disk_cricket_motion_badge.insight": "对生物使用使其成为一名骑士",
+  "item.hasoook.insight_magnifier.insight": "持有时可查看物品的详细说明",
+  "item.hasoook.totem_of_surrender.insight": "使用后丢弃一半的物品，立即传送回重生点",
+
+  "hasoook.tooltip.applicable_items": "适用物品：",
+  "hasoook.tooltip.tag.minecraft.swords": "剑",
+  "hasoook.tooltip.tag.minecraft.pickaxes": "镐",
+  "hasoook.tooltip.tag.minecraft.axes": "斧",
+  "hasoook.tooltip.tag.minecraft.shovels": "铲",
+  "hasoook.tooltip.tag.minecraft.hoes": "锄",
+  "hasoook.tooltip.tag.minecraft.chest_armor": "胸甲",
+  "hasoook.tooltip.tag.minecraft.foot_armor": "靴子",
+  "hasoook.tooltip.tag.minecraft.leg_armor": "护腿",
+  "hasoook.tooltip.tag.minecraft.head_armor": "头盔",
+  "hasoook.tooltip.tag.minecraft.skulls": "头颅",
+  "hasoook.tooltip.etc": "...",
+
+  "hasoook.tooltip.nutrition": "饱食度: %d",
+  "hasoook.tooltip.saturation": "饱和度: %s",
+
+  "hasoook.tooltip.effect_entry": "%d%% %s %s (%s)",
+  "hasoook.tooltip.effect_entry.100": "%s %s (%s)",
+
+  "hasoook.tooltip.spawn_egg_health": "生命值：%s"
 }

@@ -36,7 +36,7 @@ public class PetCompassItem extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slot, boolean selected) {
         if (level instanceof ServerLevel serverLevel) {
             LodestoneTracker tracker = stack.get(DataComponents.LODESTONE_TRACKER);
             if (tracker != null) {
@@ -49,7 +49,7 @@ public class PetCompassItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
         if (!level.getBlockState(pos).is(Blocks.LODESTONE)) {
@@ -59,7 +59,10 @@ public class PetCompassItem extends Item {
         level.playSound(null, pos, SoundEvents.LODESTONE_COMPASS_LOCK, SoundSource.PLAYERS, 1.0F, 1.0F);
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
-        boolean singleItem = !player.hasInfiniteMaterials() && stack.getCount() == 1;
+        boolean singleItem = false;
+        if (player != null) {
+            singleItem = !player.hasInfiniteMaterials() && stack.getCount() == 1;
+        }
 
         LodestoneTracker tracker = new LodestoneTracker(
                 Optional.of(GlobalPos.of(level.dimension(), pos)),
@@ -72,7 +75,7 @@ public class PetCompassItem extends Item {
             ItemStack newStack = stack.transmuteCopy(Items.COMPASS, 1);
             stack.consume(1, player);
             newStack.set(DataComponents.LODESTONE_TRACKER, tracker);
-            if (!player.getInventory().add(newStack)) {
+            if (player != null && !player.getInventory().add(newStack)) {
                 player.drop(newStack, false);
             }
         }
@@ -81,7 +84,7 @@ public class PetCompassItem extends Item {
     }
 
     @Override
-    public String getDescriptionId(ItemStack stack) {
+    public @NotNull String getDescriptionId(ItemStack stack) {
         return stack.has(DataComponents.LODESTONE_TRACKER)
                 ? "item.minecraft.lodestone_compass"
                 : super.getDescriptionId(stack);

@@ -15,6 +15,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#hasoook:enchantable/separation_items",
+  "supported_items": "#hasoook:separation_items",
   "weight": 2
 }
