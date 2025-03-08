@@ -13,7 +13,7 @@
 ✔️ 本模组支持[附魔描述](https://modrinth.com/mod/enchantment-descriptions)模组，在附魔工具的提示中增加附魔描述，方便你快速了解该附魔的作用。
 
 ## 如何下载
-点击上方的 **Versions** 就可以查看模组的所有版本，点击 **Download** 即可下载。我比较建议下载最新版，内容更多BUG更少。
+点击 [**Versions**](https://modrinth.com/mod/hasoook/versions) 就可以查看模组的所有版本，点击 **Download** 即可下载。我比较建议下载最新版，内容更多BUG更少。
 
 ## 🔗 站外链接
 [MCMOD百科](https://www.mcmod.cn/class/14799.html) | [哔哩哔哩](https://space.bilibili.com/38047059?spm_id_from=333.1007.0.0)
