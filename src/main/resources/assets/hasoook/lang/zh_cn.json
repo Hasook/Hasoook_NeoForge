@@ -86,6 +86,9 @@
   "hasoook.message.betray.attack": "<%s> 三叉戟生于天地之间，岂能郁郁久居人下！",
   "hasoook.message.betray.defense": "<%s> 戟飘零半生，只恨未逢明主！",
   "hasoook.message.de_urbanization.block": "%s疑似太城市化了",
+  "item.hasoook.pet_compass.searching": "正在定位宠物信号",
+  "item.hasoook.pet_compass.no_pet": "附近没有找到你的宠物",
+  "item.hasoook.pet_compass.found": "已发现宠物：",
 
   "item.hasoook.disk_cricket_motion_badge.insight": "对生物使用使其成为一名骑士",
   "item.hasoook.insight_magnifier.insight": "持有时可查看物品的详细说明",

@@ -32,15 +32,13 @@ public class ClientSetup {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            // 注册指南针的 angle 属性（完全复刻原版逻辑）
             ItemProperties.register(
                     ModItems.PET_COMPASS.get(),
                     ResourceLocation.fromNamespaceAndPath("hasoook", "angle"),
-                    new CustomCompassItemPropertyFunction(
+                    new CompassItemPropertyFunction(
                             (level, stack, entity) -> {
                                 LodestoneTracker tracker = stack.get(DataComponents.LODESTONE_TRACKER);
-                                // return tracker != null ? tracker.target().orElse(null) : PetCompassItem.getSpawnPosition(entity.level()); // 返回出生点坐标
-                                return GlobalPos.of(Level.OVERWORLD, new BlockPos(0, 0, 0)); // 返回固定坐标
+                                return tracker != null ? tracker.target().orElse(null) : null;
                             }
                     )
             );
@@ -69,12 +67,21 @@ public class ClientSetup {
         }
 
         private float getCompassRotation(ItemStack stack, ClientLevel level, int seed, Entity entity) {
-            GlobalPos targetPos = target.getPos(level, stack, entity);
+            LodestoneTracker tracker = stack.get(DataComponents.LODESTONE_TRACKER);
+            GlobalPos targetPos = tracker != null ? tracker.target().orElse(null) : null;
             long gameTime = level.getGameTime();
+
+            // 在getCompassRotation方法中添加调试输出
+            System.out.println("Current dimension: " + level.dimension());
+            System.out.println("Target position: " + targetPos);
 
             if (!isValidCompassTargetPos(entity, targetPos)) {
                 return getRandomlySpinningRotation(seed, gameTime);
             } else {
+                // 添加维度检查
+                if (targetPos.dimension() != level.dimension()) {
+                    return getRandomlySpinningRotation(seed, gameTime);
+                }
                 return getRotationTowardsCompassTarget(entity, gameTime, targetPos.pos());
             }
         }
@@ -112,7 +119,7 @@ public class ClientSetup {
 
         private boolean isValidCompassTargetPos(Entity entity, @Nullable GlobalPos pos) {
             return pos != null
-                    && pos.dimension() == entity.level().dimension()
+                    && pos.dimension().equals(entity.level().dimension())
                     && pos.pos().distToCenterSqr(entity.position()) >= 1.0E-5;
         }
 
