@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -30,16 +31,16 @@ public class TotemOfSurrender extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         pPlayer.startUsingItem(pHand);
         return InteractionResultHolder.consume(itemStack);
     }
 
     @Override
-    public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
+    public void releaseUsing(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pEntityLiving, int pTimeLeft) {
         int time = this.getUseDuration(pStack, pEntityLiving) - pTimeLeft;
-        if (time >= 20 && !pLevel.isClientSide && pEntityLiving instanceof Player player) {
+        if (time >= 20 && !pLevel.isClientSide && pEntityLiving instanceof ServerPlayer player) {
 
             pStack.shrink(1);
             // 获取玩家的所有有物品的背包槽位
@@ -76,25 +77,23 @@ public class TotemOfSurrender extends Item {
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.TOTEM_OF_SURRENDER.get()));
             // 类似不死图腾的动画
 
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-            BlockPos bedPosition = serverPlayer.getRespawnPosition();
+            BlockPos bedPosition = player.getRespawnPosition();
             BlockPos spawnPosition = player.level().getSharedSpawnPos();
             if (bedPosition != null && player.level().getBlockState(bedPosition).getBlock() instanceof BedBlock) {
                 player.teleportTo(bedPosition.getX() + 0.5, bedPosition.getY() + 1, bedPosition.getZ() + 0.5);// 传送玩家到重生点
             } else {
                 player.teleportTo(spawnPosition.getX(), spawnPosition.getY(), spawnPosition.getZ());// 传送玩家到重生点
             }
-
         }
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack, LivingEntity pEntity) {
+    public int getUseDuration(@NotNull ItemStack pStack, @NotNull LivingEntity pEntity) {
         return 72000;
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack pStack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack pStack) {
         return UseAnim.BOW;
     }
 
