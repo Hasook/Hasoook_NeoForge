@@ -18,11 +18,15 @@ public class OLPackets {
                 LouisXVIS2CPacket.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(LouisXVIS2CPacket::handle,null)
         );
-        // 注册新的控制输入包（客户端->服务端）
         registrar.playToServer(
                 ControlInputPacket.TYPE,
                 ControlInputPacket.STREAM_CODEC,
                 ControlInputPacket::handle
+        );
+        registrar.playToServer(
+                LeftClickAirPacket.TYPE,
+                LeftClickAirPacket.STREAM_CODEC,
+                LeftClickAirPacket::handle
         );
     }
 }
