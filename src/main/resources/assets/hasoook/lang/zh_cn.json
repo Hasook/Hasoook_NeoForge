@@ -12,6 +12,7 @@
   "item.hasoook.pet_compass_linked": "已绑定的宠物指针",
   "item.hasoook.disk_cricket_motion_badge": "骑士徽章",
   "item.hasoook.insight_magnifier": "洞察放大镜",
+  "item.hasoook.gravity_glove": "重力手套",
 
   "item.hasoookmod.angle": "指向角度",
 
@@ -39,6 +40,7 @@
   "enchantment.hasoook.fission": "分裂",
   "enchantment.hasoook.tornado": "龙卷",
   "enchantment.hasoook.louis_xvi": "路易十六",
+  "enchantment.hasoook.mind_control": "心灵控制",
 
   "enchantment.hasoook.random_bullets.desc": "随机射出一种子弹",
   "enchantment.hasoook.separation_explosion.desc": "与该物品的掉落物分离10米时自动爆炸",

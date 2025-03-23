@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "hasoook:item/gravity_glove_3d"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "hasoook:item/gravity_glove_2d"
+    },
+    "ground": {
+      "parent": "hasoook:item/gravity_glove_2d"
+    },
+    "fixed": {
+      "parent": "hasoook:item/gravity_glove_2d"
+    }
+  }
+}

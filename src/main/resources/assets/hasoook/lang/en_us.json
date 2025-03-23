@@ -12,6 +12,7 @@
   "item.hasoook.pet_compass_linked": "Pet Compass Linked",
   "item.hasoook.disk_cricket_motion_badge": "Disk-Cricket-Motion Badge",
   "item.hasoook.insight_magnifier": "Insight Magnifier",
+  "item.hasoook.gravity_glove": "Gravity Glove",
 
   "item.hasoookmod.angle": "Angle",
 
@@ -39,6 +40,7 @@
   "enchantment.hasoook.fission": "Fission",
   "enchantment.hasoook.tornado": "Tornado",
   "enchantment.hasoook.louis_xvi": "Louis XVI",
+  "enchantment.hasoook.mind_control": "Mind Control",
 
   "enchantment.hasoook.random_bullets.desc": "Shoots a random type of bullet.",
   "enchantment.hasoook.separation_explosion.desc": "Automatically explodes when separated from the item’s drop by 10 meters.",
