@@ -27,37 +27,5 @@
 - Fabric版：已停止更新和维护
 
 ## 🌍 相关链接  
- [🎮 Modrinth]([https://space.bilibili.com/38047059](https://modrinth.com/mod/hasoook)) |  | [📚 MCMOD百科](https://www.mcmod.cn/class/14799.html) | [🎥 哔哩哔哩主页](https://space.bilibili.com/38047059) |  
+ [🎮 模组下载（Modrinth）](https://modrinth.com/mod/hasoook) | [📚 MCMOD百科](https://www.mcmod.cn/class/14799.html) | [🎥 哔哩哔哩主页](https://space.bilibili.com/38047059) |  
 | ---------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-
-# 🌐 English Introduction  
-📖 **Mod Documentation**  
-This is my namesake mod, created during my journey of learning mod development. I incorporate interesting ideas and community suggestions into the mod, while regularly updating gameplay demos and feature explanations on [Bilibili](https://space.bilibili.com/38047059)!
-
-Explore the full mechanics and gameplay details in the [Wiki](https://github.com/Hasook/Hasoook_NeoForge/wiki).
-
-🐛 **Bug Reporting**  
-Submit issues via [GitHub Issues](https://github.com/Hasook/Hasoook_NeoForge/issues). Your feedback is appreciated!
-
-💡 **Open Source**  
-This mod is fully open-source. Learn, adapt, or create derivatives (under specified license terms below).
-
-## 🔗 Cross-Mod Compatibility  
-✅ **Enchantment Descriptions**  
-Integrated with [Enchantment Descriptions](https://modrinth.com/mod/enchantment-descriptions) to display enchantment effects directly in tooltips.
-
-## ⚠️ Important Notes  
-### 📜 License Terms  
-Licensed under [**CC-BY-NC-4.0**](https://github.com/Hasook/Hasoook_NeoForge?tab=License-1-ov-file):  
-- **Mandatory Attribution**  
-- **Non-Commercial Use Only** (No sales/advertising)  
-- Derivatives must follow same terms  
-
-### 🛠️ Version Status  
-- **Forge Edition**: Discontinued (Built with MCreator)  
-- **Fabric Edition**: No longer maintained  
-- **NeoForge Edition**: Actively updated (Hand-coded)  
-
-## 🌍 External Links  
-| [📚 MCMOD Wiki](https://www.mcmod.cn/class/14799.html) | [🎥 Bilibili Channel](https://space.bilibili.com/38047059) |  
-| ------------------------------------------------------ | -------------------------------------------------------- |
