@@ -1,34 +1,67 @@
-#  🌐 中文介绍
-这是我的一个同名模组，是我在学习模组开发时所创作的作品。我会将自己好玩的想法或观众的评论做进模组中，同时也会在[哔哩哔哩](https://space.bilibili.com/38047059)更新模组相关视频，展示详细的功能与更多玩法！
+# 🌐 中文介绍  
+📖 **模组内容详解**  
+这是我的同名模组，在学习模组开发过程中创作的作品。我会将有趣的想法和观众建议融入模组，同时也会在[哔哩哔哩](https://space.bilibili.com/38047059)更新模组相关视频，展示详细的功能与更多玩法！
 
-如果想详细了解模组的内容与机制，可以查看模组的[百科](https://github.com/Hasook/Hasoook_NeoForge/wiki)！如果你在游玩时遇到了BUG，欢迎在[这里](https://github.com/Hasook/Hasoook_NeoForge/issues)提交！
+推荐查看模组[百科Wiki](https://github.com/Hasook/Hasoook_NeoForge/wiki)，全面了解机制与玩法细节。
 
-本模组是开源的，欢迎大家学习时查看、使用和提出建议！
+🐛 **问题反馈**  
+遇到BUG请前往[Issues页面](https://github.com/Hasook/Hasoook_NeoForge/issues)提交，感谢帮助改进！
 
-注：本模组的Forge版由 **MCreator** 制作，Fabric版与NeoForge版则均为手写代码。
+💡 **开源声明**  
+本模组完全开源，欢迎学习参考或二次创作（需遵守下方协议规范）。
 
-❌ **Forge版** 与 **Fabric版** 已经停止更新和维护。
+## 🔗 模组联动  
+✅ **附魔描述兼容**  
+已支持[附魔描述模组](https://modrinth.com/mod/enchantment-descriptions)，在工具提示中直接显示附魔效果说明。
 
-## 关于联动
-✔️ 本模组支持[附魔描述](https://modrinth.com/mod/enchantment-descriptions)模组，在附魔工具的提示中增加附魔描述，方便你快速了解该附魔的作用。
+## ⚠️ 注意事项  
+### 📜 协议条款  
+遵循 [**CC-BY-NC-4.0**](https://github.com/Hasook/Hasoook_NeoForge?tab=License-1-ov-file) 协议：  
+- 使用作品需标明原作者
+- 禁止将作品用于商业目的（如销售、广告等）
+- 可自由分享、修改和演绎，但需遵守上述条件
 
-## 如何下载
-点击 [**Versions**](https://modrinth.com/mod/hasoook/versions) 就可以查看模组的所有版本，点击 **Download** 即可下载。我比较建议下载最新版，内容更多BUG更少。
+### 🛠️ 版本说明  
+- NeoForge版：持续更新
+- Forge版：已停止更新和维护，由MCreator制作
+- Fabric版：已停止更新和维护
 
-## 🔗 站外链接
-[MCMOD百科](https://www.mcmod.cn/class/14799.html) | [哔哩哔哩](https://space.bilibili.com/38047059?spm_id_from=333.1007.0.0)
+## 🔽 下载指南  
+1. 点击仓库顶部的 **Versions** 查看所有版本  
+2. 点击对应版本的 **Download** 按钮获取文件，推荐下载 **最新版本**（内容更全/稳定性更优）  
 
-# 🌐 English Introduction
-This is my self-titled mod, developed during my journey of learning mod development. I incorporate creative ideas from both myself and player feedback into the mod, and regularly update gameplay videos on [Bilibili](https://space.bilibili.com/38047059) to showcase detailed features and mechanics!
+## 🌍 相关链接  
+| [📚 MCMOD百科](https://www.mcmod.cn/class/14799.html) | [🎥 哔哩哔哩主页](https://space.bilibili.com/38047059) |  
+| ---------------------------------------------------- | ----------------------------------------------------- |
 
-As it has recently been migrated to NeoForge, the content is still expanding. To explore the mod's full mechanics and features, check out the [Wiki](https://github.com/Hasook/Hasoook_NeoForge/wiki).
+# 🌐 English Introduction  
+📖 **Mod Documentation**  
+This is my namesake mod, created during my journey of learning mod development. I incorporate interesting ideas and community suggestions into the mod, while regularly updating gameplay demos and feature explanations on [Bilibili](https://space.bilibili.com/38047059)!
 
-If you encounter any bugs while playing, please report them [here](https://github.com/Hasook/Hasoook_NeoForge/issues)!
+Explore the full mechanics and gameplay details in the [Wiki](https://github.com/Hasook/Hasoook_NeoForge/wiki).
 
-This mod is open-source, and contributions/suggestions are welcome! Feel free to study, use, or adapt the code for learning purposes.
+🐛 **Bug Reporting**  
+Submit issues via [GitHub Issues](https://github.com/Hasook/Hasoook_NeoForge/issues). Your feedback is appreciated!
 
-## Cross-Mod Compatibility
-The mod is compatible with the [Enchantment Descriptions](https://modrinth.com/mod/enchantment-descriptions) mod, adding enchantment tooltip integrations for better clarity on enchantment effects.
+💡 **Open Source**  
+This mod is fully open-source. Learn, adapt, or create derivatives (under specified license terms below).
 
-## 🔗 External Links
-[MCMOD](https://www.mcmod.cn/class/14799.html) | [Bilibili](https://space.bilibili.com/38047059?spm_id_from=333.1007.0.0)
+## 🔗 Cross-Mod Compatibility  
+✅ **Enchantment Descriptions**  
+Integrated with [Enchantment Descriptions](https://modrinth.com/mod/enchantment-descriptions) to display enchantment effects directly in tooltips.
+
+## ⚠️ Important Notes  
+### 📜 License Terms  
+Licensed under [**CC-BY-NC-4.0**](https://github.com/Hasook/Hasoook_NeoForge?tab=License-1-ov-file):  
+- **Mandatory Attribution**  
+- **Non-Commercial Use Only** (No sales/advertising)  
+- Derivatives must follow same terms  
+
+### 🛠️ Version Status  
+- **Forge Edition**: Discontinued (Built with MCreator)  
+- **Fabric Edition**: No longer maintained  
+- **NeoForge Edition**: Actively updated (Hand-coded)  
+
+## 🌍 External Links  
+| [📚 MCMOD Wiki](https://www.mcmod.cn/class/14799.html) | [🎥 Bilibili Channel](https://space.bilibili.com/38047059) |  
+| ------------------------------------------------------ | -------------------------------------------------------- |
