@@ -1,5 +1,6 @@
-// 1.21	2025-03-03T22:53:59.5186617	Tags for minecraft:item mod id hasoook
+// 1.21	2025-03-25T19:03:09.1798777	Tags for minecraft:item mod id hasoook
 0f3226c355cdcb90f8de3c0301edef1be93f4f89 data/hasoook/tags/item/entity_enchantment.json
+49ddff58c1ca3c0251572371e1205317d19331ab data/hasoook/tags/item/gravity_glove.json
 a743626ee37dccd298ed1407cd76853ee2753265 data/hasoook/tags/item/louis_xvi.json
 6119093b03992f0d05305f1e7b6492daee9d2a60 data/hasoook/tags/item/racial_discrimination_items.json
 56766bbf8d79164fc848041203efa60c692eb7ce data/hasoook/tags/item/separation_items.json

@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.mixin.item;
 
+import com.hasoook.hasoookmod.Config;
 import com.hasoook.hasoookmod.enchantment.EnchantmentValueRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +14,7 @@ public abstract class ItemEnchantableMixin {
 
     @Inject(method = "isEnchantable", at = @At("HEAD"), cancellable = true)
     private void onIsEnchantable(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (EnchantmentValueRegistry.isEnchantable(stack)) {
+        if (Config.enchantmentValue && EnchantmentValueRegistry.isEnchantable(stack)) {
             cir.setReturnValue(true);
         }
     }

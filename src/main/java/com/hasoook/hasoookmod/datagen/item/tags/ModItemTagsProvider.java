@@ -1,5 +1,6 @@
 package com.hasoook.hasoookmod.datagen.item.tags;
 
+import com.hasoook.hasoookmod.item.ModItems;
 import com.hasoook.hasoookmod.tags.ModItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -38,5 +39,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 .addTag(ItemTags.BOW_ENCHANTABLE)
                 .add(Items.LEAD)
                 .add(Items.CHEST);
+        this.tag(ModItemTags.GRAVITY_GLOVE).add(ModItems.GRAVITY_GLOVE.get());
     }
 }

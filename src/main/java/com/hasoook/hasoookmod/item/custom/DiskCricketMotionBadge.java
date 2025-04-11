@@ -20,7 +20,7 @@ public class DiskCricketMotionBadge extends Item {
     @Override
     public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack pStack, Player pPlayer, @NotNull LivingEntity pInteractionTarget, @NotNull InteractionHand pUsedHand) {
         if (!pPlayer.level().isClientSide && ModEntityHelper.isWhiteMob(pInteractionTarget) && !pInteractionTarget.hasEffect(ModEffects.GO_WORK)) {
-            pInteractionTarget.addEffect(new MobEffectInstance(ModEffects.GO_WORK, MobEffectInstance.INFINITE_DURATION, 0, true, false, true));
+            pInteractionTarget.addEffect(new MobEffectInstance(ModEffects.GO_WORK, 3600, 0, true, false, true));
             pStack.shrink(1);
             pPlayer.displayClientMessage(Component.literal("恭喜" + pInteractionTarget.getName().getString() + "成为了FBI的一员！"), false);
         }

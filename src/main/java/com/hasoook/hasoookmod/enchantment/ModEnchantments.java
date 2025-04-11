@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 // 自定义附魔类，用于定义和注册新的附魔
@@ -35,6 +36,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> FISSION = key("fission"); // 分裂
     public static final ResourceKey<Enchantment> TORNADO = key("tornado"); // 龙卷
     public static final ResourceKey<Enchantment> LOUIS_XVI = key("louis_xvi"); // 路易十六
+    public static final ResourceKey<Enchantment> MIND_CONTROL = key("mind_control"); // 心灵控制
+    public static final ResourceKey<Enchantment> TELEKINESIS = key("telekinesis"); // 隔空取物
 
     // 引导方法，用于初始化附魔注册
     public static <DamageType> void bootstrap(BootstrapContext<Enchantment> context)
@@ -246,6 +249,26 @@ public class ModEnchantments {
                 Enchantment.constantCost(50),
                 1,
                 EquipmentSlotGroup.MAINHAND))
+        );
+        // 心灵控制
+        register(context, MIND_CONTROL, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ItemTags.FISHES),
+                1,
+                1,
+                Enchantment.constantCost(20),
+                Enchantment.constantCost(50),
+                1,
+                EquipmentSlotGroup.MAINHAND))
+        );
+        // 隔空取物
+        register(context, TELEKINESIS, Enchantment.enchantment(Enchantment.definition(
+                items.getOrThrow(ModItemTags.GRAVITY_GLOVE),
+                10,
+                3,
+                Enchantment.constantCost(20),
+                Enchantment.constantCost(50),
+                1,
+                EquipmentSlotGroup.HAND))
         );
     }
 

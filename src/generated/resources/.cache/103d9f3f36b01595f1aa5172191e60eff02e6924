@@ -1,4 +1,4 @@
-// 1.21	2025-03-03T22:53:59.5196598	Registries
+// 1.21	2025-03-25T19:03:09.1818846	Registries
 458f2c8b637a0758b6d182d42054492744a4e512 data/hasoook/enchantment/backstab.json
 c66f5837b9ab85e3e837cebd9850bc1f57a2b07c data/hasoook/enchantment/betray.json
 3b6eff71e64de975d7e16a7af7bddbe183d006f5 data/hasoook/enchantment/chain_damage.json
@@ -9,6 +9,7 @@ f1d92f294b7bb0c1cdd130c6052f73c180fb7a9e data/hasoook/enchantment/give.json
 63fd54276ab7e36e1aef5c3c422f7bbbf50afd78 data/hasoook/enchantment/kill_a_man_every_ten_paces.json
 449cc0f61e5d26a355bbada125ea3c5f036df44c data/hasoook/enchantment/louis_xvi.json
 4df186cbbe4b65efb406788b2217d9493914ac0e data/hasoook/enchantment/middle_east_best_pilot.json
+18421ec8c6e86a8a3fbcfe3d356c6bd397275077 data/hasoook/enchantment/mind_control.json
 e08659fda3f0f41d092bdf5f14146df5e460cc93 data/hasoook/enchantment/political_correctness.json
 1de67abaa1bb421e50ee79af84c7b15dd57d29c9 data/hasoook/enchantment/racial_discrimination.json
 ff0a2e8f5f1e5fb5f435200148fa706838d31c57 data/hasoook/enchantment/random_bullets.json
@@ -16,6 +17,7 @@ ff0a2e8f5f1e5fb5f435200148fa706838d31c57 data/hasoook/enchantment/random_bullets
 3f914ea10f0d89022a075e80cee999e3c3f0ded4 data/hasoook/enchantment/seven_step_snake_venom.json
 9dadffd51c81ad6a19ee448e01359831a6f625e7 data/hasoook/enchantment/spotlight.json
 c11c4b36611c0edecaed628b63160fb713fb01d6 data/hasoook/enchantment/swap.json
+12d2801807bf22f672261ed17d2f28f7b4d5e15f data/hasoook/enchantment/telekinesis.json
 cb0419ced1f7de085312e5776c7a8f2b07834807 data/hasoook/enchantment/tornado.json
 8f7cc7eadd8f08c7f97be526635ff68bb2bf234e data/hasoook/enchantment/unyielding.json
 a6681f69315cfed71380127f5986f5e12c035fd5 data/hasoook/enchantment/zero_cost_purchase.json

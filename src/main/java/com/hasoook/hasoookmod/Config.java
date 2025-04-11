@@ -51,9 +51,14 @@ public class Config
             .comment("这只是一个模板，没什么用")
             .define("magicNumberIntroduction", "...");
 
+    private static final ModConfigSpec.BooleanValue ENCHANTMENT_VALUE = BUILDER
+            .comment("给予物品附魔能力值，默认值：开")
+            .define("enchantmentValue", true);
+
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("这只是一个模板，没什么用")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static int hugeDiamondPickMiningRange;
@@ -63,6 +68,7 @@ public class Config
     public static boolean lamaGiveSpit;
     public static boolean louisXviBlindness;
     public static boolean louisXviHead;
+    public static boolean enchantmentValue;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
@@ -81,6 +87,7 @@ public class Config
         lamaGiveSpit = LAMA_GIVE_SPIT.get();
         louisXviBlindness = LOUIS_XVI_BLINDNESS.get();
         louisXviHead = LOUIS_XVI_HEAD.get();
+        enchantmentValue = ENCHANTMENT_VALUE.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items

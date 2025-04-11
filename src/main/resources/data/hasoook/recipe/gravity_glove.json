@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XYX",
+    "NSN"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "Y": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "N": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "id": "hasoook:gravity_glove_",
+    "count": 1
+  }
+}

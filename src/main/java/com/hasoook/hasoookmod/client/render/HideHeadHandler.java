@@ -1,12 +1,15 @@
 package com.hasoook.hasoookmod.client.render;
 
+import com.hasoook.hasoookmod.HasoookMod;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 
 import java.lang.reflect.Field;
@@ -16,6 +19,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 @OnlyIn(Dist.CLIENT)
+@EventBusSubscriber(modid = HasoookMod.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class HideHeadHandler {
     private static final Map<Entity, List<ModelPartState>> visibilityStates = new WeakHashMap<>();
 
@@ -23,6 +27,7 @@ public class HideHeadHandler {
     public static void onRenderPre(RenderLivingEvent.Pre<?, ?> event) {
         Entity entity = event.getEntity();
         boolean louisXvi = entity.getPersistentData().getBoolean("louis_xvi");
+
         if (!louisXvi) return;
 
         List<ModelPartState> states = new ArrayList<>();

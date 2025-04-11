@@ -3,11 +3,10 @@ package com.hasoook.hasoookmod.event;
 import com.hasoook.hasoookmod.HasoookMod;
 import com.hasoook.hasoookmod.client.render.HideHeadHandler;
 import com.hasoook.hasoookmod.entity.ModEntities;
+import com.hasoook.hasoookmod.entity.client.MeteoriteModel;
 import com.hasoook.hasoookmod.entity.client.TornadoModel;
+import com.hasoook.hasoookmod.entity.custom.MeteoriteEntity;
 import com.hasoook.hasoookmod.entity.custom.TornadoEntity;
-import com.hasoook.hasoookmod.entityEnchantment.EntityEnchantmentInteract;
-import com.hasoook.hasoookmod.event.effect.GoWork;
-import com.hasoook.hasoookmod.event.entityEnchantment.EnchantmentEntityTick;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -19,15 +18,12 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TornadoModel.LAYER_LOCATION, TornadoModel::createBodyLayer);
-
-        NeoForge.EVENT_BUS.register(EntityEnchantmentInteract.class);
-        NeoForge.EVENT_BUS.register(EnchantmentEntityTick.class);
-        NeoForge.EVENT_BUS.register(HideHeadHandler.class);
-        NeoForge.EVENT_BUS.register(GoWork.class);
+        event.registerLayerDefinition(MeteoriteModel.LAYER_LOCATION, MeteoriteModel::createBodyLayer);
     }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.TORNADO.get(), TornadoEntity.createAttributes().build());
+        event.put(ModEntities.METEORITE.get(), MeteoriteEntity.createAttributes().build());
     }
 }

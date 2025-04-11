@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +43,7 @@ public class ModEntityHelper {
         List<Entity> entities = level.getEntities(
                 livingEntity,
                 livingEntity.getBoundingBox().expandTowards(viewVec.scale(maxDistance)).inflate(1.0),
-                e -> e != livingEntity && e.isPickable()
+                e -> e != livingEntity && (e.isPickable() || e instanceof ItemEntity)
         );
 
         // 按距离排序（从近到远）
@@ -74,7 +75,12 @@ public class ModEntityHelper {
         return null;
     }
 
-    // 判断是否为白色生物
+    /**
+     * 判断实体是否为白色生物
+     *
+     * @param entity 实体
+     * @return 是则返回ture
+     */
     public static boolean isWhiteMob(Entity entity) {
         List<EntityType<?>> invalidEntities = Arrays.asList(
                 EntityType.SKELETON,
@@ -129,7 +135,12 @@ public class ModEntityHelper {
         return false;
     }
 
-    // 判断是否为黑色生物
+    /**
+     * 判断实体是否为黑色生物
+     *
+     * @param entity 实体
+     * @return 是则返回ture
+     */
     public static boolean isBlackMob(Entity entity) {
         List<EntityType<?>> invalidEntities = Arrays.asList(
                 EntityType.WITHER_SKELETON,

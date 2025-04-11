@@ -14,6 +14,7 @@ public class EnchantmentValueRegistry {
     static {
         register(Items.SHEARS, 1);  // 剪刀
         register(Items.ELYTRA, 5);
+        register(Items.STONE, 5);
     }
 
     public static void register(Item item, int enchantmentValue) {

@@ -7,6 +7,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.SimpleTier;
 
 public class ModToolTiers {
-    public static final Tier Huge_Diamond = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_BISMUTH_TOOL,
+    public static final Tier HUGE_DIAMOND = new SimpleTier(ModTags.Blocks.INCORRECT_FOR_BISMUTH_TOOL,
             15610, 4f, 3f, 28, () -> Ingredient.of(Items.DIAMOND));
 }

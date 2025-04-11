@@ -50,6 +50,7 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.PET_COMPASS.get());
                 pOutput.accept(ModItems.DISK_CRICKET_MOTION_BADGE.get());
                 pOutput.accept(ModItems.INSIGHT_MAGNIFIER.get());
+                pOutput.accept(ModItems.GRAVITY_GLOVE.get());
 
                 // 添加自定义的方块
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
@@ -77,6 +78,8 @@ public class ModCreativeTab {
                 addEnchantedBook.accept(ModEnchantments.FISSION);
                 addEnchantedBook.accept(ModEnchantments.TORNADO);
                 addEnchantedBook.accept(ModEnchantments.LOUIS_XVI);
+                addEnchantedBook.accept(ModEnchantments.MIND_CONTROL);
+                addEnchantedBook.accept(ModEnchantments.TELEKINESIS);
             })
             .build());
     public static void register(IEventBus eventBus){

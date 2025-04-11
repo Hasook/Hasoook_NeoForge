@@ -29,9 +29,13 @@ public class ModItems {
                     new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(5))));
 
     public static final DeferredItem<PickaxeItem> HUGE_DIAMOND_PICKAXE = ITEMS.register("huge_diamond_pickaxe",
-            () -> new HugeDiamondPickaxe(ModToolTiers.Huge_Diamond, new Item.Properties()
-                    .attributes(PickaxeItem.createAttributes(ModToolTiers.Huge_Diamond, 11.0F, -3.2f))
+            () -> new HugeDiamondPickaxe(ModToolTiers.HUGE_DIAMOND, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolTiers.HUGE_DIAMOND, 11.0F, -3.2f))
                     .rarity(Rarity.RARE)));
+
+    public static final Supplier<Item> GRAVITY_GLOVE = ITEMS.register("gravity_glove",
+            () -> new GravityGlove(new Item.Properties().attributes(GravityGlove.createAttributes())
+                    .stacksTo(1).rarity(Rarity.RARE).durability(500)));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

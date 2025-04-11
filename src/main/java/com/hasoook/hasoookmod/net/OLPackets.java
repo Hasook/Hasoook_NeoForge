@@ -13,7 +13,7 @@ public class OLPackets {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event){
         final PayloadRegistrar registrar = event.registrar(HasoookMod.MOD_ID).executesOn(HandlerThread.NETWORK);
-        registrar.playBidirectional(
+        registrar.playToClient(
                 LouisXVIS2CPacket.TYPE,
                 LouisXVIS2CPacket.STREAM_CODEC,
                 new DirectionalPayloadHandler<>(LouisXVIS2CPacket::handle,null)

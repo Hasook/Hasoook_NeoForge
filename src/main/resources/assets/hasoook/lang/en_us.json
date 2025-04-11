@@ -20,6 +20,8 @@
   "block.hasoook.hasoook_lucky_block": "Hasoook Lucky Block",
   "block.hasoook.green_screen_block": "Green Screen Block",
 
+  "entity.hasoook.meteorite": "Meteorite",
+
   "enchantment.hasoook.random_bullets": "Random Bullets",
   "enchantment.hasoook.separation_explosion": "Separation Explosion",
   "enchantment.hasoook.disdain": "Disdain",
@@ -41,6 +43,7 @@
   "enchantment.hasoook.tornado": "Tornado",
   "enchantment.hasoook.louis_xvi": "Louis XVI",
   "enchantment.hasoook.mind_control": "Mind Control",
+  "enchantment.hasoook.telekinesis": "Telekinesis",
 
   "enchantment.hasoook.random_bullets.desc": "Shoots a random type of bullet.",
   "enchantment.hasoook.separation_explosion.desc": "Automatically explodes when separated from the item’s drop by 10 meters.",
@@ -85,35 +88,33 @@
   "hasoook.configuration.magicNumberIntroduction": "magic Number Introduction",
   "hasoook.configuration.items": "items",
 
-  "hasoook.message.betray.attack": "<%s> The trident, born between heaven and earth, cannot long remain beneath others!",
-  "hasoook.message.betray.defense": "<%s> The trident has drifted for half a lifetime, only regretting not encountering a wise ruler!",
-  "hasoook.message.de_urbanization.block": "The %s seems too urbanized",
-  "item.hasoook.pet_compass.searching": "正在定位宠物位置",
-  "item.hasoook.pet_compass.no_pet": "附近没有找到你的宠物",
-  "item.hasoook.pet_compass.found": "已发现宠物：",
+  "hasoook.message.betray.attack": "<%s> The trident, forged between heaven and earth, shall not serve beneath another!",
+  "hasoook.message.betray.defense": "<%s> The trident has wandered through the ages, lamenting the absence of a worthy master!",
+  "hasoook.message.de_urbanization.block": "%s appears excessively urbanized",
+  "hasoook.message.gravity_glove.meteor_summoned": "Meteor incoming!!",
+  "item.hasoook.pet_compass.searching": "Locating pet...",
+  "item.hasoook.pet_compass.no_pet": "No pet detected in vicinity",
+  "item.hasoook.pet_compass.found": "Pet located: ",
 
-  "item.hasoook.disk_cricket_motion_badge.insight": "对生物使用使其成为一名骑士",
-  "item.hasoook.insight_magnifier.insight": "持有时可查看物品的详细说明",
-  "item.hasoook.totem_of_surrender.insight": "使用后丢弃一半的物品，立即传送回重生点",
+  "item.hasoook.disk_cricket_motion_badge.insight": "Transform creatures into mounted knights",
+  "item.hasoook.insight_magnifier.insight": "Reveals detailed item info when held",
+  "item.hasoook.totem_of_surrender.insight": "Teleports to spawn after discarding half your inventory",
 
-  "hasoook.tooltip.applicable_items": "适用物品：",
-  "hasoook.tooltip.tag.minecraft.swords": "剑",
-  "hasoook.tooltip.tag.minecraft.axes": "斧",
-  "hasoook.tooltip.tag.minecraft.pickaxes": "镐",
-  "hasoook.tooltip.tag.minecraft.shovels": "铲",
-  "hasoook.tooltip.tag.minecraft.hoes": "锄",
-  "hasoook.tooltip.tag.minecraft.chest_armor": "胸甲",
-  "hasoook.tooltip.tag.minecraft.foot_armor": "靴子",
-  "hasoook.tooltip.tag.minecraft.leg_armor": "护腿",
-  "hasoook.tooltip.tag.minecraft.head_armor": "头盔",
-  "hasoook.tooltip.tag.minecraft.skulls": "头颅",
+  "hasoook.tooltip.applicable_items": "Compatible with:",
+  "hasoook.tooltip.tag.minecraft.swords": "Swords",
+  "hasoook.tooltip.tag.minecraft.axes": "Axes",
+  "hasoook.tooltip.tag.minecraft.pickaxes": "Pickaxes",
+  "hasoook.tooltip.tag.minecraft.shovels": "Shovels",
+  "hasoook.tooltip.tag.minecraft.hoes": "Hoes",
+  "hasoook.tooltip.tag.minecraft.chest_armor": "Chestplates",
+  "hasoook.tooltip.tag.minecraft.foot_armor": "Boots",
+  "hasoook.tooltip.tag.minecraft.leg_armor": "Leggings",
+  "hasoook.tooltip.tag.minecraft.head_armor": "Helmets",
+  "hasoook.tooltip.tag.minecraft.skulls": "Skulls",
   "hasoook.tooltip.etc": "...",
-
   "hasoook.tooltip.nutrition": "Hunger: %d",
   "hasoook.tooltip.saturation": "Saturation: %s",
-
-  "hasoook.tooltip.effect_entry": "%d%% 概率获得 %s %s 持续 %s",
-  "hasoook.tooltip.effect_entry.100": "获得 %s %s 持续 %s",
-
-  "hasoook.tooltip.spawn_egg_health": "生命值：%s"
+  "hasoook.tooltip.effect_entry": "%d%% chance for %s %s (%s)",
+  "hasoook.tooltip.effect_entry.100": "Grants %s %s (%s)",
+  "hasoook.tooltip.spawn_egg_health": "Health: %s"
 }

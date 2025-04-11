@@ -24,6 +24,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
@@ -38,6 +39,7 @@ import java.util.*;
 
 @EventBusSubscriber(modid = HasoookMod.MOD_ID)
 public class LouisXVI {
+    private static final int PACKET_INTERVAL = 10; // 每10 tick发送一次（0.5秒）
     private static final Random RANDOM = new Random();
     private static final Map<String, String> ENTITY_HEAD_ID = new HashMap<>();
 
@@ -263,6 +265,10 @@ public class LouisXVI {
     @SubscribeEvent
     public static void playerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
+        Level level = player.level();
+
+        if (level.getGameTime() % PACKET_INTERVAL != 0) return;
+
         if (!player.level().isClientSide() && player.level() instanceof ServerLevel serverLevel) {
             double range = 16.0;
             AABB area = player.getBoundingBox().inflate(range);

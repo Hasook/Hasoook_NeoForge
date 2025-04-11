@@ -20,6 +20,8 @@
   "block.hasoook.hasoook_lucky_block": "Hasoook的幸运方块",
   "block.hasoook.green_screen_block": "绿幕方块",
 
+  "entity.hasoook.meteorite": "陨石",
+
   "enchantment.hasoook.random_bullets": "随机子弹",
   "enchantment.hasoook.separation_explosion": "分离爆炸",
   "enchantment.hasoook.disdain": "嫌弃",
@@ -41,6 +43,7 @@
   "enchantment.hasoook.tornado": "龙卷",
   "enchantment.hasoook.louis_xvi": "路易十六",
   "enchantment.hasoook.mind_control": "心灵控制",
+  "enchantment.hasoook.telekinesis": "隔空取物",
 
   "enchantment.hasoook.random_bullets.desc": "随机射出一种子弹",
   "enchantment.hasoook.separation_explosion.desc": "与该物品的掉落物分离10米时自动爆炸",
@@ -88,6 +91,7 @@
   "hasoook.message.betray.attack": "<%s> 三叉戟生于天地之间，岂能郁郁久居人下！",
   "hasoook.message.betray.defense": "<%s> 戟飘零半生，只恨未逢明主！",
   "hasoook.message.de_urbanization.block": "%s疑似太城市化了",
+  "hasoook.message.gravity_glove.meteor_summoned": "陨石正在靠近！！",
   "item.hasoook.pet_compass.searching": "正在定位宠物信号",
   "item.hasoook.pet_compass.no_pet": "附近没有找到你的宠物",
   "item.hasoook.pet_compass.found": "已发现宠物：",
@@ -108,12 +112,9 @@
   "hasoook.tooltip.tag.minecraft.head_armor": "头盔",
   "hasoook.tooltip.tag.minecraft.skulls": "头颅",
   "hasoook.tooltip.etc": "...",
-
   "hasoook.tooltip.nutrition": "饱食度: %d",
   "hasoook.tooltip.saturation": "饱和度: %s",
-
   "hasoook.tooltip.effect_entry": "%d%% %s %s (%s)",
   "hasoook.tooltip.effect_entry.100": "%s %s (%s)",
-
   "hasoook.tooltip.spawn_egg_health": "生命值：%s"
 }
