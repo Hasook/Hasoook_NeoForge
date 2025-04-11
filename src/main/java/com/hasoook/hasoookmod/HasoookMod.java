@@ -4,6 +4,7 @@ import com.hasoook.hasoookmod.block.ModBlock;
 import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
 import com.hasoook.hasoookmod.entity.ModEntities;
+import com.hasoook.hasoookmod.entity.client.MeteoriteRenderer;
 import com.hasoook.hasoookmod.item.ModArmorMaterials;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
@@ -63,6 +64,7 @@ public class HasoookMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntities.TORNADO.get(), TornadoRenderer::new);
+            EntityRenderers.register(ModEntities.METEORITE.get(), MeteoriteRenderer::new);
         }
     }
 }
