@@ -73,7 +73,7 @@ public class LouisXVI {
         boolean louisXvi = persistentData.getBoolean("louis_xvi");
         int enchantmentLevel = ModEnchantmentHelper.getEnchantmentLevel(ModEnchantments.LOUIS_XVI, itemStack);
 
-        if (entity instanceof LivingEntity livingEntity) {
+        if (entity instanceof LivingEntity livingEntity && !entity.isInvisible()) {
             if (!louisXvi && enchantmentLevel > 0) {
                 handleLouisXVIInteraction(event.getHand(), player, livingEntity, persistentData, itemStack);
             } else if (louisXvi) {
