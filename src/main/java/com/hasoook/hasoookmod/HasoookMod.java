@@ -5,6 +5,7 @@ import com.hasoook.hasoookmod.effect.ModEffects;
 import com.hasoook.hasoookmod.effect.ModPotions;
 import com.hasoook.hasoookmod.entity.ModEntities;
 import com.hasoook.hasoookmod.entity.client.MeteoriteRenderer;
+import com.hasoook.hasoookmod.gamerule.ModGameRules;
 import com.hasoook.hasoookmod.item.ModArmorMaterials;
 import com.hasoook.hasoookmod.item.ModCreativeTab;
 import com.hasoook.hasoookmod.item.ModItems;
@@ -42,6 +43,7 @@ public class HasoookMod
         ModPotions.register(modEventBus);
         ModArmorMaterials.register(modEventBus);
         ModSounds.SOUNDS.register(modEventBus);
+        ModGameRules.registerGameRules();
 
         ModEntities.register(modEventBus);
 

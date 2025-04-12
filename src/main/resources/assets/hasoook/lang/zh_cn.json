@@ -97,6 +97,10 @@
   "item.hasoook.pet_compass.no_pet": "附近没有找到你的宠物",
   "item.hasoook.pet_compass.found": "已发现宠物：",
 
+  "hasoook.message.random_block_drops": "随机方块掉落模式：",
+  "hasoook.message.options.on": "开启",
+  "hasoook.message.options.off": "关闭",
+
   "item.hasoook.disk_cricket_motion_badge.insight": "对生物使用使其成为一名骑士",
   "item.hasoook.insight_magnifier.insight": "持有时可查看物品的详细说明",
   "item.hasoook.totem_of_surrender.insight": "使用后丢弃一半的物品，立即传送回重生点",

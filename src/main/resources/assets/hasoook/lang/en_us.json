@@ -97,6 +97,10 @@
   "item.hasoook.pet_compass.no_pet": "No pet detected in vicinity",
   "item.hasoook.pet_compass.found": "Pet located: ",
 
+  "hasoook.message.random_block_drops": "Random block drops: ",
+  "hasoook.message.options.on": "ON",
+  "hasoook.message.options.off": "OFF",
+
   "item.hasoook.disk_cricket_motion_badge.insight": "Transform creatures into mounted knights",
   "item.hasoook.insight_magnifier.insight": "Reveals detailed item info when held",
   "item.hasoook.totem_of_surrender.insight": "Teleports to spawn after discarding half your inventory",

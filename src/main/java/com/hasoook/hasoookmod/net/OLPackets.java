@@ -28,6 +28,11 @@ public class OLPackets {
                 LeftClickAirPacket.STREAM_CODEC,
                 LeftClickAirPacket::handle
         );
+        registrar.playToClient(
+                SyncGameRulePacket.TYPE,
+                SyncGameRulePacket.STREAM_CODEC,
+                new DirectionalPayloadHandler<>(SyncGameRulePacket::handle, null)
+        );
     }
 }
 
