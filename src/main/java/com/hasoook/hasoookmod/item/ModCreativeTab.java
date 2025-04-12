@@ -51,6 +51,7 @@ public class ModCreativeTab {
                 pOutput.accept(ModItems.DISK_CRICKET_MOTION_BADGE.get());
                 pOutput.accept(ModItems.INSIGHT_MAGNIFIER.get());
                 pOutput.accept(ModItems.GRAVITY_GLOVE.get());
+                pOutput.accept(ModItems.GAMES_CONSOLE.get());
 
                 // 添加自定义的方块
                 pOutput.accept(ModBlock.CONFUSION_FLOWER.get());
